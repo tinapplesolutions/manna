@@ -1,0 +1,389 @@
+{
+"categories": [
+{
+"id": "chaplets",
+"name": "Chaplets & Rosaries",
+"icon": "⚔️"
+},
+{
+"id": "warfare",
+"name": "Spiritual Warfare & Protection",
+"icon": "🛡️"
+},
+{
+"id": "mercy",
+"name": "Mercy & Repentance",
+"icon": "💧"
+},
+{
+"id": "healing",
+"name": "Healing",
+"icon": "🩹"
+},
+{
+"id": "miracles",
+"name": "Miracles & Impossible Cases",
+"icon": "✨"
+},
+{
+"id": "mary",
+"name": "Our Lady",
+"icon": "👑"
+},
+{
+"id": "peace",
+"name": "Peace & Guidance",
+"icon": "🕊️"
+},
+{
+"id": "eucharist",
+"name": "Holy Mass & Eucharist",
+"icon": "🍞"
+},
+{
+"id": "litanies",
+"name": "Litanies",
+"icon": "📜"
+},
+{
+"id": "departed",
+"name": "For the Faithful Departed",
+"icon": "🕯️"
+},
+{
+"id": "daily",
+"name": "Daily Prayers",
+"icon": "☀️"
+}
+],
+"chaplets": [
+{
+"id": "rosary",
+"cat": "chaplets",
+"name": "The Holy Rosary"
+},
+{
+"id": "sorrows",
+"cat": "chaplets",
+"name": "Seven Sorrows Rosary"
+},
+{
+"id": "michael",
+"cat": "chaplets",
+"name": "Chaplet of St. Michael"
+},
+{
+"id": "mercy",
+"cat": "chaplets",
+"name": "Divine Mercy Chaplet"
+}
+],
+"prayers": [
+{
+"id": "stmichael",
+"cat": "warfare",
+"name": "Prayer to St. Michael the Archangel",
+"text": "St. Michael the Archangel, defend us in battle. Be our protection against the wickedness and snares of the devil. May God rebuke him, we humbly pray; and do thou, O Prince of the heavenly host, by the power of God, cast into hell Satan and all the evil spirits who prowl about the world seeking the ruin of souls. Amen."
+},
+{
+"id": "patrick",
+"cat": "warfare",
+"name": "Breastplate of St. Patrick (excerpt)",
+"text": "Christ with me, Christ before me, Christ behind me,\nChrist in me, Christ beneath me, Christ above me,\nChrist on my right, Christ on my left,\nChrist when I lie down, Christ when I sit down, Christ when I arise,\nChrist in the heart of every man who thinks of me,\nChrist in the mouth of everyone who speaks of me,\nChrist in every eye that sees me,\nChrist in every ear that hears me.\n\nI arise today\nthrough a mighty strength, the invocation of the Trinity,\nthrough belief in the Threeness,\nthrough confession of the Oneness\nof the Creator of creation. Amen."
+},
+{
+"id": "animachristi",
+"cat": "warfare",
+"name": "Anima Christi",
+"text": "Soul of Christ, sanctify me.\nBody of Christ, save me.\nBlood of Christ, inebriate me.\nWater from the side of Christ, wash me.\nPassion of Christ, strengthen me.\nO good Jesus, hear me.\nWithin Thy wounds hide me.\nSuffer me not to be separated from Thee.\nFrom the malicious enemy defend me.\nIn the hour of my death call me,\nand bid me come unto Thee,\nthat with Thy saints I may praise Thee\nforever and ever. Amen."
+},
+{
+"id": "angelofgod",
+"cat": "warfare",
+"name": "Guardian Angel Prayer",
+"text": "Angel of God, my guardian dear,\nto whom God's love commits me here,\never this day be at my side,\nto light and guard, to rule and guide. Amen."
+},
+{
+"id": "subtuum",
+"cat": "warfare",
+"name": "Sub Tuum Praesidium",
+"text": "We fly to thy protection, O holy Mother of God. Despise not our petitions in our necessities, but deliver us always from all dangers, O glorious and blessed Virgin. Amen."
+},
+{
+"id": "benedict",
+"cat": "warfare",
+"name": "St. Benedict Medal Prayer",
+"text": "May the holy Cross be my light.\nLet not the dragon be my guide.\nBegone, Satan! Suggest not to me thy vanities.\nEvil are the things thou profferest; drink thou thine own poison.\n\nO glorious St. Benedict, protect me by the power of the Cross. Amen."
+},
+{
+"id": "preciousblood",
+"cat": "warfare",
+"name": "Offering of the Precious Blood",
+"text": "Eternal Father, I offer Thee the Most Precious Blood of Jesus Christ in satisfaction for my sins and for the wants of Holy Church. Amen.\n\nPrecious Blood of Jesus, save us."
+},
+{
+"id": "contrition",
+"cat": "mercy",
+"name": "Act of Contrition",
+"text": "O my God, I am heartily sorry for having offended Thee, and I detest all my sins because of Thy just punishments, but most of all because they offend Thee, my God, who art all good and deserving of all my love. I firmly resolve, with the help of Thy grace, to sin no more and to avoid the near occasions of sin. Amen."
+},
+{
+"id": "confiteor",
+"cat": "mercy",
+"name": "Confiteor (I Confess)",
+"text": "I confess to almighty God and to you, my brothers and sisters, that I have greatly sinned, in my thoughts and in my words, in what I have done and in what I have failed to do, through my fault, through my fault, through my most grievous fault; therefore I ask blessed Mary ever-Virgin, all the Angels and Saints, and you, my brothers and sisters, to pray for me to the Lord our God. Amen."
+},
+{
+"id": "jesusprayer",
+"cat": "mercy",
+"name": "The Jesus Prayer",
+"text": "Lord Jesus Christ, Son of God, have mercy on me, a sinner.\n\n(Pray slowly and repeatedly, with each breath.)"
+},
+{
+"id": "acts",
+"cat": "mercy",
+"name": "Acts of Faith, Hope and Love",
+"text": "Act of Faith\nO my God, I firmly believe that Thou art one God in three divine Persons, Father, Son and Holy Spirit. I believe that Thy divine Son became man and died for our sins, and that He will come to judge the living and the dead. I believe these and all the truths which the holy Catholic Church teaches, because Thou hast revealed them, who canst neither deceive nor be deceived. Amen.\n\nAct of Hope\nO my God, relying on Thy almighty power and infinite mercy and promises, I hope to obtain pardon of my sins, the help of Thy grace, and life everlasting, through the merits of Jesus Christ, my Lord and Redeemer. Amen.\n\nAct of Love\nO my God, I love Thee above all things, with my whole heart and soul, because Thou art all good and worthy of all love. I love my neighbor as myself for the love of Thee. I forgive all who have injured me, and I ask pardon of all whom I have injured. Amen."
+},
+{
+"id": "crucifix",
+"cat": "mercy",
+"name": "Prayer before a Crucifix",
+"text": "Behold, O good and most sweet Jesus, I cast myself upon my knees in Thy sight, and with the most fervent desire of my soul I pray and beseech Thee to impress upon my heart lively sentiments of faith, hope and charity, with true repentance for my sins and a firm purpose of amendment; while with deep affection and grief of soul I consider within myself and mentally contemplate Thy five most precious wounds, having before my eyes that which David the prophet long ago spoke in Thy own person concerning Thee, my Jesus: \"They have pierced my hands and my feet; they have numbered all my bones.\" Amen."
+},
+{
+"id": "raphael",
+"cat": "healing",
+"name": "Prayer to St. Raphael the Archangel",
+"text": "O Raphael, lead us toward those we are waiting for, those who are waiting for us! Raphael, Angel of happy meetings, lead us by the hand toward those we are looking for! May all our movements be guided by your light and transfigured by your joy.\n\nAngel, guide of Tobias, lay the request we now address to you at the feet of Him on whose unveiled face you are privileged to gaze. Lonely and tired, crushed by the separations and sorrows of earth, we feel the need of calling to you and of pleading for the protection of your wings, so that we may not be as strangers in the province of joy, all ignorant of the concerns of our country.\n\nRemember the weak, you who are strong, you whose home lies beyond the region of thunder, in a land that is always peaceful, always serene, and bright with the resplendent glory of God. Amen."
+},
+{
+"id": "sick",
+"cat": "healing",
+"name": "Prayer for the Sick (Roman Ritual)",
+"text": "O God, the only support of human weakness, show forth the power of Thy aid upon Thy sick servant (name), that, being helped by Thy mercy, he/she may be restored to Thy holy Church in health, through Christ our Lord. Amen."
+},
+{
+"id": "lourdes",
+"cat": "healing",
+"name": "Prayer to Our Lady of Lourdes",
+"text": "O ever-Immaculate Virgin, Mother of mercy, health of the sick, refuge of sinners, comforter of the afflicted, you know my wants, my troubles, my sufferings. Look with mercy on me. By appearing in the grotto of Lourdes, you made it a privileged sanctuary from which you dispense your favors, and many sufferers have obtained the cure of their infirmities, both spiritual and physical. I come with the most unbounded confidence to implore your maternal intercession. Obtain, O loving Mother, the grant of my request. Our Lady of Lourdes, pray for us. Amen."
+},
+{
+"id": "peregrine",
+"cat": "healing",
+"name": "Prayer to St. Peregrine",
+"text": "O great St. Peregrine, you have been called \"the Mighty,\" \"the Wonder-Worker,\" because of the numerous miracles which you have obtained from God for those who have had recourse to you. For so many years you bore in your own flesh a cancerous disease, and when all human skill had failed, you were favored with a vision of Jesus coming down from His Cross to heal your affliction. Ask of God and Our Lady the cure of the sick whom we entrust to you. Aided in this way by your powerful intercession, we shall sing to God, now and for all eternity, a song of gratitude for His great goodness and mercy. Amen."
+},
+{
+"id": "memorare",
+"cat": "miracles",
+"name": "The Memorare",
+"text": "Remember, O most gracious Virgin Mary, that never was it known that anyone who fled to thy protection, implored thy help, or sought thy intercession was left unaided. Inspired by this confidence, I fly unto thee, O Virgin of virgins, my Mother. To thee do I come, before thee I stand, sinful and sorrowful. O Mother of the Word Incarnate, despise not my petitions, but in thy mercy hear and answer me. Amen."
+},
+{
+"id": "jude",
+"cat": "miracles",
+"name": "Prayer to St. Jude",
+"text": "O most holy apostle, St. Jude, faithful servant and friend of Jesus, the Church honors and invokes you universally as the patron of difficult cases, of things almost despaired of. Pray for me, I am so helpless and alone. Make use, I implore you, of that particular privilege given to you, to bring visible and speedy help where help is almost despaired of. Come to my assistance in this great need, that I may receive the consolation and help of heaven in all my necessities, tribulations and sufferings, particularly (here make your request), and that I may praise God with you and all the saints forever. I promise, O blessed St. Jude, to be ever mindful of this great favor, to always honor you as my special and powerful patron, and to gratefully encourage devotion to you. Amen."
+},
+{
+"id": "joseph",
+"cat": "miracles",
+"name": "Prayer to St. Joseph (Pope Leo XIII)",
+"text": "To thee, O blessed Joseph, do we have recourse in our tribulation, and having implored the help of thy most holy Spouse, we confidently invoke thy patronage also. Through that charity which bound thee to the Immaculate Virgin Mother of God and through the paternal love with which thou embraced the Child Jesus, we humbly beg thee graciously to regard the inheritance which Jesus Christ has purchased by His Blood, and with thy power and strength to aid us in our necessities.\n\nO most watchful guardian of the Holy Family, defend the chosen children of Jesus Christ; O most loving father, ward off from us every contagion of error and corrupting influence; O our most mighty protector, be propitious to us and from heaven assist us in our struggle with the power of darkness. As once thou rescued the Child Jesus from deadly peril, so now protect God's Holy Church from the snares of the enemy and from all adversity; shield, too, each one of us by thy constant protection, so that, supported by thy example and thy aid, we may be able to live piously, to die in holiness, and to obtain eternal happiness in heaven. Amen."
+},
+{
+"id": "miraculous",
+"cat": "miracles",
+"name": "Miraculous Medal Prayer",
+"text": "O Mary, conceived without sin, pray for us who have recourse to thee, and for those who do not have recourse to thee, especially the enemies of the Church and those recommended to thee. Amen."
+},
+{
+"id": "salveregina",
+"cat": "mary",
+"name": "Hail, Holy Queen",
+"text": "Hail, holy Queen, Mother of mercy, our life, our sweetness and our hope. To thee do we cry, poor banished children of Eve; to thee do we send up our sighs, mourning and weeping in this valley of tears. Turn then, most gracious advocate, thine eyes of mercy toward us; and after this our exile, show unto us the blessed fruit of thy womb, Jesus. O clement, O loving, O sweet Virgin Mary.\nV. Pray for us, O holy Mother of God.\nR. That we may be made worthy of the promises of Christ."
+},
+{
+"id": "angelus",
+"cat": "mary",
+"name": "The Angelus",
+"text": "V. The Angel of the Lord declared unto Mary,\nR. And she conceived of the Holy Spirit.\nHail Mary...\n\nV. Behold the handmaid of the Lord.\nR. Be it done unto me according to thy word.\nHail Mary...\n\nV. And the Word was made flesh,\nR. And dwelt among us.\nHail Mary...\n\nV. Pray for us, O holy Mother of God.\nR. That we may be made worthy of the promises of Christ.\n\nLet us pray. Pour forth, we beseech Thee, O Lord, Thy grace into our hearts, that we, to whom the Incarnation of Christ, Thy Son, was made known by the message of an Angel, may by His Passion and Cross be brought to the glory of His Resurrection, through the same Christ our Lord. Amen."
+},
+{
+"id": "reginacaeli",
+"cat": "mary",
+"name": "Regina Caeli (Easter season)",
+"text": "V. Queen of Heaven, rejoice, alleluia.\nR. For He whom you did merit to bear, alleluia,\nV. Has risen, as He said, alleluia.\nR. Pray for us to God, alleluia.\nV. Rejoice and be glad, O Virgin Mary, alleluia.\nR. For the Lord has truly risen, alleluia.\n\nLet us pray. O God, who gave joy to the world through the resurrection of Thy Son, our Lord Jesus Christ, grant, we beseech Thee, that through the intercession of the Virgin Mary, His Mother, we may obtain the joys of everlasting life, through the same Christ our Lord. Amen."
+},
+{
+"id": "magnificat",
+"cat": "mary",
+"name": "The Magnificat",
+"text": "My soul proclaims the greatness of the Lord,\nmy spirit rejoices in God my Savior,\nfor He has looked with favor on His lowly servant.\nFrom this day all generations will call me blessed:\nthe Almighty has done great things for me, and holy is His Name.\nHe has mercy on those who fear Him in every generation.\nHe has shown the strength of His arm,\nHe has scattered the proud in their conceit.\nHe has cast down the mighty from their thrones,\nand has lifted up the lowly.\nHe has filled the hungry with good things,\nand the rich He has sent away empty.\nHe has come to the help of His servant Israel,\nfor He has remembered His promise of mercy,\nthe promise He made to our fathers,\nto Abraham and his children forever.\nGlory to the Father, and to the Son, and to the Holy Spirit, as it was in the beginning, is now, and will be forever. Amen."
+},
+{
+"id": "consecrationmary",
+"cat": "mary",
+"name": "Consecration to Mary (O My Queen)",
+"text": "O my Queen, O my Mother, I give myself entirely to thee; and to show my devotion to thee, I consecrate to thee this day my eyes, my ears, my mouth, my heart, my whole being without reserve. Wherefore, good Mother, as I am thine own, keep me, guard me, as thy property and possession. Amen."
+},
+{
+"id": "francis",
+"cat": "peace",
+"name": "Prayer of St. Francis",
+"text": "Lord, make me an instrument of Your peace:\nwhere there is hatred, let me sow love;\nwhere there is injury, pardon;\nwhere there is doubt, faith;\nwhere there is despair, hope;\nwhere there is darkness, light;\nwhere there is sadness, joy.\n\nO Divine Master, grant that I may not so much seek\nto be consoled as to console,\nto be understood as to understand,\nto be loved as to love.\nFor it is in giving that we receive,\nit is in pardoning that we are pardoned,\nand it is in dying that we are born to eternal life. Amen."
+},
+{
+"id": "holyspirit",
+"cat": "peace",
+"name": "Come, Holy Spirit",
+"text": "Come, Holy Spirit, fill the hearts of Thy faithful and kindle in them the fire of Thy love.\nV. Send forth Thy Spirit and they shall be created.\nR. And Thou shalt renew the face of the earth.\n\nLet us pray. O God, who by the light of the Holy Spirit did instruct the hearts of the faithful, grant that by the same Holy Spirit we may be truly wise and ever enjoy His consolations, through Christ our Lord. Amen."
+},
+{
+"id": "suscipe",
+"cat": "peace",
+"name": "Suscipe of St. Ignatius",
+"text": "Take, Lord, and receive all my liberty, my memory, my understanding, and my entire will, all that I have and possess. Thou hast given all to me. To Thee, O Lord, I return it. All is Thine; dispose of it wholly according to Thy will. Give me only Thy love and Thy grace, for this is sufficient for me. Amen."
+},
+{
+"id": "aquinaswisdom",
+"cat": "peace",
+"name": "Prayer for Wisdom (St. Thomas Aquinas)",
+"text": "Grant me, O Lord my God, a mind to know You, a heart to seek You, wisdom to find You, conduct pleasing to You, faithful perseverance in waiting for You, and a hope of finally embracing You. Amen."
+},
+{
+"id": "abandonment",
+"cat": "peace",
+"name": "Prayer of Abandonment (Bl. Charles de Foucauld)",
+"text": "Father, I abandon myself into Your hands; do with me what You will. Whatever You may do, I thank You: I am ready for all, I accept all. Let only Your will be done in me, and in all Your creatures. I wish no more than this, O Lord. Into Your hands I commend my soul; I offer it to You with all the love of my heart, for I love You, Lord, and so need to give myself, to surrender myself into Your hands without reserve, and with boundless confidence, for You are my Father. Amen."
+},
+{
+"id": "sacredheart",
+"cat": "peace",
+"name": "Prayer to the Sacred Heart",
+"text": "O most holy Heart of Jesus, fountain of every blessing, I adore You, I love You, and with lively sorrow for my sins I offer You this poor heart of mine. Make me humble, patient, pure and wholly obedient to Your will. Grant, good Jesus, that I may live in You and for You. Protect me in the midst of danger, comfort me in my afflictions, give me health of body, assistance in my temporal needs, Your blessing on all that I do, and the grace of a holy death. Amen."
+},
+{
+"id": "spiritualcommunion",
+"cat": "eucharist",
+"name": "Act of Spiritual Communion",
+"text": "My Jesus, I believe that You are present in the Most Holy Sacrament. I love You above all things, and I desire to receive You into my soul. Since I cannot at this moment receive You sacramentally, come at least spiritually into my heart. I embrace You as if You were already there and unite myself wholly to You. Never permit me to be separated from You. Amen."
+},
+{
+"id": "aftercommunion",
+"cat": "eucharist",
+"name": "Thanksgiving after Communion (St. Thomas Aquinas)",
+"text": "I give Thee thanks, O holy Lord, Father almighty, eternal God, who hast vouchsafed, not for any merits of mine, but of the condescension of Thy mercy alone, to satisfy me, a sinner, Thine unworthy servant, with the precious Body and Blood of Thy Son, our Lord Jesus Christ. I pray that this holy Communion may not be to me guilt for punishment, but a saving plea for pardon. May it be to me the armor of faith and the shield of good will. May it be the emptying out of my vices, the extinction of all lust and concupiscence, the increase of charity and patience, of humility and obedience, and of all virtues; a firm defense against the snares of all enemies, visible and invisible; the perfect calming of all my impulses, both fleshly and spiritual; a firm cleaving to Thee, the one true God; and a blessed consummation of my end. Amen."
+},
+{
+"id": "tantumergo",
+"cat": "eucharist",
+"name": "Tantum Ergo",
+"text": "Down in adoration falling,\nLo! the sacred Host we hail;\nLo! o'er ancient forms departing,\nnewer rites of grace prevail;\nfaith for all defects supplying,\nwhere the feeble senses fail.\n\nTo the everlasting Father,\nand the Son who reigns on high,\nwith the Holy Ghost proceeding\nforth from each eternally,\nbe salvation, honor, blessing,\nmight and endless majesty. Amen."
+},
+{
+"id": "loreto",
+"cat": "litanies",
+"name": "Litany of the Blessed Virgin Mary (Loreto)",
+"text": "Lord, have mercy. Christ, have mercy. Lord, have mercy.\nChrist, hear us. Christ, graciously hear us.\nGod the Father of heaven, have mercy on us.\nGod the Son, Redeemer of the world, have mercy on us.\nGod the Holy Spirit, have mercy on us.\nHoly Trinity, one God, have mercy on us.\n\nHoly Mary, pray for us.\nHoly Mother of God, pray for us.\nHoly Virgin of virgins, pray for us.\nMother of Christ, pray for us.\nMother of the Church, pray for us.\nMother of mercy, pray for us.\nMother of divine grace, pray for us.\nMother of hope, pray for us.\nMother most pure, pray for us.\nMother most chaste, pray for us.\nMother inviolate, pray for us.\nMother undefiled, pray for us.\nMother most amiable, pray for us.\nMother most admirable, pray for us.\nMother of good counsel, pray for us.\nMother of our Creator, pray for us.\nMother of our Savior, pray for us.\nVirgin most prudent, pray for us.\nVirgin most venerable, pray for us.\nVirgin most renowned, pray for us.\nVirgin most powerful, pray for us.\nVirgin most merciful, pray for us.\nVirgin most faithful, pray for us.\nMirror of justice, pray for us.\nSeat of wisdom, pray for us.\nCause of our joy, pray for us.\nSpiritual vessel, pray for us.\nVessel of honor, pray for us.\nSingular vessel of devotion, pray for us.\nMystical rose, pray for us.\nTower of David, pray for us.\nTower of ivory, pray for us.\nHouse of gold, pray for us.\nArk of the covenant, pray for us.\nGate of heaven, pray for us.\nMorning star, pray for us.\nHealth of the sick, pray for us.\nRefuge of sinners, pray for us.\nSolace of migrants, pray for us.\nComforter of the afflicted, pray for us.\nHelp of Christians, pray for us.\nQueen of Angels, pray for us.\nQueen of Patriarchs, pray for us.\nQueen of Prophets, pray for us.\nQueen of Apostles, pray for us.\nQueen of Martyrs, pray for us.\nQueen of Confessors, pray for us.\nQueen of Virgins, pray for us.\nQueen of all Saints, pray for us.\nQueen conceived without original sin, pray for us.\nQueen assumed into heaven, pray for us.\nQueen of the most holy Rosary, pray for us.\nQueen of families, pray for us.\nQueen of peace, pray for us.\n\nLamb of God, who takes away the sins of the world, spare us, O Lord.\nLamb of God, who takes away the sins of the world, graciously hear us, O Lord.\nLamb of God, who takes away the sins of the world, have mercy on us.\n\nV. Pray for us, O holy Mother of God.\nR. That we may be made worthy of the promises of Christ.\n\nLet us pray. Grant, we beseech Thee, O Lord God, that we Thy servants may enjoy perpetual health of mind and body; and by the glorious intercession of the Blessed Mary, ever Virgin, be delivered from present sorrow and enjoy eternal happiness, through Christ our Lord. Amen."
+},
+{
+"id": "litanyjoseph",
+"cat": "litanies",
+"name": "Litany of St. Joseph",
+"text": "Lord, have mercy. Christ, have mercy. Lord, have mercy.\nChrist, hear us. Christ, graciously hear us.\nGod the Father of heaven, have mercy on us.\nGod the Son, Redeemer of the world, have mercy on us.\nGod the Holy Spirit, have mercy on us.\nHoly Trinity, one God, have mercy on us.\n\nHoly Mary, pray for us.\nSt. Joseph, pray for us.\nRenowned offspring of David, pray for us.\nLight of Patriarchs, pray for us.\nSpouse of the Mother of God, pray for us.\nGuardian of the Redeemer, pray for us.\nChaste guardian of the Virgin, pray for us.\nFoster father of the Son of God, pray for us.\nDiligent protector of Christ, pray for us.\nServant of Christ, pray for us.\nMinister of salvation, pray for us.\nHead of the Holy Family, pray for us.\nJoseph most just, pray for us.\nJoseph most chaste, pray for us.\nJoseph most prudent, pray for us.\nJoseph most strong, pray for us.\nJoseph most obedient, pray for us.\nJoseph most faithful, pray for us.\nMirror of patience, pray for us.\nLover of poverty, pray for us.\nModel of artisans, pray for us.\nGlory of family life, pray for us.\nGuardian of virgins, pray for us.\nPillar of families, pray for us.\nSupport in difficulties, pray for us.\nSolace of the wretched, pray for us.\nHope of the sick, pray for us.\nPatron of exiles, pray for us.\nPatron of the afflicted, pray for us.\nPatron of the poor, pray for us.\nPatron of the dying, pray for us.\nTerror of demons, pray for us.\nProtector of Holy Church, pray for us.\n\nLamb of God, who takes away the sins of the world, spare us, O Lord.\nLamb of God, who takes away the sins of the world, graciously hear us, O Lord.\nLamb of God, who takes away the sins of the world, have mercy on us.\n\nV. He made him the lord of His household,\nR. And prince over all His possessions.\n\nLet us pray. O God, who in Thy ineffable providence didst vouchsafe to choose blessed Joseph to be the spouse of Thy most holy Mother, grant, we beseech Thee, that we may deserve to have him for our intercessor in heaven whom we venerate as our protector on earth, who livest and reignest forever and ever. Amen."
+},
+{
+"id": "humility",
+"cat": "litanies",
+"name": "Litany of Humility",
+"text": "O Jesus, meek and humble of heart, hear me.\n\nFrom the desire of being esteemed, deliver me, Jesus.\nFrom the desire of being loved, deliver me, Jesus.\nFrom the desire of being extolled, deliver me, Jesus.\nFrom the desire of being honored, deliver me, Jesus.\nFrom the desire of being praised, deliver me, Jesus.\nFrom the desire of being preferred to others, deliver me, Jesus.\nFrom the desire of being consulted, deliver me, Jesus.\nFrom the desire of being approved, deliver me, Jesus.\nFrom the fear of being humiliated, deliver me, Jesus.\nFrom the fear of being despised, deliver me, Jesus.\nFrom the fear of suffering rebukes, deliver me, Jesus.\nFrom the fear of being calumniated, deliver me, Jesus.\nFrom the fear of being forgotten, deliver me, Jesus.\nFrom the fear of being ridiculed, deliver me, Jesus.\nFrom the fear of being wronged, deliver me, Jesus.\nFrom the fear of being suspected, deliver me, Jesus.\n\nThat others may be loved more than I, Jesus, grant me the grace to desire it.\nThat others may be esteemed more than I, Jesus, grant me the grace to desire it.\nThat, in the opinion of the world, others may increase and I may decrease, Jesus, grant me the grace to desire it.\nThat others may be chosen and I set aside, Jesus, grant me the grace to desire it.\nThat others may be praised and I unnoticed, Jesus, grant me the grace to desire it.\nThat others may be preferred to me in everything, Jesus, grant me the grace to desire it.\nThat others may become holier than I, provided that I may become as holy as I should, Jesus, grant me the grace to desire it."
+},
+{
+"id": "eternalrest",
+"cat": "departed",
+"name": "Eternal Rest",
+"text": "Eternal rest grant unto them, O Lord, and let perpetual light shine upon them. May they rest in peace. Amen.\nMay their souls and the souls of all the faithful departed, through the mercy of God, rest in peace. Amen."
+},
+{
+"id": "gertrude",
+"cat": "departed",
+"name": "Prayer of St. Gertrude for the Holy Souls",
+"text": "Eternal Father, I offer Thee the Most Precious Blood of Thy Divine Son, Jesus, in union with the Masses said throughout the world today, for all the holy souls in purgatory, for sinners everywhere, for sinners in the universal Church, those in my own home and within my family. Amen."
+},
+{
+"id": "deprofundis",
+"cat": "departed",
+"name": "Out of the Depths (Psalm 130)",
+"text": "Out of the depths I cry to You, O Lord;\nLord, hear my voice!\nLet Your ears be attentive\nto the voice of my pleading.\nIf You, O Lord, should mark our guilt,\nLord, who would survive?\nBut with You is found forgiveness:\nfor this we revere You.\nMy soul is waiting for the Lord,\nI count on His word.\nMy soul is longing for the Lord\nmore than watchmen for daybreak.\nBecause with the Lord there is mercy\nand fullness of redemption,\nIsrael indeed He will redeem\nfrom all its iniquity.\n\nEternal rest grant unto them, O Lord, and let perpetual light shine upon them. Amen."
+},
+{
+"id": "signcross",
+"cat": "daily",
+"name": "Sign of the Cross",
+"text": "In the name of the Father, and of the Son, and of the Holy Spirit. Amen."
+},
+{
+"id": "ourfather",
+"cat": "daily",
+"name": "Our Father",
+"text": "Our Father, who art in heaven, hallowed be Thy name; Thy kingdom come; Thy will be done on earth as it is in heaven. Give us this day our daily bread; and forgive us our trespasses, as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil. Amen."
+},
+{
+"id": "hailmary",
+"cat": "daily",
+"name": "Hail Mary",
+"text": "Hail Mary, full of grace, the Lord is with thee. Blessed art thou amongst women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen."
+},
+{
+"id": "glorybe",
+"cat": "daily",
+"name": "Glory Be",
+"text": "Glory be to the Father, and to the Son, and to the Holy Spirit. As it was in the beginning, is now, and ever shall be, world without end. Amen."
+},
+{
+"id": "morningoffering",
+"cat": "daily",
+"name": "Morning Offering",
+"text": "O Jesus, through the Immaculate Heart of Mary, I offer You my prayers, works, joys and sufferings of this day, for all the intentions of Your Sacred Heart, in union with the Holy Sacrifice of the Mass throughout the world, in reparation for my sins, for the intentions of all our associates, and in particular for the intentions of the Holy Father this month. Amen."
+},
+{
+"id": "gracebefore",
+"cat": "daily",
+"name": "Grace before Meals",
+"text": "Bless us, O Lord, and these Thy gifts, which we are about to receive from Thy bounty, through Christ our Lord. Amen."
+},
+{
+"id": "graceafter",
+"cat": "daily",
+"name": "Grace after Meals",
+"text": "We give Thee thanks, almighty God, for all Thy benefits, who livest and reignest forever and ever. And may the souls of the faithful departed, through the mercy of God, rest in peace. Amen."
+},
+{
+"id": "apostlescreed",
+"cat": "daily",
+"name": "Apostles' Creed",
+"text": "I believe in God, the Father almighty, Creator of heaven and earth; and in Jesus Christ, His only Son, our Lord, who was conceived by the Holy Spirit, born of the Virgin Mary, suffered under Pontius Pilate, was crucified, died, and was buried. He descended into hell; on the third day He rose again from the dead; He ascended into heaven, and is seated at the right hand of God the Father almighty; from there He will come to judge the living and the dead.\nI believe in the Holy Spirit, the holy catholic Church, the communion of saints, the forgiveness of sins, the resurrection of the body, and life everlasting. Amen."
+},
+{
+"id": "nicenecreed",
+"cat": "daily",
+"name": "Nicene Creed",
+"text": "I believe in one God, the Father almighty, maker of heaven and earth, of all things visible and invisible.\n\nI believe in one Lord Jesus Christ, the Only Begotten Son of God, born of the Father before all ages. God from God, Light from Light, true God from true God, begotten, not made, consubstantial with the Father; through Him all things were made. For us men and for our salvation He came down from heaven, and by the Holy Spirit was incarnate of the Virgin Mary, and became man. For our sake He was crucified under Pontius Pilate, He suffered death and was buried, and rose again on the third day in accordance with the Scriptures. He ascended into heaven and is seated at the right hand of the Father. He will come again in glory to judge the living and the dead and His kingdom will have no end.\n\nI believe in the Holy Spirit, the Lord, the giver of life, who proceeds from the Father and the Son, who with the Father and the Son is adored and glorified, who has spoken through the prophets.\n\nI believe in one, holy, catholic and apostolic Church. I confess one Baptism for the forgiveness of sins and I look forward to the resurrection of the dead and the life of the world to come. Amen."
+},
+{
+"id": "nightprayer",
+"cat": "daily",
+"name": "Night Prayer",
+"text": "Visit, we beseech Thee, O Lord, this dwelling, and drive far from it all snares of the enemy. Let Thy holy angels dwell herein to keep us in peace, and may Thy blessing be always upon us, through Christ our Lord. Amen.\n\nInto Your hands, Lord, I commend my spirit. Protect us, Lord, as we stay awake; watch over us as we sleep, that awake, we may keep watch with Christ, and asleep, rest in His peace. Amen."
+},
+{
+"id": "tedeum",
+"cat": "daily",
+"name": "Te Deum (We Praise Thee, O God)",
+"text": "We praise Thee, O God: we acknowledge Thee to be the Lord.\nAll the earth doth worship Thee, the Father everlasting.\nTo Thee all Angels cry aloud, the Heavens and all the Powers therein.\nTo Thee Cherubim and Seraphim continually do cry:\nHoly, Holy, Holy, Lord God of Sabaoth;\nHeaven and earth are full of the majesty of Thy glory.\nThe glorious company of the Apostles praise Thee.\nThe goodly fellowship of the Prophets praise Thee.\nThe noble army of Martyrs praise Thee.\nThe holy Church throughout all the world doth acknowledge Thee;\nthe Father, of an infinite majesty;\nThine adorable, true and only Son;\nalso the Holy Ghost, the Comforter.\nThou art the King of Glory, O Christ.\nThou art the everlasting Son of the Father.\nWhen Thou tookest upon Thee to deliver man, Thou didst not abhor the Virgin's womb.\nWhen Thou hadst overcome the sharpness of death, Thou didst open the Kingdom of Heaven to all believers.\nThou sittest at the right hand of God, in the glory of the Father.\nWe believe that Thou shalt come to be our Judge.\nWe therefore pray Thee, help Thy servants, whom Thou hast redeemed with Thy precious blood.\nMake them to be numbered with Thy Saints in glory everlasting.\nO Lord, save Thy people and bless Thine heritage.\nGovern them and lift them up forever.\nDay by day we magnify Thee;\nand we worship Thy Name ever, world without end.\nVouchsafe, O Lord, to keep us this day without sin.\nO Lord, have mercy upon us, have mercy upon us.\nO Lord, let Thy mercy lighten upon us, as our trust is in Thee.\nO Lord, in Thee have I trusted; let me never be confounded. Amen."
+}
+]
+}

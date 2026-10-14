@@ -168,12 +168,15 @@ document.querySelectorAll('nav.tabs button').forEach(b => b.addEventListener('cl
 $('#settingsBtn').addEventListener('click', openSettings);
 window.addEventListener('scroll', () => $('#top').classList.toggle('scrolled', scrollY > 4), { passive: true });
 
-function go(tab, opts) {
+function go(tab, opts, keepSheets) {
   current = tab;
-  document.querySelectorAll('nav.tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tab));
+  const tabFor = { search: 'bible' }[tab] || tab;
+  document.querySelectorAll('nav.tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tabFor));
+  if (tab !== 'bible') { selection.clear(); hideSelBar(); }
+  if (!keepSheets) document.querySelectorAll('.sheet').forEach(x => x.remove());
   view.innerHTML = '';
   scrollTo(0, 0);
-  ({ today: renderToday, bible: renderBible, search: renderSearch, rosary: renderRosary })[tab](opts || {});
+  ({ today: renderToday, bible: renderBible, search: renderSearch, armory: renderArmory, saved: renderSaved })[tab](opts || {});
 }
 
 /* ===== TODAY ===== */
@@ -318,26 +321,37 @@ async function renderBible(opts) {
   const B = BOOKS[pos.b];
   const chLabel = B.n === 'Psalms' ? 'Psalm ' + psalmLabel(pos.c) : `${B.n} ${pos.c}`;
   $('#title').textContent = 'Bible';
+  selection.clear(); hideSelBar();
   view.innerHTML = `<div class="pickrow">
       <button class="btn ghost" id="pickBook">${esc(B.n)} <span class="muted">▾</span></button>
-      <button class="btn ghost" id="pickChap" style="flex:0 0 96px">${pos.c} <span class="muted">▾</span></button>
+      <button class="btn ghost" id="pickChap" style="flex:0 0 84px">${pos.c} <span class="muted">▾</span></button>
+      <button class="btn ghost" id="openSearch" style="flex:0 0 52px;padding:0" aria-label="Search the Bible">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
     </div>
+    <p class="muted small" style="margin:2px 2px 0">Tap a verse to highlight, save, or go deeper.</p>
     <h2 style="margin:12px 0 8px;font-size:22px">${esc(chLabel)}</h2>
     <div id="chap"><div class="spinner"></div></div>
     <div class="chapnav"><button class="btn ghost" id="prev">‹ Previous</button><button class="btn ghost" id="next">Next ›</button></div>
     <p class="muted small" style="text-align:center">${esc(TRANS[settings.trans])}${B.n === 'Psalms' ? ' · Psalms use Greek numbering; Hebrew number in brackets' : ''}</p>`;
   $('#pickBook').addEventListener('click', bookSheet);
   $('#pickChap').addEventListener('click', () => chapSheet(pos.b));
+  $('#openSearch').addEventListener('click', () => go('search'));
   $('#prev').addEventListener('click', () => step(-1));
   $('#next').addEventListener('click', () => step(1));
   try {
     const book = await loadBook(pos.b);
     if (current !== 'bible') return;
-    const vs = (book[pos.c - 1] || []).map((t, i) => ({ c: pos.c, v: i + 1, text: t }));
-    $('#chap').innerHTML = versesHTML(vs).replace(/<span class="vn">(\d+)<\/span>/g, '<span class="vn" id="v$1">$1</span>');
+    const hl = store.get('hl', {}), favSet = favVerseSet();
+    let html = '<div class="scripture" id="chapText"><p>';
+    (book[pos.c - 1] || []).forEach((t, i) => {
+      const v = i + 1, key = `${pos.b}:${pos.c}:${v}`;
+      html += `<span class="v${hl[key] ? ' hl' + hl[key] : ''}" data-v="${v}" id="v${v}"><span class="vn">${v}${favSet.has(key) ? '★' : ''}</span>${esc(t)} </span>`;
+    });
+    $('#chap').innerHTML = html + '</p></div>';
+    $('#chapText').addEventListener('click', e => { const el = e.target.closest('.v'); if (el) toggleSelect(+el.dataset.v); });
     if (opts.v) {
       const el = $('#v' + opts.v);
-      if (el) { el.scrollIntoView({ block: 'center' }); el.parentNode && flash(el); }
+      if (el) { el.scrollIntoView({ block: 'center' }); flash(el); }
     }
   } catch (e) { $('#chap').innerHTML = `<p class="muted">${esc(e.message)}</p>`; }
 }
@@ -373,12 +387,13 @@ function chapSheet(b) {
 let worker = null, lastQuery = store.get('lastQuery', '');
 function renderSearch() {
   $('#title').textContent = 'Search';
-  view.innerHTML = `<form class="searchbox" id="sf" role="search">
+  view.innerHTML = `<button class="btn ghost" id="backBible" style="min-height:40px;margin:4px 0">‹ Back to Bible</button><form class="searchbox" id="sf" role="search">
       <input id="q" type="search" placeholder="Words or a reference, e.g. John 3:16" autocomplete="off" enterkeyhint="search" value="${esc(lastQuery)}">
       <button class="btn primary" style="min-height:40px">Search</button></form>
     <div class="progress hidden" id="prog"><i></i></div>
     <div id="sres"><p class="muted small">Search the whole Bible (${esc(TRANS[settings.trans])}) by words, like <i>fruit of the Spirit</i>, or jump to a passage, like <i>Psalm 23</i> or <i>1 Cor 13:4</i>.</p></div>`;
   $('#sf').addEventListener('submit', e => { e.preventDefault(); runSearch($('#q').value); $('#q').blur(); });
+  $('#backBible').addEventListener('click', () => go('bible'));
 }
 async function runSearch(q) {
   q = q.trim(); if (!q) return;
@@ -428,96 +443,258 @@ async function runSearch(q) {
   worker.postMessage({ words, trans: settings.trans, books: BOOKS.length, max: MAX });
 }
 
-/* ===== ROSARY ===== */
-const P = {
-  cross: 'In the name of the Father, and of the Son, and of the Holy Spirit. Amen.',
-  creed: 'I believe in God, the Father almighty, Creator of heaven and earth; and in Jesus Christ, His only Son, our Lord, who was conceived by the Holy Spirit, born of the Virgin Mary, suffered under Pontius Pilate, was crucified, died, and was buried. He descended into hell; on the third day He rose again from the dead; He ascended into heaven, and is seated at the right hand of God the Father almighty; from there He will come to judge the living and the dead.\nI believe in the Holy Spirit, the holy catholic Church, the communion of saints, the forgiveness of sins, the resurrection of the body, and life everlasting. Amen.',
-  our: 'Our Father, who art in heaven, hallowed be Thy name; Thy kingdom come; Thy will be done on earth as it is in heaven.\nGive us this day our daily bread; and forgive us our trespasses, as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil. Amen.',
-  hail: 'Hail Mary, full of grace, the Lord is with thee. Blessed art thou amongst women, and blessed is the fruit of thy womb, Jesus.\nHoly Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.',
-  glory: 'Glory be to the Father, and to the Son, and to the Holy Spirit. As it was in the beginning, is now, and ever shall be, world without end. Amen.',
-  fatima: 'O my Jesus, forgive us our sins, save us from the fires of hell; lead all souls to heaven, especially those most in need of Thy mercy.',
-  queen: 'Hail, holy Queen, Mother of mercy, our life, our sweetness and our hope. To thee do we cry, poor banished children of Eve; to thee do we send up our sighs, mourning and weeping in this valley of tears. Turn then, most gracious advocate, thine eyes of mercy toward us; and after this our exile, show unto us the blessed fruit of thy womb, Jesus. O clement, O loving, O sweet Virgin Mary.\nV. Pray for us, O holy Mother of God.\nR. That we may be made worthy of the promises of Christ.',
-  close: 'Let us pray. O God, whose only begotten Son, by His life, death, and resurrection, has purchased for us the rewards of eternal life; grant, we beseech Thee, that by meditating upon these mysteries of the Most Holy Rosary of the Blessed Virgin Mary, we may imitate what they contain and obtain what they promise, through the same Christ our Lord. Amen.'
-};
-const MYST = {
-  joyful: { name: 'Joyful Mysteries', list: [
-    ['The Annunciation', 'Luke 1:26-38', 'Humility'], ['The Visitation', 'Luke 1:39-56', 'Love of neighbour'],
-    ['The Nativity', 'Luke 2:1-20', 'Poverty of spirit'], ['The Presentation in the Temple', 'Luke 2:22-38', 'Obedience'],
-    ['The Finding of Jesus in the Temple', 'Luke 2:41-52', 'Joy in finding Jesus']] },
-  luminous: { name: 'Luminous Mysteries', list: [
-    ['The Baptism of the Lord', 'Matthew 3:13-17', 'Openness to the Holy Spirit'], ['The Wedding at Cana', 'John 2:1-11', 'To Jesus through Mary'],
-    ['The Proclamation of the Kingdom', 'Mark 1:14-15', 'Repentance and trust in God'], ['The Transfiguration', 'Matthew 17:1-8', 'Desire for holiness'],
-    ['The Institution of the Eucharist', 'Matthew 26:26-28', 'Adoration']] },
-  sorrowful: { name: 'Sorrowful Mysteries', list: [
-    ['The Agony in the Garden', 'Matthew 26:36-46', 'Sorrow for sin'], ['The Scourging at the Pillar', 'Matthew 27:26', 'Purity'],
-    ['The Crowning with Thorns', 'Matthew 27:27-31', 'Courage'], ['The Carrying of the Cross', 'Luke 23:26-32', 'Patience'],
-    ['The Crucifixion', 'Luke 23:33-46', 'Perseverance']] },
-  glorious: { name: 'Glorious Mysteries', list: [
-    ['The Resurrection', 'Matthew 28:1-10', 'Faith'], ['The Ascension', 'Acts 1:6-11', 'Hope'],
-    ['The Descent of the Holy Spirit', 'Acts 2:1-4', 'Love of God'], ['The Assumption of Mary', 'Revelation 12:1', 'Grace of a holy death'],
-    ['The Coronation of Mary', 'Revelation 12:1-6', 'Trust in Mary\'s intercession']] }
-};
-const DAY_MYST = { Sun: 'glorious', Mon: 'joyful', Tue: 'sorrowful', Wed: 'glorious', Thu: 'luminous', Fri: 'sorrowful', Sat: 'joyful' };
-const ORD = ['First', 'Second', 'Third', 'Fourth', 'Fifth'];
-function rosarySteps(set) {
-  const s = [];
-  s.push({ t: 'Sign of the Cross', p: P.cross }, { t: "Apostles' Creed", p: P.creed }, { t: 'Our Father', p: P.our });
-  ['for an increase of faith', 'for an increase of hope', 'for an increase of charity'].forEach((x, i) => s.push({ t: 'Hail Mary', sub: `${i + 1} of 3 · ${x}`, p: P.hail, beads: [3, i + 1] }));
-  s.push({ t: 'Glory Be', p: P.glory });
-  MYST[set].list.forEach((m, d) => {
-    s.push({ t: `${ORD[d]} ${MYST[set].name.replace('Mysteries', 'Mystery')}`, mystery: m });
-    s.push({ t: 'Our Father', sub: m[0], p: P.our });
-    for (let i = 1; i <= 10; i++) s.push({ t: 'Hail Mary', sub: `${m[0]} · ${i} of 10`, p: P.hail, beads: [10, i] });
-    s.push({ t: 'Glory Be', sub: m[0], p: P.glory }, { t: 'O My Jesus', sub: m[0], p: P.fatima });
-  });
-  s.push({ t: 'Hail, Holy Queen', p: P.queen }, { t: 'Closing Prayer', p: P.close }, { t: 'Sign of the Cross', p: P.cross });
+/* ===== VERSE SELECTION · HIGHLIGHTS · FAVORITES · STUDY ===== */
+/* Everything here is stored on the phone (localStorage). Keys use this Bible's own numbering:
+   "bookIndex:chapter:verse", which is the same for CPDV and Douay-Rheims. */
+const HL_COLORS = [['1', 'Gold'], ['2', 'Green'], ['3', 'Blue'], ['4', 'Pink']];
+const DEFAULT_CATS = ['Hope', 'Strength', 'Peace', 'Love', 'Faith', 'Healing', 'Guidance', 'Gratitude', 'Forgiveness', 'Protection'];
+const selection = new Set();
+function getCats() { return store.get('cats', null) || DEFAULT_CATS.slice(); }
+function getFavs() { return store.get('favs', []); }
+function favVerseSet() {
+  const s = new Set();
+  for (const f of getFavs()) for (let v = f.v; v <= f.ev; v++) s.add(`${f.b}:${f.c}:${v}`);
   return s;
 }
-function renderRosary(opts) {
-  $('#title').textContent = 'Rosary';
-  const set = opts.set || DAY_MYST[manilaWeekday()];
-  const M = MYST[set];
-  if (opts.pray) return prayRosary(set, opts.step || 0);
-  view.innerHTML = `<div class="card"><div class="eyebrow">${opts.set ? 'Chosen' : "Today's"} mysteries</div>
-      <div class="mystery">${esc(M.name)}</div>
-      <ol class="mlist">${M.list.map(m => `<li>${esc(m[0])} <button class="muted small" data-ref="${esc(m[1])}" style="text-decoration:underline">${esc(m[1])}</button></li>`).join('')}</ol>
-      <button class="btn primary block" id="startR">Start praying</button></div>
-    <div class="setrow"><label>Pray a different set</label><div class="seg">${Object.keys(MYST).map(k =>
-      `<button aria-pressed="${k === set}" data-set="${k}">${MYST[k].name.split(' ')[0]}</button>`).join('')}</div></div>
-    <p class="muted small">Traditional days: Joyful (Mon, Sat) · Sorrowful (Tue, Fri) · Glorious (Wed, Sun) · Luminous (Thu).</p>`;
-  $('#startR').addEventListener('click', () => go('rosary', { set, pray: true }));
-  view.querySelectorAll('[data-set]').forEach(b => b.addEventListener('click', () => go('rosary', { set: b.dataset.set })));
-  view.querySelectorAll('[data-ref]').forEach(b => b.addEventListener('click', async () => { await loadVmap(); const r = parseRef(b.dataset.ref); r && go('bible', { b: r.b, c: r.c, v: r.v }); }));
+function refLabel(b, c, v, ev) {
+  const B = BOOKS[b]; const ch = B.n === 'Psalms' ? 'Psalm ' + psalmLabel(c) : `${B.n} ${c}`;
+  return `${ch}:${v}${ev && ev !== v ? '–' + ev : ''}`;
 }
-function prayRosary(set, i) {
-  const steps = rosarySteps(set), s = steps[i];
-  const pct = Math.round((i + 1) / steps.length * 100);
-  let body;
-  if (s.mystery) body = `<div class="mystery">${esc(s.mystery[0])}</div>
-      <p class="muted">Fruit of the mystery: <b>${esc(s.mystery[2])}</b></p>
-      <div id="mtext"><div class="spinner"></div></div>`;
-  else body = `<p class="prayertext">${esc(s.p)}</p>`;
-  view.innerHTML = `<div class="progress"><i style="width:${pct}%"></i></div>
-    <div class="card"><div class="eyebrow">${esc(MYST[set].name)} · ${i + 1} of ${steps.length}</div>
-      <div class="daytitle">${esc(s.t)}</div>${s.sub ? `<div class="muted small">${esc(s.sub)}</div>` : ''}
-      ${s.beads ? `<div class="beads">${Array.from({ length: s.beads[0] }, (_, k) => `<i class="${k < s.beads[1] ? 'on' : ''}"></i>`).join('')}</div>` : ''}
-      ${body}</div>
-    <div class="stepnav"><button class="btn ghost" id="rBack">${i ? '‹ Back' : 'Exit'}</button>
-      <button class="btn primary" id="rNext">${i === steps.length - 1 ? 'Finish' : 'Next ›'}</button></div>`;
-  store.set('rosary', { set, i });
-  $('#rBack').addEventListener('click', () => i ? prayRosary(set, i - 1) : go('rosary', { set }));
-  $('#rNext').addEventListener('click', () => {
-    if (i === steps.length - 1) { store.set('rosary', null); toast('Rosary complete. God bless you. 🙏'); go('rosary', { set }); }
-    else { prayRosary(set, i + 1); scrollTo(0, 0); }
+function toggleSelect(v) {
+  if (selection.has(v)) selection.delete(v); else selection.add(v);
+  const el = $('#v' + v); if (el) el.classList.toggle('sel', selection.has(v));
+  selection.size ? showSelBar() : hideSelBar();
+}
+function selRange() { const a = [...selection].sort((x, y) => x - y); return { v: a[0], ev: a[a.length - 1], list: a }; }
+function hideSelBar() { const b = $('#selbar'); if (b) b.remove(); document.body.classList.remove('selopen'); }
+function showSelBar() {
+  let bar = $('#selbar');
+  const r = selRange();
+  const label = refLabel(pos.b, pos.c, r.v, r.ev);
+  if (!bar) {
+    bar = document.createElement('div'); bar.id = 'selbar'; bar.className = 'selbar';
+    document.body.appendChild(bar); document.body.classList.add('selopen');
+  }
+  bar.innerHTML = `<div class="selhead"><b>${esc(label)}</b><span class="muted small">${selection.size} verse${selection.size > 1 ? 's' : ''}</span>
+      <button class="iconbtn" data-act="close" aria-label="Clear selection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <div class="selrow">${HL_COLORS.map(([k, n]) => `<button class="swatch hl${k}" data-hl="${k}" aria-label="Highlight ${n}"></button>`).join('')}
+      <button class="swatch none" data-hl="0" aria-label="Remove highlight">⌫</button></div>
+    <div class="selrow"><button class="btn ghost" data-act="save">★ Save</button><button class="btn primary" data-act="deeper">Go deeper</button></div>`;
+  bar.onclick = e => {
+    const t = e.target.closest('button'); if (!t) return;
+    if (t.dataset.hl !== undefined) return applyHighlight(t.dataset.hl);
+    if (t.dataset.act === 'close') return clearSelection();
+    if (t.dataset.act === 'save') return saveFavSheet();
+    if (t.dataset.act === 'deeper') return openStudy();
+  };
+}
+function clearSelection() {
+  for (const v of selection) { const el = $('#v' + v); if (el) el.classList.remove('sel'); }
+  selection.clear(); hideSelBar();
+}
+function applyHighlight(color) {
+  const hl = store.get('hl', {});
+  for (const v of selection) {
+    const key = `${pos.b}:${pos.c}:${v}`, el = $('#v' + v);
+    if (color === '0') delete hl[key]; else hl[key] = color;
+    if (el) { el.classList.remove('hl1', 'hl2', 'hl3', 'hl4'); if (color !== '0') el.classList.add('hl' + color); }
+  }
+  store.set('hl', hl);
+  toast(color === '0' ? 'Highlight removed' : 'Highlighted');
+  clearSelection();
+}
+async function selectedText() {
+  const book = await loadBook(pos.b);
+  return selRange().list.map(v => `${v} ${book[pos.c - 1][v - 1]}`).join(' ');
+}
+function catPicker(selected) {
+  return `<div class="chips" id="catChips">${getCats().map(c => `<button class="chip-btn" aria-pressed="${selected.includes(c)}" data-cat="${esc(c)}">${esc(c)}</button>`).join('')}
+    <button class="chip-btn add" id="newCat">+ New</button></div>`;
+}
+function wireCatPicker(root) {
+  root.querySelectorAll('[data-cat]').forEach(b => b.onclick = () => b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true'));
+  const add = $('#newCat', root);
+  if (add) add.onclick = () => {
+    const name = (prompt('New category name') || '').trim(); if (!name) return;
+    const cats = getCats(); if (!cats.includes(name)) { cats.push(name); store.set('cats', cats); }
+    const b = document.createElement('button'); b.className = 'chip-btn'; b.dataset.cat = name; b.textContent = name;
+    b.setAttribute('aria-pressed', 'true'); b.onclick = () => b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true');
+    add.before(b);
+  };
+}
+async function saveFavSheet() {
+  const r = selRange(), label = refLabel(pos.b, pos.c, r.v, r.ev);
+  const s = sheet(`<h3>Save to favorites</h3><p class="muted small" style="margin-top:0">${esc(label)} · choose one or more categories</p>
+    ${catPicker([])}<button class="btn primary block" id="doSave" style="margin-top:16px">Save</button>`);
+  wireCatPicker(s);
+  $('#doSave', s).onclick = async () => {
+    const cats = [...s.querySelectorAll('[data-cat][aria-pressed="true"]')].map(b => b.dataset.cat);
+    const favs = getFavs();
+    favs.unshift({ id: Date.now().toString(36), b: pos.b, c: pos.c, v: r.v, ev: r.ev, ref: label, text: await selectedText(), trans: settings.trans, cats, t: Date.now() });
+    store.set('favs', favs);
+    s.remove(); toast('Saved to favorites ★'); clearSelection();
+    for (let v = r.v; v <= r.ev; v++) { const n = $('#v' + v + ' .vn'); if (n && !n.textContent.includes('★')) n.textContent += '★'; }
+  };
+}
+
+/* --- Go deeper: Church Fathers (Catena Aurea, Gospels) + cross-references, loaded per book on demand --- */
+const studyCache = new Map(); // "catena/49" -> data (max 2 kept)
+async function loadStudy(kind, b) {
+  const key = kind + '/' + b;
+  if (studyCache.has(key)) return studyCache.get(key);
+  let d = null;
+  try { const r = await fetch(`data/${kind}/${b}.json`); if (r.ok) d = await r.json(); } catch {}
+  studyCache.set(key, d);
+  while (studyCache.size > 2) studyCache.delete(studyCache.keys().next().value);
+  return d;
+}
+async function openStudy() {
+  const r = selRange(), b = pos.b, c = pos.c, label = refLabel(b, c, r.v, r.ev);
+  const s = sheet(`<h3>Go deeper · ${esc(label)}</h3><div id="studyBody"><div class="spinner"></div></div>`);
+  s.querySelector('.panel').classList.add('tall');
+  const text = await selectedText();
+  const hasCatena = b >= 46 && b <= 49, hasXref = !['Tobit', 'Judith', 'Wisdom', 'Sirach', 'Baruch', '1 Maccabees', '2 Maccabees'].includes(BOOKS[b].n);
+  const [catena, xref] = await Promise.all([hasCatena ? loadStudy('catena', b) : null, hasXref ? loadStudy('xref', b) : null]);
+  let html = `<div class="card" style="margin-top:0"><p class="scripture" style="margin:0">${esc(text)}</p></div>`;
+  // Church Fathers
+  html += `<h4 class="eyebrow" style="margin:18px 0 6px">Church Fathers · Catena Aurea</h4>`;
+  const notes = [];
+  if (catena) for (const [start, list] of Object.entries(catena)) {
+    const [sc, sv] = start.split(':').map(Number); if (sc !== c) continue;
+    for (const [ev, author, t] of list) if (r.list.some(v => v >= sv && v <= ev)) notes.push({ sv, ev, author, t });
+  }
+  notes.sort((x, y) => x.sv - y.sv);
+  if (!catena) html += `<p class="muted small">St. Thomas Aquinas's Catena Aurea covers the four Gospels (Matthew, Mark, Luke, John). For other books, see the cross-references below.</p>`;
+  else if (!notes.length) html += `<p class="muted small">No Church Father notes on these exact verses. Try the verses just before or after.</p>`;
+  else notes.forEach((n, i) => {
+    const long = n.t.length > 420;
+    html += `<div class="note-f"><div class="small"><b>${esc(n.author)}</b> <span class="muted">· on ${c}:${n.sv}${n.ev !== n.sv ? '–' + n.ev : ''}</span></div>
+      <p class="ftext${long ? ' clamp' : ''}" id="ft${i}">${esc(n.t)}</p>${long ? `<button class="linkbtn" data-more="${i}">Read more</button>` : ''}</div>`;
   });
-  if (s.mystery) (async () => {
-    await loadMeta();
-    const r = s.mystery[1].match(/^(.+?) (\d+):(\d+)(?:-(\d+))?$/);
-    const part = { b: r[1], c: +r[2], v: +r[3], ev: +(r[4] || r[3]) };
-    await loadVmap();
-    const vs = await versesFor(part).catch(() => []);
-    const box = $('#mtext'); if (box) box.innerHTML = `<div class="ref" style="font-weight:700;margin:8px 0">${esc(s.mystery[1])}</div>` + (vs.length ? versesHTML(vs) : '');
-  })();
+  // Cross-references
+  html += `<h4 class="eyebrow" style="margin:18px 0 6px">Cross-references</h4>`;
+  const refs = [], seen = new Set();
+  if (xref) for (const v of r.list) for (const x of (xref[`${c}:${v}`] || [])) {
+    const k = x.join(','); if (!seen.has(k)) { seen.add(k); refs.push(x); }
+  }
+  if (!refs.length) html += `<p class="muted small">No cross-references for these verses.${['Tobit', 'Judith', 'Wisdom', 'Sirach', 'Baruch', '1 Maccabees', '2 Maccabees'].includes(BOOKS[b].n) ? ' (The cross-reference collection does not cover this book.)' : ''}</p>`;
+  else refs.slice(0, 16).forEach((x, i) => {
+    html += `<div class="xref"><button class="xref-btn" data-x="${i}"><b>${esc(refLabel(x[0], x[1], x[2], x[1] === x[3] ? x[4] : null))}</b><span class="muted small">Show text ▾</span></button><div class="xtext" id="xt${i}"></div></div>`;
+  });
+  html += `<p class="muted small" style="margin-top:16px">Church Fathers: Catena Aurea of St. Thomas Aquinas (public domain). Cross-references: OpenBible.info (CC-BY).</p>`;
+  const body = $('#studyBody', s); if (!body) return;
+  body.innerHTML = html;
+  body.querySelectorAll('[data-more]').forEach(btn => btn.onclick = () => { $('#ft' + btn.dataset.more, s).classList.remove('clamp'); btn.remove(); });
+  body.querySelectorAll('[data-x]').forEach(btn => btn.onclick = async () => {
+    const x = refs[+btn.dataset.x], box = $('#xt' + btn.dataset.x, s);
+    if (box.innerHTML) { box.innerHTML = ''; return; }
+    const ec = x[3], ev = x[4];
+    const vs = await versesFor({ b: BOOKS[x[0]].n, c: x[1], v: x[2], ec, ev: ec === x[1] ? ev : ev }, true).catch(() => []);
+    box.innerHTML = (vs.length ? versesHTML(vs.slice(0, 12)) : '<p class="muted small">Text not available.</p>') +
+      `<button class="btn ghost" style="min-height:40px;margin:6px 0 10px" data-open="1">Open in Bible ›</button>`;
+    $('[data-open]', box).onclick = () => { s.remove(); go('bible', { b: x[0], c: x[1], v: x[2] }); };
+  });
+}
+
+/* ===== SAVED (favorites) ===== */
+let savedFilter = 'All';
+function renderSaved() {
+  $('#title').textContent = 'Saved';
+  const favs = getFavs(), cats = getCats();
+  const counts = {}; favs.forEach(f => f.cats.forEach(c => counts[c] = (counts[c] || 0) + 1));
+  const list = savedFilter === 'All' ? favs : savedFilter === 'Uncategorized' ? favs.filter(f => !f.cats.length) : favs.filter(f => f.cats.includes(savedFilter));
+  view.innerHTML = `<div class="chips scrollx">${['All', ...cats].map(c => `<button class="chip-btn" aria-pressed="${c === savedFilter}" data-f="${esc(c)}">${esc(c)}${c === 'All' ? ` · ${favs.length}` : counts[c] ? ` · ${counts[c]}` : ''}</button>`).join('')}</div>
+    <button class="linkbtn" id="manageCats" style="margin:4px 2px 10px">Manage categories</button>
+    <div id="favList">${list.length ? list.map(f => `<div class="card fav" data-id="${f.id}">
+        <div class="favhead"><b>${esc(f.ref)}</b><button class="iconbtn" data-menu="${f.id}" aria-label="Options">⋯</button></div>
+        <p class="scripture favtext">${esc(f.text)}</p>
+        ${f.cats.length ? `<div class="chips small-chips">${f.cats.map(c => `<span class="chip">${esc(c)}</span>`).join('')}</div>` : ''}
+      </div>`).join('') : `<div class="card"><p style="margin:0">${favs.length ? 'Nothing saved in this category yet.' : 'No favorites yet. In the Bible, tap a verse and choose ★ Save.'}</p></div>`}</div>`;
+  view.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { savedFilter = b.dataset.f; renderSaved(); });
+  $('#manageCats').onclick = manageCats;
+  view.querySelectorAll('.fav').forEach(card => card.addEventListener('click', e => {
+    if (e.target.closest('[data-menu]')) return;
+    const f = getFavs().find(x => x.id === card.dataset.id); if (f) go('bible', { b: f.b, c: f.c, v: f.v });
+  }));
+  view.querySelectorAll('[data-menu]').forEach(b => b.onclick = () => favMenu(b.dataset.menu));
+}
+function favMenu(id) {
+  const f = getFavs().find(x => x.id === id); if (!f) return;
+  const s = sheet(`<h3>${esc(f.ref)}</h3><p class="muted small" style="margin-top:0">Categories</p>${catPicker(f.cats)}
+    <button class="btn primary block" id="favUpd" style="margin-top:14px">Update categories</button>
+    <button class="btn ghost block" id="favOpen" style="margin-top:8px">Open in Bible</button>
+    <button class="btn ghost block danger" id="favDel" style="margin-top:8px">Remove from favorites</button>`);
+  wireCatPicker(s);
+  $('#favUpd', s).onclick = () => {
+    const favs = getFavs(), x = favs.find(y => y.id === id);
+    x.cats = [...s.querySelectorAll('[data-cat][aria-pressed="true"]')].map(b => b.dataset.cat);
+    store.set('favs', favs); s.remove(); renderSaved(); toast('Updated');
+  };
+  $('#favOpen', s).onclick = () => { s.remove(); go('bible', { b: f.b, c: f.c, v: f.v }); };
+  $('#favDel', s).onclick = () => {
+    if (!confirm('Remove this favorite?')) return;
+    store.set('favs', getFavs().filter(y => y.id !== id)); s.remove(); renderSaved(); toast('Removed');
+  };
+}
+function manageCats() {
+  const draw = () => `<h3>Manage categories</h3>${getCats().map((c, i) => `<div class="catrow"><span>${esc(c)}</span>
+      <button class="linkbtn" data-ren="${i}">Rename</button><button class="linkbtn danger" data-del="${i}">Delete</button></div>`).join('')}
+    <button class="btn primary block" id="catAdd" style="margin-top:14px">+ Add category</button>`;
+  const s = sheet(draw());
+  const wire = () => {
+    $('#catAdd', s).onclick = () => { const n = (prompt('New category name') || '').trim(); if (!n) return; const c = getCats(); if (!c.includes(n)) { c.push(n); store.set('cats', c); } refresh(); };
+    s.querySelectorAll('[data-ren]').forEach(b => b.onclick = () => {
+      const cats = getCats(), old = cats[+b.dataset.ren], n = (prompt('Rename category', old) || '').trim();
+      if (!n || n === old) return;
+      cats[+b.dataset.ren] = n; store.set('cats', cats);
+      const favs = getFavs(); favs.forEach(f => f.cats = f.cats.map(c => c === old ? n : c)); store.set('favs', favs);
+      if (savedFilter === old) savedFilter = n; refresh();
+    });
+    s.querySelectorAll('[data-del]').forEach(b => b.onclick = () => {
+      const cats = getCats(), old = cats[+b.dataset.del];
+      if (!confirm(`Delete the category "${old}"? Your saved passages stay; they just lose this label.`)) return;
+      store.set('cats', cats.filter(c => c !== old));
+      const favs = getFavs(); favs.forEach(f => f.cats = f.cats.filter(c => c !== old)); store.set('favs', favs);
+      if (savedFilter === old) savedFilter = 'All'; refresh();
+    });
+  };
+  const refresh = () => { $('.panel', s).innerHTML = '<div class="grab"></div>' + draw(); wire(); renderSaved(); };
+  wire();
+}
+
+/* --- Backup: one small file with highlights, favorites and categories --- */
+function exportBackup() {
+  const data = { app: 'manna', version: 1, exported: new Date().toISOString(), hl: store.get('hl', {}), favs: getFavs(), cats: getCats() };
+  const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = `manna-backup-${manilaDate()}.json`; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  return data;
+}
+function importBackup(json) {
+  const d = typeof json === 'string' ? JSON.parse(json) : json;
+  if (!d || d.app !== 'manna') throw new Error('This is not a Manna backup file.');
+  const hl = Object.assign(store.get('hl', {}), d.hl || {});
+  const favs = getFavs(), ids = new Set(favs.map(f => f.id));
+  for (const f of d.favs || []) if (!ids.has(f.id)) favs.push(f);
+  favs.sort((a, b) => (b.t || 0) - (a.t || 0));
+  const cats = getCats(); for (const c of d.cats || []) if (!cats.includes(c)) cats.push(c);
+  store.set('hl', hl); store.set('favs', favs); store.set('cats', cats);
+  return { highlights: Object.keys(d.hl || {}).length, favorites: (d.favs || []).length };
+}
+
+/* ===== ARMORY (prayers & chaplets) — code and texts load only when opened ===== */
+let armoryLoading = null;
+function renderArmory(opts) {
+  $('#title').textContent = 'Armory';
+  view.innerHTML = '<div class="spinner"></div>';
+  if (!window.MannaArmory) armoryLoading = armoryLoading || new Promise((res, rej) => {
+    const sc = document.createElement('script'); sc.src = 'armory.js'; sc.onload = res; sc.onerror = rej; document.head.appendChild(sc);
+  });
+  Promise.resolve(armoryLoading).then(() => {
+    if (current !== 'armory') return;
+    window.MannaArmory.render(opts, { view, $, esc, store, toast, go, sheet, loadMeta, loadVmap, parseRef, versesFor, versesHTML, manilaWeekday });
+  }).catch(() => { view.innerHTML = '<p class="muted">The Armory could not load. Connect to the internet once and try again.</p>'; });
 }
 
 /* ===== SETTINGS ===== */
@@ -530,14 +707,23 @@ function openSettings() {
     <div class="setrow"><label>Reading text size</label><div class="seg">
       <button data-size="-1">A−</button><button aria-pressed="true" id="sizeNow">Size ${settings.size}</button><button data-size="1">A+</button></div>
       <p class="scripture" id="sizePreview" style="margin-top:10px">Give us this day our daily bread.</p></div>
-    <div class="setrow"><label>Offline</label><p class="small" id="offStat">Checking…</p></div>
+    <div class="setrow"><label>Offline</label><p class="small" id="offStat">Checking…</p><p class="small" id="studyStat"></p></div>
+    <div class="setrow"><label>Backup</label><p class="small muted" style="margin-top:0">Your highlights, favorites and categories are kept on this phone. Save a backup file now and then, to restore them if you change phones or clear Chrome's data.</p>
+      <div class="pickrow"><button class="btn ghost" id="bkSave">Save backup</button><button class="btn ghost" id="bkLoad">Restore</button></div>
+      <input type="file" id="bkFile" accept="application/json,.json" class="hidden"></div>
     <div class="setrow"><label>Daily readings</label><p class="small muted">Delivered every morning, before 6:15 AM, following the Philippine liturgical calendar. To change the time, ask Claude.</p></div>
-    <p class="muted small">Manna · Scripture: Catholic Public Domain Version and Douay-Rheims (Challoner), both public domain.</p>`);
+    <p class="muted small">Manna · Scripture: Catholic Public Domain Version and Douay-Rheims (Challoner), both public domain. Church Fathers: Catena Aurea (public domain). Cross-references: OpenBible.info (CC-BY).</p>`);
+  $('#bkSave', s).onclick = () => { exportBackup(); toast('Backup file saved to your Downloads'); };
+  $('#bkLoad', s).onclick = () => $('#bkFile', s).click();
+  $('#bkFile', s).onchange = async e => {
+    const f = e.target.files[0]; if (!f) return;
+    try { const r = importBackup(await f.text()); toast(`Restored ${r.favorites} favorites and ${r.highlights} highlights`); if (current === 'saved' || current === 'bible') go(current); }
+    catch (err) { toast(err.message || 'That file could not be read'); }
+  };
   s.querySelectorAll('[data-k]').forEach(b => b.addEventListener('click', () => {
     saveSetting(b.dataset.k, b.dataset.v);
     s.querySelectorAll(`[data-k="${b.dataset.k}"]`).forEach(x => x.setAttribute('aria-pressed', x === b));
-    if (b.dataset.k === 'trans') { ensureOffline(); updateOffStat(); }
-    go(current);
+    if (b.dataset.k === 'trans') { ensureOffline(); updateOffStat(); go(current, undefined, true); }
   }));
   s.querySelectorAll('[data-size]').forEach(b => b.addEventListener('click', () => {
     saveSetting('size', Math.max(14, Math.min(30, settings.size + +b.dataset.size)));
@@ -552,14 +738,21 @@ async function updateOffStat() {
   if (!('serviceWorker' in navigator)) { el.textContent = 'Offline reading isn\'t supported on this browser.'; return; }
   if (st[t] === 'done') el.textContent = `✓ ${TRANS[t]} is saved on this phone and works without internet.`;
   else el.textContent = `Saving ${TRANS[t]} to this phone for offline use… (${st[t + '_n'] || 0} of 73 books)`;
+  const ss = $('#studyStat');
+  if (ss) ss.textContent = st.study === 'done' ? '✓ Study notes (Church Fathers & cross-references) are saved for offline use.'
+    : `Saving study notes for offline use… (${st.study_n || 0} of ${STUDY_FILES().length} files)`;
 }
 
 /* ---------- offline / install ---------- */
-function ensureOffline() {
+const XREF_BOOKS = () => BOOKS ? BOOKS.map((b, i) => i).filter(i => !['Tobit', 'Judith', 'Wisdom', 'Sirach', 'Baruch', '1 Maccabees', '2 Maccabees'].includes(BOOKS[i].n)) : [];
+const STUDY_FILES = () => [...XREF_BOOKS().map(i => `data/xref/${i}.json`), ...[46, 47, 48, 49].map(i => `data/catena/${i}.json`)];
+async function ensureOffline() {
   if (!('serviceWorker' in navigator)) return;
+  await loadMeta();
   const st = store.get('offline', {});
-  if (st[settings.trans] === 'done') return;
-  navigator.serviceWorker.ready.then(reg => reg.active && reg.active.postMessage({ type: 'download', trans: settings.trans, total: 73 }));
+  const reg = await navigator.serviceWorker.ready; if (!reg.active) return;
+  if (st[settings.trans] !== 'done') reg.active.postMessage({ type: 'download', key: settings.trans, cache: 'manna-bible-v1', urls: BOOKS.map((b, i) => `data/${settings.trans}/${i}.json`) });
+  else if (st.study !== 'done') reg.active.postMessage({ type: 'download', key: 'study', cache: 'manna-study-v1', urls: STUDY_FILES() });
 }
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').then(() => {
@@ -569,9 +762,10 @@ if ('serviceWorker' in navigator) {
     const m = e.data || {};
     if (m.type === 'dl-progress' || m.type === 'dl-done') {
       const st = store.get('offline', {});
-      st[m.trans + '_n'] = m.done;
-      if (m.type === 'dl-done' && m.ok) st[m.trans] = 'done';
+      st[m.key + '_n'] = m.done;
+      if (m.type === 'dl-done' && m.ok) st[m.key] = 'done';
       store.set('offline', st); updateOffStat();
+      if (m.type === 'dl-done' && m.ok && m.key !== 'study') ensureOffline();  // Bible done -> study notes next
     }
   });
 }
@@ -579,5 +773,5 @@ if ('serviceWorker' in navigator) {
 /* ---------- start ---------- */
 window.addEventListener('popstate', () => {});
 go('today');
-window.__manna = { parseRef, lectToBible, loadVmap, versesFor, loadMeta, loadYear, getDay, bookCache, go }; // used by tests
+window.__manna = { parseRef, lectToBible, loadVmap, versesFor, loadMeta, loadYear, getDay, bookCache, go, exportBackup, importBackup, studyCache }; // used by tests
 })();
