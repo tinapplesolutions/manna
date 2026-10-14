@@ -109,6 +109,7 @@ async function loadData() {
 /* ---------- screens ---------- */
 async function home() {
   const d = await loadData();
+  if (!A.active()) return;   // you've moved to another tab meanwhile
   const { view, esc } = A;
   const today = DAY_MYST[A.manilaWeekday()];
   let html = `<div class="card arm-hero"><div class="eyebrow">Today's Rosary</div><div class="mystery">${esc(MYST[today].name)}</div>
@@ -142,7 +143,8 @@ function pickRosary() {
   view.querySelectorAll('[data-set]').forEach(b => b.onclick = () => A.go('armory', { chap: 'rosary', set: b.dataset.set, step: 0 }));
 }
 async function prayer(id) {
-  const d = await loadData(); const p = d.prayers.find(x => x.id === id); const { view, esc } = A;
+  const d = await loadData(); if (!A.active()) return;
+  const p = d.prayers.find(x => x.id === id); const { view, esc } = A;
   if (!p) return home();
   const cat = d.categories.find(c => c.id === p.cat);
   view.innerHTML = `<button class="btn ghost" id="armBack" style="min-height:40px;margin:4px 0">‹ Armory</button>

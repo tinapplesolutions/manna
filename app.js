@@ -303,8 +303,13 @@ async function drawToday(today) {
     if (g.title) html += `<h2 class="eyebrow" style="margin:22px 4px 0;font-size:13px">${esc(g.title)}</h2>`;
     g.readings.forEach((r, ri) => { const key = gi + '_' + ri; all[key] = r; html += readingCard(r, key); });
   });
-  if (d.reflection) html += `<div class="card"><h3 class="eyebrow" style="margin:0">Reflection</h3>
-    <p class="reflection">${esc(d.reflection)}</p>${d.prayer ? `<p class="prayer">${esc(d.prayer)}</p>` : ''}</div>`;
+  if (d.reflection) {
+    const saved = getRefls().some(x => x.date === d.date);
+    html += `<div class="card"><h3 class="eyebrow" style="margin:0">Reflection</h3>
+    <p class="reflection">${esc(d.reflection)}</p>${d.prayer ? `<p class="prayer">${esc(d.prayer)}</p>` : ''}
+    <div class="pickrow" style="margin-top:12px"><button class="btn ghost" id="reflSave" style="justify-content:center;flex:0 0 36%;white-space:nowrap">${saved ? '✓ Saved' : '★ Save'}</button>
+      <button class="btn ghost" id="reflNote" style="justify-content:center;white-space:nowrap;padding:0 10px">+ Personal Reflection</button></div></div>`;
+  }
   if (d.saint) html += `<div class="card"><div class="eyebrow">Saint of the day</div>
     <div class="daytitle" style="font-size:18px">${esc(d.saint.name)}</div><p style="margin:4px 0 0">${esc(d.saint.story)}</p></div>`;
   if (!d.online) html += `<p class="muted small" style="text-align:center">The reflection and saint of the day appear when you're online.</p>`;
@@ -320,6 +325,15 @@ async function drawToday(today) {
     for (const g of groups) { if (g.title) items.push(g.title + '.'); for (const r of g.readings) items.push(...await readingWords(r).catch(() => [])); }
     speak(items, "Today's readings");
   };
+  if ($('#reflSave')) {
+    $('#reflSave').onclick = () => {
+      const list = getRefls();
+      if (list.some(x => x.date === d.date)) { toast('Already in Saved → Reflections'); return; }
+      list.unshift(Object.assign({ id: 'r' + Date.now().toString(36), t: Date.now() }, reflFromDay(d)));
+      store.set('reflections', list); $('#reflSave').textContent = '✓ Saved'; toast('Saved in Saved → Reflections');
+    };
+    $('#reflNote').onclick = () => openNoteSheet(null, Object.assign({ kind: 'reflection', ref: 'Reflection · ' + prettyDate(d.date), note: '' }, reflFromDay(d)));
+  }
   box.querySelectorAll('[data-say]').forEach(b => b.onclick = async () => { const r = all[b.dataset.say]; speak(await readingWords(r).catch(() => []), r.label); });
   box.querySelectorAll('[data-read]').forEach(b => b.addEventListener('click', async () => {
     const k = b.dataset.read, r = all[k], box = $('#full' + k);
@@ -786,26 +800,39 @@ async function openCompare() {
 function getNotes() { return store.get('notes', []); }
 function noteVerseSet() {
   const s = new Set();
-  for (const n of getNotes()) for (const v of n.list) s.add(`${n.b}:${n.c}:${v}`);
+  for (const n of getNotes()) for (const v of (n.list || [])) s.add(`${n.b}:${n.c}:${v}`);
   return s;
 }
+/* --- Today's reflection: saved as-is (Saved → Reflections) or quoted into a personal note (Saved → Personal) --- */
+function getRefls() { return store.get('reflections', []); }
+function reflFromDay(d) {
+  const groups = d.masses ? d.masses : [{ readings: d.readings || [] }];
+  const refs = [...new Set(groups.flatMap(g => g.readings.map(r => r.ref)))].join(' · ');
+  return { date: d.date, day: d.day, text: d.reflection, prayer: d.prayer || '', refs };
+}
+function reflFooter(x) { return `<p class="muted small reflfoot">${esc(x.refs)}<br>${esc(prettyDate(x.date))}</p>`; }
+function reflQuote(x) {
+  return `<div class="quote"><div class="qref">${esc(x.day || 'Reflection')}</div><p class="reflection" style="margin:4px 0 0">${esc(x.text)}</p>
+    ${x.prayer ? `<p class="prayer" style="margin:6px 0 0">${esc(x.prayer)}</p>` : ''}${reflFooter(x)}</div>`;
+}
 let noteDraft = null;   // keeps unsaved writing if the sheet is closed by accident (memory only, one at a time)
-async function openNoteSheet(existingId) {
-  let n = existingId ? getNotes().find(x => x.id === existingId) : null;
+async function openNoteSheet(existingId, preset) {
+  let n = existingId ? getNotes().find(x => x.id === existingId) : preset || null;
   if (existingId && !n) return;
+  const isRefl = n && n.kind === 'reflection';
   if (!n) {
     const list = selRange().list;
     const vs = await versesOf(sel.b, sel.c, list);
     n = { b: sel.b, c: sel.c, list, ref: selLabel(sel.b, sel.c, list), text: joinVerses(vs), trans: settings.trans, note: '' };
   }
-  const dkey = n.id || `${n.b}:${n.c}:${n.list.join(',')}`;
+  const dkey = n.id || (isRefl ? 'refl:' + n.date : `${n.b}:${n.c}:${n.list.join(',')}`);
   const start = noteDraft && noteDraft.key === dkey ? noteDraft.text : n.note;
-  const s = sheet(`<h3>${n.id ? 'Your note' : 'New note'}</h3>
-    <div class="quote"><div class="qref">${esc(n.ref)} <span class="muted small">(${esc(TRANS[n.trans] || '')})</span></div><p class="scripture" style="margin:0">${esc(n.text)}</p></div>
-    <textarea class="notebox" id="noteText" placeholder="Write a reflection, a prayer, or what this passage says to you…">${esc(start)}</textarea>
+  const s = sheet(`<h3>${n.id ? (isRefl ? 'Your reflection' : 'Your note') : (isRefl ? 'Personal reflection' : 'New note')}</h3>
+    ${isRefl ? reflQuote(n) : `<div class="quote"><div class="qref">${esc(n.ref)} <span class="muted small">(${esc(TRANS[n.trans] || '')})</span></div><p class="scripture" style="margin:0">${esc(n.text)}</p></div>`}
+    <textarea class="notebox" id="noteText" placeholder="${isRefl ? 'Add your own reflection, prayer or resolution for today…' : 'Write a reflection, a prayer, or what this passage says to you…'}">${esc(start)}</textarea>
     <button class="btn primary block" id="noteSave" style="margin-top:12px">Save to Personal</button>
-    ${n.id ? `<button class="btn ghost block" id="noteOpen" style="margin-top:8px">Open in Bible</button>
-    <button class="btn ghost block danger" id="noteDel" style="margin-top:8px">Delete note</button>` : ''}`);
+    ${n.id && !isRefl ? `<button class="btn ghost block" id="noteOpen" style="margin-top:8px">Open in Bible</button>
+    <button class="btn ghost block danger" id="noteDel" style="margin-top:8px">Delete note</button>` : n.id ? `<button class="btn ghost block danger" id="noteDel" style="margin-top:8px">Delete reflection</button>` : ''}`);
   s.querySelector('.panel').classList.add('tall');
   const ta = $('#noteText', s);
   ta.addEventListener('input', () => { noteDraft = { key: dkey, text: ta.value }; });
@@ -817,14 +844,14 @@ async function openNoteSheet(existingId) {
     else notes.unshift(Object.assign({}, n, { id: 'n' + Date.now().toString(36), note: text, t: Date.now(), u: Date.now() }));
     store.set('notes', notes); noteDraft = null; s.remove();
     toast('Saved in Saved → Personal ✎');
-    if (!n.id) {
+    if (!n.id && !isRefl) {
       for (const v of n.list) markVerse(v, '✎');
       clearSelection();
     }
     if (current === 'saved') renderSaved();
   };
   if (n.id) {
-    $('#noteOpen', s).onclick = () => { s.remove(); go('bible', { b: n.b, c: n.c, v: n.list[0] }); };
+    if ($('#noteOpen', s)) $('#noteOpen', s).onclick = () => { s.remove(); go('bible', { b: n.b, c: n.c, v: n.list[0] }); };
     $('#noteDel', s).onclick = () => {
       if (!confirm('Delete this note?')) return;
       store.set('notes', getNotes().filter(y => y.id !== n.id)); noteDraft = null; s.remove(); toast('Note deleted');
@@ -944,12 +971,13 @@ async function openStudy() {
 let savedFilter = 'All';
 function renderSaved() {
   $('#title').textContent = 'Saved';
-  const favs = getFavs(), notes = getNotes(), cats = getCats();
-  if (savedFilter !== 'All' && savedFilter !== 'Personal' && !cats.includes(savedFilter)) savedFilter = 'All';
+  const favs = getFavs(), notes = getNotes(), refls = getRefls(), cats = getCats();
+  if (savedFilter !== 'All' && savedFilter !== 'Personal' && savedFilter !== 'Reflections' && !cats.includes(savedFilter)) savedFilter = 'All';
   const counts = {}; favs.forEach(f => f.cats.forEach(c => counts[c] = (counts[c] || 0) + 1));
   let list;
-  if (savedFilter === 'All') list = [...favs, ...notes.map(n => Object.assign({ isNote: true }, n))].sort((a, b) => (b.u || b.t || 0) - (a.u || a.t || 0));
+  if (savedFilter === 'All') list = [...favs, ...notes.map(n => Object.assign({ isNote: true }, n)), ...refls.map(r => Object.assign({ isRefl: true }, r))].sort((a, b) => (b.u || b.t || 0) - (a.u || a.t || 0));
   else if (savedFilter === 'Personal') list = notes.map(n => Object.assign({ isNote: true }, n));
+  else if (savedFilter === 'Reflections') list = refls.map(r => Object.assign({ isRefl: true }, r));
   else list = favs.filter(f => f.cats.includes(savedFilter));
   const favCard = f => `<div class="card fav" data-id="${f.id}">
         <div class="favhead"><b>${esc(f.ref)}</b><button class="iconbtn" data-menu="${f.id}" aria-label="Options">⋯</button></div>
@@ -957,15 +985,22 @@ function renderSaved() {
         ${f.cats.length ? `<div class="chips small-chips">${f.cats.map(c => `<span class="chip">${esc(c)}</span>`).join('')}</div>` : ''}
       </div>`;
   const noteCard = n => `<div class="card fav" data-note="${n.id}">
-        <div class="favhead"><b>${esc(n.ref)}</b><span class="chip" style="margin:0">✎ Personal</span></div>
-        <div class="quote" style="margin-bottom:0"><p class="scripture favtext" style="margin:0">${esc(n.text)}</p></div>
+        <div class="favhead"><b>${esc(n.kind === 'reflection' ? 'Reflection · ' + (n.day || '') : n.ref)}</b><span class="chip" style="margin:0">✎ Personal</span></div>
+        <div class="quote" style="margin-bottom:0"><p class="${n.kind === 'reflection' ? 'reflection' : 'scripture'} favtext" style="margin:0">${esc(n.text)}</p>${n.kind === 'reflection' ? reflFooter(n) : ''}</div>
         <p class="notetext favtext">${esc(n.note)}</p>
       </div>`;
-  const empty = savedFilter === 'Personal' ? 'No personal notes yet. In the Bible, tap a verse and choose ✎ Notes.'
+  const reflCard = r => `<div class="card fav" data-refl="${r.id}">
+        <div class="favhead"><b>${esc(r.day)}</b><button class="iconbtn" data-rmenu="${r.id}" aria-label="Options">⋯</button></div>
+        <div class="eyebrow" style="margin-top:2px">Reflection</div>
+        <p class="reflection" style="margin:6px 0 0">${esc(r.text)}</p>${r.prayer ? `<p class="prayer">${esc(r.prayer)}</p>` : ''}
+        ${reflFooter(r)}
+      </div>`;
+  const empty = savedFilter === 'Reflections' ? 'No saved reflections yet. On Today, tap ★ Save under the reflection.'
+    : savedFilter === 'Personal' ? 'No personal notes yet. In the Bible, tap a verse and choose ✎ Notes.'
     : favs.length || notes.length ? 'Nothing saved in this category yet.' : 'Nothing saved yet. In the Bible, tap a verse and choose ★ Save or ✎ Notes.';
-  view.innerHTML = `<div class="chips scrollx">${['All', 'Personal', ...cats].map(c => `<button class="chip-btn" aria-pressed="${c === savedFilter}" data-f="${esc(c)}">${c === 'Personal' ? '✎ ' : ''}${esc(c)}${c === 'All' ? ` · ${favs.length + notes.length}` : c === 'Personal' ? (notes.length ? ` · ${notes.length}` : '') : counts[c] ? ` · ${counts[c]}` : ''}</button>`).join('')}</div>
+  view.innerHTML = `<div class="chips scrollx">${['All', 'Personal', 'Reflections', ...cats].map(c => `<button class="chip-btn" aria-pressed="${c === savedFilter}" data-f="${esc(c)}">${c === 'Personal' ? '✎ ' : ''}${esc(c)}${c === 'All' ? ` · ${favs.length + notes.length + refls.length}` : c === 'Personal' ? (notes.length ? ` · ${notes.length}` : '') : c === 'Reflections' ? (refls.length ? ` · ${refls.length}` : '') : counts[c] ? ` · ${counts[c]}` : ''}</button>`).join('')}</div>
     <button class="linkbtn" id="manageCats" style="margin:4px 2px 10px">Manage categories</button>
-    <div id="favList">${list.length ? list.map(x => x.isNote ? noteCard(x) : favCard(x)).join('') : `<div class="card"><p style="margin:0">${empty}</p></div>`}</div>`;
+    <div id="favList">${list.length ? list.map(x => x.isNote ? noteCard(x) : x.isRefl ? reflCard(x) : favCard(x)).join('') : `<div class="card"><p style="margin:0">${empty}</p></div>`}</div>`;
   view.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { savedFilter = b.dataset.f; renderSaved(); });
   $('#manageCats').onclick = manageCats;
   view.querySelectorAll('.fav[data-id]').forEach(card => card.addEventListener('click', e => {
@@ -974,6 +1009,14 @@ function renderSaved() {
   }));
   view.querySelectorAll('.fav[data-note]').forEach(card => card.addEventListener('click', () => openNoteSheet(card.dataset.note)));
   view.querySelectorAll('[data-menu]').forEach(b => b.onclick = () => favMenu(b.dataset.menu));
+  view.querySelectorAll('[data-rmenu]').forEach(b => b.onclick = () => {
+    const r = getRefls().find(x => x.id === b.dataset.rmenu); if (!r) return;
+    const s = sheet(`<h3>${esc(r.day)}</h3><p class="muted small" style="margin-top:0">Saved reflection · ${esc(prettyDate(r.date))}</p>
+      <button class="btn ghost block" id="rNote">+ Personal Reflection</button>
+      <button class="btn ghost block danger" id="rDel" style="margin-top:8px">Remove from Saved</button>`);
+    $('#rNote', s).onclick = () => { s.remove(); openNoteSheet(null, Object.assign({ kind: 'reflection', ref: 'Reflection · ' + prettyDate(r.date), note: '' }, { date: r.date, day: r.day, text: r.text, prayer: r.prayer, refs: r.refs })); };
+    $('#rDel', s).onclick = () => { if (!confirm('Remove this saved reflection?')) return; store.set('reflections', getRefls().filter(x => x.id !== r.id)); s.remove(); renderSaved(); toast('Removed'); };
+  });
 }
 function favMenu(id) {
   const f = getFavs().find(x => x.id === id); if (!f) return;
@@ -1021,7 +1064,7 @@ function manageCats() {
 
 /* --- Backup: one small file with highlights, favorites and categories --- */
 function exportBackup() {
-  const data = { app: 'manna', version: 2, exported: new Date().toISOString(), hl: store.get('hl', {}), favs: getFavs(), notes: getNotes(), cats: getCats() };
+  const data = { app: 'manna', version: 2, exported: new Date().toISOString(), hl: store.get('hl', {}), favs: getFavs(), notes: getNotes(), reflections: getRefls(), cats: getCats() };
   const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
   a.download = `manna-backup-${manilaDate()}.json`; document.body.appendChild(a); a.click();
@@ -1039,7 +1082,10 @@ function importBackup(json) {
   const notes = getNotes(), byId = new Map(notes.map(n => [n.id, n]));
   for (const n of d.notes || []) { const have = byId.get(n.id); if (!have) notes.push(n); else if ((n.u || 0) > (have.u || 0)) Object.assign(have, n); }
   notes.sort((a, b) => (b.t || 0) - (a.t || 0));
-  store.set('hl', hl); store.set('favs', favs); store.set('cats', cats); store.set('notes', notes);
+  const refls = getRefls(), rIds = new Set(refls.map(r => r.id));
+  for (const r of d.reflections || []) if (!rIds.has(r.id) && !refls.some(x => x.date === r.date)) refls.push(r);
+  refls.sort((a, b) => (b.t || 0) - (a.t || 0));
+  store.set('hl', hl); store.set('favs', favs); store.set('cats', cats); store.set('notes', notes); store.set('reflections', refls);
   return { highlights: Object.keys(d.hl || {}).length, favorites: (d.favs || []).length, notes: (d.notes || []).length };
 }
 
@@ -1053,7 +1099,7 @@ function renderArmory(opts) {
   });
   Promise.resolve(armoryLoading).then(() => {
     if (current !== 'armory') return;
-    window.MannaArmory.render(opts, { view, $, esc, store, toast, go, sheet, loadMeta, loadVmap, parseRef, versesFor, versesHTML, manilaWeekday, speak, stopSpeak, sayRef });
+    window.MannaArmory.render(opts, { view, $, esc, store, toast, go, sheet, loadMeta, loadVmap, parseRef, versesFor, versesHTML, manilaWeekday, speak, stopSpeak, sayRef, active: () => current === 'armory' });
   }).catch(() => { view.innerHTML = '<p class="muted">The Armory could not load. Connect to the internet once and try again.</p>'; });
 }
 
@@ -1134,8 +1180,12 @@ async function ensureOffline() {
   else if (st.study !== 'done') reg.active.postMessage({ type: 'download', key: 'study', cache: 'manna-study-v1', urls: STUDY_FILES() });
 }
 /* ---------- updates: banner when a new version is ready; "What's new" after updating ---------- */
-const APP_VERSION = 'v9';
+const APP_VERSION = 'v10';
 const WHATS_NEW = {
+  v10: { title: "What's new in Manna", items: [
+    'Keep today\'s reflection: under the Reflection on Today, tap ★ Save to keep it in Saved → Reflections, with its readings and date.',
+    'Or tap + Personal Reflection to quote it and write your own thoughts or prayer below. It goes to Saved → ✎ Personal.'],
+    next: ['Nothing to do. Your highlights, favorites and notes are kept.'] },
   v9: { title: "What's new in Manna", items: [
     'Verse of the Day is now called Manna for today, your daily bread from Scripture.',
     'If you skip updates, this card now lists everything you missed, not just the latest.'],
