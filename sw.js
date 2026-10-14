@@ -1,5 +1,5 @@
 /* Manna service worker: app works offline; Bible books cached; daily readings fetched fresh when online. */
-const VERSION = 'manna-v8';
+const VERSION = 'manna-v9';
 const SHELL = ['./', 'index.html', 'app.js', 'search-worker.js', 'manifest.webmanifest', 'data/books.json', 'data/year.json', 'data/vmap.json', 'data/prayers.json', 'data/votd.json', 'armory.js', 'art.js',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png'];
 const BIBLE = 'manna-bible-v1';

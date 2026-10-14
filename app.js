@@ -542,7 +542,7 @@ async function runSearch(q) {
   worker.postMessage({ words, trans: settings.trans, books: BOOKS.length, max: MAX });
 }
 
-/* ===== VERSE OF THE DAY ===== */
+/* ===== MANNA FOR TODAY (verse of the day) ===== */
 /* 366 hand-picked verses (data/votd.json): one per day, no repeats for a year. Today's verse is kept on the
    phone ('votdToday'), so the list itself is read only once a day and then let go. */
 async function votdFor(date) {
@@ -564,7 +564,7 @@ async function renderVotd(today) {
   const vd = await votdFor(today);
   if (!box.isConnected) return;
   if (!vd || !window.MannaArt) { box.remove(); return; }
-  box.innerHTML = `<div class="eyebrow votdlabel">Verse of the day</div>
+  box.innerHTML = `<div class="eyebrow votdlabel">Manna for today</div>
     <button class="votdframe" id="vdOpen" aria-label="${esc(vd.text + ' ' + vd.ref)}. Open in the Bible"><canvas id="votdCv"></canvas></button>
     <div class="votdbar">
       <button class="btn ghost" id="vdListen">🔊 Listen</button>
@@ -573,7 +573,7 @@ async function renderVotd(today) {
   const cv = $('#votdCv'), fr = cv.parentElement, dpr = Math.min(2, window.devicePixelRatio || 1);
   MannaArt.draw(cv, { theme: vd.theme, seed: vd.ref + vd.date, text: vd.text, ref: vd.ref, w: Math.round(fr.clientWidth * dpr), h: Math.round(fr.clientHeight * dpr) });
   $('#vdOpen').onclick = () => go('bible', { b: vd.b, c: vd.c, v: vd.v });
-  $('#vdListen').onclick = () => speak(['Verse of the day.', vd.text, sayRef(vd.ref) + '.'], 'Verse of the day');
+  $('#vdListen').onclick = () => speak(['Manna for today.', vd.text, sayRef(vd.ref) + '.'], 'Manna for today');
   $('#vdShare').onclick = () => shareVersePicture({ text: vd.text, ref: vd.ref, theme: vd.theme, seed: vd.ref + vd.date });
   $('#toReadings').onclick = () => { const d = $('#dayBox'); if (d) window.scrollTo({ top: d.getBoundingClientRect().top + scrollY - 70, behavior: 'smooth' }); };
 }
@@ -1134,14 +1134,18 @@ async function ensureOffline() {
   else if (st.study !== 'done') reg.active.postMessage({ type: 'download', key: 'study', cache: 'manna-study-v1', urls: STUDY_FILES() });
 }
 /* ---------- updates: banner when a new version is ready; "What's new" after updating ---------- */
-const APP_VERSION = 'v8';
+const APP_VERSION = 'v9';
 const WHATS_NEW = {
+  v9: { title: "What's new in Manna", items: [
+    'Verse of the Day is now called Manna for today, your daily bread from Scripture.',
+    'If you skip updates, this card now lists everything you missed, not just the latest.'],
+    next: ['Nothing to do. Your highlights, favorites and notes are kept.'] },
   v8: { title: "What's new in Manna", items: [
-    'Verse of the Day greets you on Today: a lesser-known verse for daily life, set in its own drawn picture. There\'s a new one each day, and none repeats for a year. Tap the picture to open the verse in the Bible.',
-    'Share as a picture: from the Verse of the Day, or tap any verse → Share. Pictures carry a small Manna mark.',
-    '🔊 Read aloud with your phone\'s own voice: the Verse of the Day, each reading or all of them, any Bible chapter, and Armory prayers.',
+    'Manna for today greets you on Today: a lesser-known verse for daily life, set in its own drawn picture. There\'s a new one each day, and none repeats for a year. Tap the picture to open the verse in the Bible.',
+    'Share as a picture: from Manna for today, or tap any verse → Share. Pictures carry a small Manna mark.',
+    '🔊 Read aloud with your phone\'s own voice: Manna for today, each reading or all of them, any Bible chapter, and Armory prayers.',
     'Settings → Read aloud: choose the voice and speed, and test it.'],
-    next: ['Try 🔊 Listen under the Verse of the Day.', 'If you hear nothing, open Settings → Read aloud → Test the voice.'] },
+    next: ['Try 🔊 Listen under Manna for today.', 'If you hear nothing, open Settings → Read aloud → Test the voice.'] },
   v7: { title: "What's new in Manna", items: [
     'Today: open a reading\'s full text and tap a verse. Highlight, Save, Notes, Compare, Copy and Go deeper all work there, and highlights show in the Bible tab too.',
     'Bible: a search bar sits at the top. Type words, or a passage like John 3:16, then tap search.',
@@ -1178,15 +1182,19 @@ function showUpdateBanner(reg) {
   };
   document.body.appendChild(b);
 }
+const vnum = v => parseInt(String(v || '').replace(/\D/g, ''), 10) || 0;
 function showWhatsNew() {
   const seen = store.get('seenVersion', null);
   if (seen === APP_VERSION) return;
   store.set('seenVersion', APP_VERSION);
-  const wn = WHATS_NEW[APP_VERSION];
   if (!seen && !EXISTING_USER && !store.get('updating', false)) return;   // brand-new install: no "what's new"
   store.set('updating', false);
-  if (!wn) return;
-  const s = sheet(`<h3>${esc(wn.title)}</h3><ul class="wn">${wn.items.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+  // Everything newer than what this phone last saw (skipped updates included), newest first
+  const missed = Object.keys(WHATS_NEW).filter(k => vnum(k) > vnum(seen) && vnum(k) <= vnum(APP_VERSION)).sort((x, y) => vnum(y) - vnum(x));
+  if (!missed.length) return;
+  const items = missed.flatMap(k => WHATS_NEW[k].items), wn = WHATS_NEW[missed[0]];
+  const s = sheet(`<h3>${esc(wn.title)}</h3>${missed.length > 1 ? `<p class="muted small" style="margin-top:0">Includes ${missed.length} updates you hadn't seen yet.</p>` : ''}
+    <ul class="wn">${items.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
     ${wn.next && wn.next.length ? `<div class="note"><b>What to do next</b><ul class="wn">${wn.next.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>` : ''}
     <button class="btn primary block" id="wnOk">Got it</button>`);
   $('#wnOk', s).onclick = () => s.remove();
