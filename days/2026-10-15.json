@@ -1,0 +1,57 @@
+{
+ "date": "2026-10-15",
+ "day": "St. Teresa of Jesus, Virgin and Doctor of the Church",
+ "color": "white",
+ "memorial": "Memorial · Thursday of the 28th Week in Ordinary Time",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Ephesians 1:1-10",
+   "parts": [
+    {
+     "b": "Ephesians",
+     "c": 1,
+     "v": 1,
+     "ev": 10
+    }
+   ],
+   "summary": "Paul blesses God for every spiritual gift in Christ: we were chosen before the world began, adopted as God's children, and forgiven, all part of a plan to gather everything together in Christ."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 98:1, 2-3ab, 3cd-4, 5-6",
+   "psalm": true,
+   "response": "The Lord has made known his salvation.",
+   "parts": [
+    {
+     "b": "Psalms",
+     "c": 98,
+     "v": 1,
+     "ev": 6
+    }
+   ],
+   "summary": "Sing a new song: the whole earth has seen God's saving power, so let harps, trumpets and voices praise the King."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 11:47-54",
+   "parts": [
+    {
+     "b": "Luke",
+     "c": 11,
+     "v": 47,
+     "ev": 54
+    }
+   ],
+   "summary": "Jesus confronts the scholars of the law who honour the prophets' tombs while resisting their message, and who hold the key of knowledge yet keep others from entering. Stung, his opponents begin plotting to trap him."
+  }
+ ],
+ "reflection": "Paul starts today with pure gratitude: before you did anything, you were chosen, adopted and forgiven. Jesus then warns against those who held the key to knowing God but kept the door shut for others. St. Teresa of Ávila, whom we remember today, spent her life opening that door, teaching ordinary people that prayer is simply a friendship with the One who loves us. You don't need perfect words or a quiet monastery; a few honest minutes with God count. Today, take five unhurried minutes to talk to Him as a friend, and if someone near you is searching, open the door instead of guarding it.",
+ "prayer": "Lord, You chose me in love; let nothing disturb me, for whoever has You lacks nothing.",
+ "saint": {
+  "name": "St. Teresa of Jesus (Teresa of Ávila)",
+  "story": "Born in Spain in 1515, Teresa entered the Carmelite convent at Ávila and, after years of a lukewarm prayer life, experienced a deep conversion in her late thirties. She went on to reform the Carmelite order, founding houses devoted to simplicity and prayer despite fierce opposition, travelling across Spain in poor health. Her writings, especially The Interior Castle and The Way of Perfection, teach that prayer is a loving conversation with God. Known for her warmth and humour, she was declared the first woman Doctor of the Church in 1970. She died in 1582."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with catholicreadings.org and Manna's year data",
+ "updated": "2026-10-14T22:06:39Z"
+}
