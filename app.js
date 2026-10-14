@@ -876,7 +876,8 @@ function openSettings() {
     <div class="setrow"><label>Backup</label><p class="small muted" style="margin-top:0">Your highlights, favorites, notes and categories are kept on this phone. Save a backup file now and then, to restore them if you change phones or clear Chrome's data.</p>
       <div class="pickrow"><button class="btn ghost" id="bkSave">Save backup</button><button class="btn ghost" id="bkLoad">Restore</button></div>
       <input type="file" id="bkFile" accept="application/json,.json" class="hidden"></div>
-    <div class="setrow"><label>About the App</label><p class="about">For Kurtny, Drey, &amp; Rollo. A project by Tin Apple Solutions, all honor, praise, and glory belongs to our Lord and Savior Jesus Christ.</p></div>
+    <p class="muted small" style="margin-bottom:0">About the App</p>
+    <p class="muted small about" style="margin-top:2px">For Kurtny, Drey, &amp; Rollo. A project by Tin Apple Solutions, all honor, praise, and glory belongs to our Lord and Savior Jesus Christ.</p>
     <p class="muted small">Manna · Scripture: Catholic Public Domain Version and Douay-Rheims (Challoner), both public domain. Church Fathers: Catena Aurea (public domain). Cross-references: OpenBible.info (CC-BY).</p>`);
   $('#bkSave', s).onclick = () => { exportBackup(); toast('Backup file saved to your Downloads'); };
   $('#bkLoad', s).onclick = () => $('#bkFile', s).click();
@@ -920,8 +921,13 @@ async function ensureOffline() {
   else if (st.study !== 'done') reg.active.postMessage({ type: 'download', key: 'study', cache: 'manna-study-v1', urls: STUDY_FILES() });
 }
 /* ---------- updates: banner when a new version is ready; "What's new" after updating ---------- */
-const APP_VERSION = 'v5';
+const APP_VERSION = 'v6';
 const WHATS_NEW = {
+  v6: { title: "What's new in Manna", items: [
+    'About the App now sits quietly at the bottom of Settings, in the same small print as the credits.',
+    'Update messages now appear in the middle of the screen.',
+    'Also new lately: ✎ Notes, Compare and Copy when you tap a verse; your notes live in Saved → ✎ Personal.'],
+    next: ['Nothing to do. Your highlights, favorites and notes are kept.'] },
   v5: { title: "What's new in Manna", items: [
     'Tap a verse for new tools: ✎ Notes (write a reflection or prayer under the verse), Compare (CPDV and Douay-Rheims side by side), and Copy (pastes anywhere, with the book, chapter and verse).',
     'Your notes live in Saved → ✎ Personal. Tap one to read, edit or delete it.',
