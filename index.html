@@ -92,7 +92,25 @@ nav.tabs button[aria-selected="true"]{color:var(--accent);font-weight:600}
 .sheet .panel{transition:transform .2s ease;will-change:auto}
 .sheet .panel.dragging{transition:none}
 .sheet .panel h3{margin:4px 44px 8px 0}
-.selrow.acts{display:grid;grid-template-columns:repeat(4,1fr) 1.5fr;gap:6px}
+.selrow.acts{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
+.selrow .act.deep{background:var(--accent);color:var(--accent-ink)}
+.selrow.acts .act{white-space:nowrap;font-size:11px;letter-spacing:-.15px;padding:0 1px;overflow:hidden}
+.votd{margin:0 0 4px}
+.votdlabel{margin:2px 4px 8px}
+.votdframe{display:block;width:100%;height:calc(100svh - 64px - var(--nav-h) - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 150px);min-height:380px;max-height:960px;padding:5px;border:1px solid var(--line);border-radius:20px;background:var(--surface);cursor:pointer}
+.votdframe canvas{width:100%;height:100%;display:block;border-radius:15px}
+.votdbar{display:flex;gap:8px;margin-top:10px}.votdbar .btn{flex:1;min-height:44px;gap:6px}
+.tohint{display:block;margin:12px auto 0;padding:6px 12px;color:var(--ink-3);font-size:13px;font-weight:600;letter-spacing:.3px}
+.sharepv canvas{width:100%;aspect-ratio:4/5;height:auto;border-radius:14px;display:block}
+.chaptitle{display:flex;align-items:center;gap:8px;margin:12px 0 8px}.chaptitle h2{flex:1;margin:0;font-size:22px}
+.chaptitle .btn,.listenbtn{min-height:38px;padding:0 12px;font-size:14px}
+.listenbtn{margin:10px 0 0}
+.selectbox{width:100%;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:0 10px;font:inherit;font-size:15px}
+.speakbar{position:fixed;left:8px;right:8px;bottom:calc(var(--nav-h) + env(safe-area-inset-bottom) + 8px);z-index:19;display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 6px 24px rgba(0,0,0,.18);padding:4px 4px 4px 12px;max-width:700px;margin:0 auto}
+.speakbar .sp-t{flex:1;display:flex;flex-direction:column;min-width:0;line-height:1.25}
+.speakbar .sp-t b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:15px}
+.speakbar .iconbtn svg{width:20px;height:20px}
+body.selopen .speakbar{display:none}
 .selrow .act{min-height:50px;border-radius:12px;background:var(--surface-2);color:var(--ink-2);font-size:11.5px;font-weight:600;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:0 2px}
 .selrow .act svg{width:19px;height:19px}
 .selrow .act:active{filter:brightness(.92)}
@@ -206,6 +224,7 @@ ul.wn{margin:8px 0 12px;padding-left:20px}ul.wn li{margin:6px 0}
   <button role="tab" data-tab="saved" aria-selected="false">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Saved</button>
 </nav>
+<script src="art.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

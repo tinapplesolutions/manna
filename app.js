@@ -28,7 +28,9 @@ function manilaWeekday() {
 const settings = {
   theme: store.get('theme', 'modern'),
   trans: store.get('trans', 'cpdv'),
-  size: store.get('size', 19)
+  size: store.get('size', 19),
+  voice: store.get('voice', ''),     // Read aloud: chosen phone voice ('' = automatic)
+  rate: store.get('rate', 1)
 };
 const TRANS = { cpdv: 'CPDV', drc: 'Douay-Rheims' };
 const THEME_BG = { modern: '#FBFAF7', classic: '#F5EEDC', dark: '#121110' };
@@ -235,7 +237,8 @@ function readingCard(r, key) {
       ${r.summary ? `<p class="sum" style="margin-top:8px">${esc(r.summary)}</p>` : ''}
       ${r.approx ? `<p class="muted small" style="margin:8px 0 0">This Bible numbers ${esc(r.parts[0].b)} differently, so the passage may run a verse or two longer or shorter than the lector's.</p>` : ''}
       <div class="full" id="full${key}"></div>
-      <button class="btn ghost block" style="margin-top:12px" data-read="${key}">Read full text</button>
+      <div class="pickrow" style="margin-top:12px"><button class="btn ghost" data-read="${key}">Read full text</button>
+        <button class="btn ghost" data-say="${key}" style="flex:0 0 52px;padding:0" aria-label="Listen to ${esc(r.label)}">🔊</button></div>
     </div>`;
 }
 /* Today's page is kept on the phone for the rest of the day (only ONE day is ever kept — tomorrow replaces it),
@@ -247,8 +250,15 @@ async function renderToday() {
   const today = manilaDate(), run = ++todayRun;
   const cached = todayCached(today);
   let shown = null;
+  // Verse of the Day greets first; the readings fill the box below it
+  view.innerHTML = '<section id="votdBox" class="votd"></section><div id="dayBox"><div class="spinner" aria-label="Loading"></div></div>';
+  renderVotd(today);
+  view.onclick = e => {   // tap a verse in a reading: same tools as the Bible tab
+    const el = e.target.closest('.tapverses .v[data-k]'); if (!el) return;
+    const [b, c, v] = el.dataset.k.split(':').map(Number);
+    toggleSelectAt(b, c, v);
+  };
   if (cached) { shown = dayData = cached; drawToday(today); }
-  else view.innerHTML = '<div class="spinner" aria-label="Loading"></div>';
   // First visit of the day: show the stored readings at once while the reflection & saint load.
   const fresh = await getDay(today, base => { if (!shown && base && run === todayRun) { shown = dayData = base; drawToday(today); } });
   if (run !== todayRun) return;
@@ -264,11 +274,12 @@ async function renderToday() {
 }
 async function drawToday(today) {
   if (current !== 'today') return;
+  const box = $('#dayBox'); if (!box) return;
   clearSelection();
   if (!dayData) {
     const y = await loadYear();
     const ended = y.to && today > y.to;
-    view.innerHTML = `<div class="card"><div class="eyebrow">${esc(prettyDate(today))}</div>
+    box.innerHTML = `<div class="card"><div class="eyebrow">${esc(prettyDate(today))}</div>
       <p>${ended ? "Manna's stored readings ended on " + esc(prettyDate(y.to)) + '. Ask Claude to add the next Church year.' : "Today's readings couldn't be found. Connect to the internet and try again."}</p>
       <p class="muted small">The Bible and Rosary still work as usual.</p></div>`;
     return;
@@ -283,7 +294,8 @@ async function drawToday(today) {
     ${d.note ? `<div class="note" style="margin-bottom:0">${esc(d.note)}</div>` : ''}
     <div style="margin-top:14px"><button class="btn primary block" id="massBtn">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/></svg>
-      Read all readings (Mass mode)</button></div>
+      Read all readings (Mass mode)</button>
+      <button class="btn ghost block" id="listenAll" style="margin-top:8px">🔊 Listen to all readings</button></div>
   </div>`;
   const groups = d.masses ? d.masses : [{ title: null, readings: d.readings }];
   const all = [];
@@ -297,15 +309,19 @@ async function drawToday(today) {
     <div class="daytitle" style="font-size:18px">${esc(d.saint.name)}</div><p style="margin:4px 0 0">${esc(d.saint.story)}</p></div>`;
   if (!d.online) html += `<p class="muted small" style="text-align:center">The reflection and saint of the day appear when you're online.</p>`;
   html += `<p class="muted small" style="text-align:center">Scripture: ${esc(TRANS[settings.trans])} · Calendar: Philippines</p>`;
-  view.innerHTML = html;
+  box.innerHTML = html;
   $('#massBtn').addEventListener('click', openMass);
-  // Tap a verse in a reading: same tools as the Bible tab
-  view.onclick = e => {
-    const el = e.target.closest('.tapverses .v[data-k]'); if (!el) return;
-    const [b, c, v] = el.dataset.k.split(':').map(Number);
-    toggleSelectAt(b, c, v);
+  const readingWords = async r => {
+    const vs = (await Promise.all(r.parts.map(p => versesFor(p, r.bible)))).flat();
+    return [`${r.label}.`, sayRef(r.ref) + '.', r.response ? `Response: ${r.response}` : '', vs.map(x => x.text).join(' ')];
   };
-  view.querySelectorAll('[data-read]').forEach(b => b.addEventListener('click', async () => {
+  $('#listenAll').onclick = async () => {
+    const items = [];
+    for (const g of groups) { if (g.title) items.push(g.title + '.'); for (const r of g.readings) items.push(...await readingWords(r).catch(() => [])); }
+    speak(items, "Today's readings");
+  };
+  box.querySelectorAll('[data-say]').forEach(b => b.onclick = async () => { const r = all[b.dataset.say]; speak(await readingWords(r).catch(() => []), r.label); });
+  box.querySelectorAll('[data-read]').forEach(b => b.addEventListener('click', async () => {
     const k = b.dataset.read, r = all[k], box = $('#full' + k);
     if (box.innerHTML) { if (box.querySelector('.v.sel')) clearSelection(); box.innerHTML = ''; b.textContent = 'Read full text'; return; }
     box.innerHTML = '<div class="spinner"></div>';
@@ -373,7 +389,7 @@ async function renderBible(opts) {
       <button class="btn ghost" id="sizeBtn" style="flex:0 0 52px;padding:0;font-weight:700" aria-label="Text size"><span style="width:100%;text-align:center">A<span style="font-size:.75em">a</span></span></button>
     </div>
     <p class="muted small" style="margin:2px 2px 0">Tap a verse to highlight, save, add notes, and more.</p>
-    <h2 style="margin:12px 0 8px;font-size:22px">${esc(chLabel)}</h2>
+    <div class="chaptitle"><h2>${esc(chLabel)}</h2><button class="btn ghost" id="sayChap" aria-label="Listen to this chapter">🔊 Listen</button></div>
     <div id="chap"><div class="spinner"></div></div>
     <div class="chapnav"><button class="btn ghost" id="prev">‹ Previous</button><button class="btn ghost" id="next">Next ›</button></div>
     <p class="muted small" style="text-align:center">${esc(TRANS[settings.trans])}${B.n === 'Psalms' ? ' · Psalms use Greek numbering; Hebrew number in brackets' : ''}</p>`;
@@ -381,6 +397,10 @@ async function renderBible(opts) {
   $('#pickChap').addEventListener('click', () => chapSheet(pos.b));
   $('#bsf').addEventListener('submit', e => { e.preventDefault(); const q = $('#bq').value.trim(); if (q) go('search', { q }); });
   $('#sizeBtn').addEventListener('click', sizeSheet);
+  $('#sayChap').addEventListener('click', async () => {
+    const book = await loadBook(pos.b).catch(() => null); if (!book) return;
+    speak([(B.n === 'Psalms' ? 'Psalm ' + String(psalmLabel(pos.c)).replace(/.*\((\d+)\).*/, '$1') : `${B.n}, chapter ${pos.c}`) + '.', ...(book[pos.c - 1] || [])], chLabel);
+  });
   $('#prev').addEventListener('click', () => step(-1));
   $('#next').addEventListener('click', () => step(1));
   try {
@@ -522,6 +542,141 @@ async function runSearch(q) {
   worker.postMessage({ words, trans: settings.trans, books: BOOKS.length, max: MAX });
 }
 
+/* ===== VERSE OF THE DAY ===== */
+/* 366 hand-picked verses (data/votd.json): one per day, no repeats for a year. Today's verse is kept on the
+   phone ('votdToday'), so the list itself is read only once a day and then let go. */
+async function votdFor(date) {
+  const c = store.get('votdToday', null);
+  if (c && c.date === date && c.trans === settings.trans) return c;
+  let list;
+  try { list = await (await fetch('data/votd.json')).json(); } catch { return c && c.date === date ? c : null; }
+  await loadMeta();
+  const [y, m, d] = date.split('-').map(Number);
+  const n = Math.round((Date.UTC(y, m - 1, d) - Date.UTC(2026, 0, 1)) / 864e5), L = list.v.length;
+  const row = list.v[((n % L) + L) % L];
+  const out = { date, trans: settings.trans, b: row[0], c: row[1], v: row[2], ev: row[3], theme: list.themes[row[4]], text: settings.trans === 'drc' ? row[6] : row[5] };
+  out.ref = refLabel(out.b, out.c, out.v, out.ev);
+  store.set('votdToday', out);
+  return out;
+}
+async function renderVotd(today) {
+  const box = $('#votdBox'); if (!box) return;
+  const vd = await votdFor(today);
+  if (!box.isConnected) return;
+  if (!vd || !window.MannaArt) { box.remove(); return; }
+  box.innerHTML = `<div class="eyebrow votdlabel">Verse of the day</div>
+    <button class="votdframe" id="vdOpen" aria-label="${esc(vd.text + ' ' + vd.ref)}. Open in the Bible"><canvas id="votdCv"></canvas></button>
+    <div class="votdbar">
+      <button class="btn ghost" id="vdListen">🔊 Listen</button>
+      <button class="btn ghost" id="vdShare"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg> Share</button></div>
+    <button class="tohint" id="toReadings">Today's readings ↓</button>`;
+  const cv = $('#votdCv'), fr = cv.parentElement, dpr = Math.min(2, window.devicePixelRatio || 1);
+  MannaArt.draw(cv, { theme: vd.theme, seed: vd.ref + vd.date, text: vd.text, ref: vd.ref, w: Math.round(fr.clientWidth * dpr), h: Math.round(fr.clientHeight * dpr) });
+  $('#vdOpen').onclick = () => go('bible', { b: vd.b, c: vd.c, v: vd.v });
+  $('#vdListen').onclick = () => speak(['Verse of the day.', vd.text, sayRef(vd.ref) + '.'], 'Verse of the day');
+  $('#vdShare').onclick = () => shareVersePicture({ text: vd.text, ref: vd.ref, theme: vd.theme, seed: vd.ref + vd.date });
+  $('#toReadings').onclick = () => { const d = $('#dayBox'); if (d) window.scrollTo({ top: d.getBoundingClientRect().top + scrollY - 70, behavior: 'smooth' }); };
+}
+
+/* ===== SHARE A VERSE AS A PICTURE ===== */
+/* Drawn on the spot (1080×1350, good for Messenger/Facebook), handed to the phone's share menu, then thrown away. */
+async function shareVersePicture({ text, ref, theme, seed }) {
+  let cv = document.createElement('canvas');
+  MannaArt.draw(cv, { theme, seed, text, ref, w: 1080, h: 1350, mark: true });
+  const blob = await new Promise(r => cv.toBlob(r, 'image/png'));
+  cv.width = cv.height = 0; cv = null;   // free the picture's memory right away
+  if (!blob) { toast("The picture couldn't be made"); return 'failed'; }
+  const name = 'manna-' + ref.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '.png';
+  const file = new File([blob], name, { type: 'image/png' });
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    try { await navigator.share({ files: [file], title: ref }); return 'shared'; }
+    catch (e) { if (e && e.name === 'AbortError') return 'cancelled'; }
+  }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+  toast('Picture saved to your Downloads'); return 'saved';
+}
+async function openSharePicture() {
+  const list = selRange().list, ref = selLabel(sel.b, sel.c, list);
+  const text = (await versesOf(sel.b, sel.c, list)).map(x => x.t).join(' ');
+  if (text.length > 420) { toast('Too long for one picture. Pick up to about 4 verses.'); return; }
+  let n = 0;
+  const s = sheet(`<h3>Share as picture</h3><p class="muted small" style="margin-top:0">${esc(ref)} · tap ↻ for a different picture</p>
+    <div class="sharepv"><canvas id="shCv"></canvas></div>
+    <div class="pickrow" style="margin-top:12px"><button class="btn ghost" id="shAgain" style="justify-content:center">↻ Different picture</button><button class="btn primary" id="shGo" style="justify-content:center">Share</button></div>`);
+  s.querySelector('.panel').classList.add('tall');
+  const draw = () => MannaArt.draw($('#shCv', s), { seed: ref + ':' + n, text, ref, w: 540, h: 675, mark: true });
+  draw();
+  $('#shAgain', s).onclick = () => { n++; draw(); };
+  $('#shGo', s).onclick = () => shareVersePicture({ text, ref, seed: ref + ':' + n });
+}
+
+/* ===== READ ALOUD — uses the voices already on the phone (nothing downloaded) ===== */
+const TTS = { q: [], i: 0, label: '', on: false, paused: false, gen: 0 };
+const ttsOK = () => 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
+function englishVoices() { try { return speechSynthesis.getVoices().filter(v => /^en/i.test(v.lang)); } catch { return []; } }
+function pickVoice() {
+  const vs = englishVoices();
+  return vs.find(v => v.name === settings.voice) || vs.find(v => v.localService && /en[-_](PH|US)/i.test(v.lang)) ||
+    vs.find(v => v.localService) || vs.find(v => /en[-_](PH|US)/i.test(v.lang)) || vs[0] || null;
+}
+/* "Galatians 5:18-25" -> "Galatians, chapter 5, verses 18 to 25"; "Psalm 22 (23):1" -> "Psalm 23, verse 1" */
+function sayRef(ref) {
+  ref = String(ref).replace(/(\d+) \((\d+)\)/g, '$2');
+  const m = ref.match(/^(.*?)\s(\d+):(.+)$/); if (!m) return ref;
+  const vs = m[3].replace(/(\d+):(\d+)/g, 'chapter $1 verse $2').replace(/\s*[-–]\s*/g, ' to ').replace(/,\s*/g, ' and ');
+  return `${m[1]}${/^Psalm/.test(m[1]) ? ' ' + m[2] : ', chapter ' + m[2]}, ${/to|and/.test(vs) ? 'verses' : 'verse'} ${vs}`;
+}
+function ttsChunks(text) {   // short pieces (sentences) read more reliably on phones
+  const out = []; let cur = '';
+  for (const part of String(text || '').replace(/\s+/g, ' ').trim().match(/[^.!?;:]+[.!?;:]*["”’)]*\s*/g) || []) {
+    if ((cur + part).length > 220 && cur) { out.push(cur.trim()); cur = ''; }
+    cur += part;
+  }
+  if (cur.trim()) out.push(cur.trim());
+  return out;
+}
+function speak(items, label) {
+  if (!ttsOK()) { toast("Read aloud isn't available in this browser"); return; }
+  const q = items.flatMap(ttsChunks);
+  if (!q.length) { toast('Nothing to read yet'); return; }
+  TTS.gen++; try { speechSynthesis.cancel(); } catch {}
+  Object.assign(TTS, { q, i: 0, label, on: true, paused: false });
+  speakBar(); requestWake();
+  setTimeout(ttsNext, 80);   // phones need a moment after cancel()
+}
+function ttsNext() {
+  if (!TTS.on || TTS.paused) return;
+  if (TTS.i >= TTS.q.length) { stopSpeak(); return; }
+  const my = TTS.gen, u = new SpeechSynthesisUtterance(TTS.q[TTS.i]), v = pickVoice();
+  if (v) { u.voice = v; u.lang = v.lang; } else u.lang = 'en-US';
+  u.rate = +settings.rate || 1;
+  u.onend = () => { if (my !== TTS.gen) return; TTS.i++; speakBar(); ttsNext(); };
+  u.onerror = e => {
+    if (my !== TTS.gen || /interrupted|canceled/.test(e.error)) return;
+    stopSpeak(); toast("Read aloud couldn't start. Try Settings → Read aloud → Test.");
+  };
+  speechSynthesis.speak(u);
+}
+function pauseSpeak() { if (!TTS.on) return; TTS.paused = true; TTS.gen++; try { speechSynthesis.cancel(); } catch {} speakBar(); }
+function resumeSpeak() { if (!TTS.on) return; TTS.paused = false; TTS.gen++; speakBar(); setTimeout(ttsNext, 80); }
+function stopSpeak() {
+  TTS.on = false; TTS.paused = false; TTS.gen++; TTS.q = [];
+  try { speechSynthesis.cancel(); } catch {}
+  const b = $('#speakbar'); if (b) b.remove();
+  if (!document.querySelector('.massview')) releaseWake();
+}
+function speakBar() {
+  let b = $('#speakbar');
+  if (!TTS.on) { if (b) b.remove(); return; }
+  if (!b) { b = document.createElement('div'); b.id = 'speakbar'; b.className = 'speakbar'; document.body.appendChild(b); }
+  b.innerHTML = `<span class="sp-ic">🔊</span><span class="sp-t"><b>${esc(TTS.label)}</b><span class="muted small">${TTS.paused ? 'Paused' : 'Reading aloud'} · ${Math.min(TTS.i + 1, TTS.q.length)} of ${TTS.q.length}</span></span>
+    <button class="iconbtn" id="spPause" aria-label="${TTS.paused ? 'Resume' : 'Pause'}">${TTS.paused ? '▶' : '❚❚'}</button>
+    <button class="iconbtn" id="spStop" aria-label="Stop reading"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg></button>`;
+  $('#spPause', b).onclick = () => TTS.paused ? resumeSpeak() : pauseSpeak();
+  $('#spStop', b).onclick = stopSpeak;
+}
+
 /* ===== VERSE SELECTION · HIGHLIGHTS · FAVORITES · STUDY ===== */
 /* Everything here is stored on the phone (localStorage). Keys use this Bible's own numbering:
    "bookIndex:chapter:verse", which is the same for CPDV and Douay-Rheims. */
@@ -568,7 +723,8 @@ function showSelBar() {
       <button class="act" data-act="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Notes</button>
       <button class="act" data-act="compare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4 3 8l4 4"/><path d="M3 8h13"/><path d="m17 12 4 4-4 4"/><path d="M21 16H8"/></svg>Compare</button>
       <button class="act" data-act="copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>Copy</button>
-      <button class="btn primary" data-act="deeper">Go deeper</button></div>`;
+      <button class="act" data-act="share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>Share</button>
+      <button class="act deep" data-act="deeper"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M9 7h7M9 11h5"/></svg>Go deeper</button></div>`;
   bar.onclick = e => {
     const t = e.target.closest('button'); if (!t) return;
     if (t.dataset.hl !== undefined) return applyHighlight(t.dataset.hl);
@@ -578,6 +734,7 @@ function showSelBar() {
     if (a === 'note') return openNoteSheet();
     if (a === 'compare') return openCompare();
     if (a === 'copy') return copyVerses();
+    if (a === 'share') return openSharePicture();
     if (a === 'deeper') return openStudy();
   };
 }
@@ -896,7 +1053,7 @@ function renderArmory(opts) {
   });
   Promise.resolve(armoryLoading).then(() => {
     if (current !== 'armory') return;
-    window.MannaArmory.render(opts, { view, $, esc, store, toast, go, sheet, loadMeta, loadVmap, parseRef, versesFor, versesHTML, manilaWeekday });
+    window.MannaArmory.render(opts, { view, $, esc, store, toast, go, sheet, loadMeta, loadVmap, parseRef, versesFor, versesHTML, manilaWeekday, speak, stopSpeak, sayRef });
   }).catch(() => { view.innerHTML = '<p class="muted">The Armory could not load. Connect to the internet once and try again.</p>'; });
 }
 
@@ -910,6 +1067,11 @@ function openSettings() {
     <div class="setrow"><label>Reading text size</label><div class="seg">
       <button data-size="-1">A−</button><button aria-pressed="true" id="sizeNow">Size ${settings.size}</button><button data-size="1">A+</button></div>
       <p class="scripture" id="sizePreview" style="margin-top:10px">Give us this day our daily bread.</p></div>
+    <div class="setrow"><label>Read aloud</label>
+      <select id="ttsVoice" class="selectbox" aria-label="Voice"></select>
+      <div class="seg" style="margin-top:8px">${[['0.85', 'Slower'], ['1', 'Normal'], ['1.15', 'Faster']].map(([v, l]) => `<button data-rate="${v}" aria-pressed="${String(settings.rate) === v}">${l}</button>`).join('')}</div>
+      <button class="btn ghost block" id="ttsTest" style="margin-top:8px">🔊 Test the voice</button>
+      <p class="small muted" id="ttsInfo" style="margin-bottom:0">Uses the voices already on your phone.</p></div>
     <div class="setrow"><label>Offline</label><p class="small" id="offStat">Checking…</p><p class="small" id="studyStat"></p></div>
     <div class="setrow"><label>Backup</label><p class="small muted" style="margin-top:0">Your highlights, favorites, notes and categories are kept on this phone. Save a backup file now and then, to restore them if you change phones or clear Chrome's data.</p>
       <div class="pickrow"><button class="btn ghost" id="bkSave">Save backup</button><button class="btn ghost" id="bkLoad">Restore</button></div>
@@ -933,6 +1095,19 @@ function openSettings() {
     saveSetting('size', Math.max(14, Math.min(30, settings.size + +b.dataset.size)));
     $('#sizeNow', s).textContent = 'Size ' + settings.size;
   }));
+  // Read aloud settings
+  const fillVoices = () => {
+    const sel = $('#ttsVoice', s); if (!sel) return;
+    const vs = englishVoices(), cur = pickVoice();
+    sel.innerHTML = `<option value="">Automatic${cur ? ' (' + esc(cur.name) + ')' : ''}</option>` +
+      vs.map(v => `<option value="${esc(v.name)}"${v.name === settings.voice ? ' selected' : ''}>${esc(v.name)} · ${esc(v.lang)}${v.localService ? ' · offline' : ''}</option>`).join('');
+    $('#ttsInfo', s).textContent = !ttsOK() ? "Read aloud isn't available in this browser." : vs.length ? `${vs.length} English voice${vs.length > 1 ? 's' : ''} found on this phone.` : "No voice list yet. Tap Test: the phone's default voice will be used.";
+  };
+  fillVoices();
+  if (ttsOK()) { try { speechSynthesis.addEventListener('voiceschanged', fillVoices); } catch {} }
+  $('#ttsVoice', s).onchange = e => saveSetting('voice', e.target.value);
+  s.querySelectorAll('[data-rate]').forEach(b => b.onclick = () => { saveSetting('rate', +b.dataset.rate); s.querySelectorAll('[data-rate]').forEach(x => x.setAttribute('aria-pressed', x === b)); });
+  $('#ttsTest', s).onclick = () => speak(['Give us this day our daily bread.'], 'Voice test');
   updateOffStat();
 }
 async function updateOffStat() {
@@ -959,8 +1134,14 @@ async function ensureOffline() {
   else if (st.study !== 'done') reg.active.postMessage({ type: 'download', key: 'study', cache: 'manna-study-v1', urls: STUDY_FILES() });
 }
 /* ---------- updates: banner when a new version is ready; "What's new" after updating ---------- */
-const APP_VERSION = 'v7';
+const APP_VERSION = 'v8';
 const WHATS_NEW = {
+  v8: { title: "What's new in Manna", items: [
+    'Verse of the Day greets you on Today: a lesser-known verse for daily life, set in its own drawn picture. There\'s a new one each day, and none repeats for a year. Tap the picture to open the verse in the Bible.',
+    'Share as a picture: from the Verse of the Day, or tap any verse → Share. Pictures carry a small Manna mark.',
+    '🔊 Read aloud with your phone\'s own voice: the Verse of the Day, each reading or all of them, any Bible chapter, and Armory prayers.',
+    'Settings → Read aloud: choose the voice and speed, and test it.'],
+    next: ['Try 🔊 Listen under the Verse of the Day.', 'If you hear nothing, open Settings → Read aloud → Test the voice.'] },
   v7: { title: "What's new in Manna", items: [
     'Today: open a reading\'s full text and tap a verse. Highlight, Save, Notes, Compare, Copy and Go deeper all work there, and highlights show in the Bible tab too.',
     'Bible: a search bar sits at the top. Type words, or a passage like John 3:16, then tap search.',

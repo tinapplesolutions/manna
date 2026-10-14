@@ -147,8 +147,10 @@ async function prayer(id) {
   const cat = d.categories.find(c => c.id === p.cat);
   view.innerHTML = `<button class="btn ghost" id="armBack" style="min-height:40px;margin:4px 0">‹ Armory</button>
     <div class="card"><div class="eyebrow">${cat ? cat.icon + ' ' + esc(cat.name) : ''}</div><div class="daytitle">${esc(p.name)}</div>
+    <button class="btn ghost listenbtn" id="sayPrayer">🔊 Listen</button>
     <p class="prayertext">${esc(p.text)}</p></div>`;
   A.$('#armBack').onclick = () => A.go('armory');
+  A.$('#sayPrayer').onclick = () => A.speak([p.name + '.', p.text], p.name);
 }
 function chaplet(id, set, i) {
   const { view, esc, $ } = A;
@@ -167,11 +169,20 @@ function chaplet(id, set, i) {
     <div class="chaphead"><span class="eyebrow">${esc(title)} · ${i + 1} of ${steps.length}</span><button class="linkbtn" id="jump">Jump to ▾</button></div>
     <div class="card"><div class="muted small">${esc(groups[g].title)}</div>
       <div class="daytitle">${esc(s.t)}</div>${s.sub ? `<div class="muted small">${esc(s.sub)}</div>` : ''}
+      <button class="btn ghost listenbtn" id="sayStep">🔊 Listen</button>
       ${beads}${body}</div>
     ${nextGroupStart > 0 ? `<button class="btn ghost block" id="skipNext" style="margin-top:4px">Skip to ${esc(groups[g + 1].title.split(':')[0])} ⏭</button>` : ''}
     <div class="stepnav"><button class="btn ghost" id="rBack">${i ? '‹ Back' : 'Exit'}</button>
       <button class="btn primary" id="rNext">${i === steps.length - 1 ? 'Finish' : 'Next ›'}</button></div>`;
-  const goto = n => { chaplet(id, set, n); scrollTo(0, 0); };
+  const goto = n => { A.stopSpeak(); chaplet(id, set, n); scrollTo(0, 0); };
+  $('#sayStep').onclick = () => {
+    const words = [s.t + '.'];
+    if (s.mystery) {
+      words.push(s.mystery[0] + '.'); if (s.mystery[2]) words.push('Fruit of the mystery: ' + s.mystery[2] + '.');
+      const sc = $('#mtext .scripture'); if (sc) { const c = sc.cloneNode(true); c.querySelectorAll('.vn').forEach(x => x.remove()); words.push(c.textContent); }
+    } else words.push(s.p);
+    A.speak(words, s.t);
+  };
   const next = () => {
     if (i === steps.length - 1) { A.toast(`${title} complete. God bless you. 🙏`); A.go('armory'); }
     else goto(i + 1);
