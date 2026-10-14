@@ -97,6 +97,7 @@ function lectToBible(book, c, v) {
    bibleNumbers=true: part already uses this Bible's numbering (stored year data).
    bibleNumbers=false: part uses Mass-reading numbering (daily online data) and is mapped verse by verse. */
 async function versesFor(part, bibleNumbers = false, trans = settings.trans) {
+  await loadMeta();
   const idx = bookIndex(part.b); if (idx < 0) return [];
   const book = await loadBook(idx, trans);
   if (!bibleNumbers) await loadVmap();
@@ -189,16 +190,19 @@ async function loadYear() {
   try { YEAR = await (await fetch('data/year.json')).json(); } catch { YEAR = { days: {} }; }
   return YEAR;
 }
-async function getDay(date) {
+async function getDay(date, onBase) {
   const y = await loadYear();
   const base = y.days[date] ? JSON.parse(JSON.stringify(y.days[date])) : null;
   if (base) {
     base.readings.forEach(r => r.bible = true);
     (base.masses || []).forEach(m => m.readings.forEach(r => r.bible = true));
   }
+  if (onBase) onBase(base);   // the readings stored on the phone can be shown right away
   let online = null;
   try {
-    const r = await fetch(`days/${date}.json`, { cache: 'no-cache' });
+    // Slow Wi-Fi shouldn't hold the page hostage: give up after 8 seconds and use the stored readings.
+    const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 8000);
+    const r = await fetch(`days/${date}.json`, { cache: 'no-cache', signal: ctl.signal }).finally(() => clearTimeout(timer));
     if (r.ok) { const j = await r.json(); if (j && j.date === date) online = j; }
   } catch {}
   if (!online) return base;
@@ -222,12 +226,31 @@ function readingCard(r, key) {
       <button class="btn ghost block" style="margin-top:12px" data-read="${key}">Read full text</button>
     </div>`;
 }
+/* Today's page is kept on the phone for the rest of the day (only ONE day is ever kept — tomorrow replaces it),
+   so reopening is instant. A quiet check in the background picks up anything newer. */
+function todayCached(date) { const c = store.get('todayCache', null); return c && c.date === date ? c.data : null; }
+let todayRun = 0;
 async function renderToday() {
   $('#title').textContent = 'Today';
-  view.innerHTML = '<div class="spinner" aria-label="Loading"></div>';
-  await loadMeta();
-  const today = manilaDate();
-  dayData = await getDay(today);
+  const today = manilaDate(), run = ++todayRun;
+  const cached = todayCached(today);
+  let shown = null;
+  if (cached) { shown = dayData = cached; drawToday(today); }
+  else view.innerHTML = '<div class="spinner" aria-label="Loading"></div>';
+  // First visit of the day: show the stored readings at once while the reflection & saint load.
+  const fresh = await getDay(today, base => { if (!shown && base && run === todayRun) { shown = dayData = base; drawToday(today); } });
+  if (run !== todayRun) return;
+  if (fresh) {
+    if (fresh.online || !cached) store.set('todayCache', { date: today, data: fresh });
+    const changed = !shown || JSON.stringify(fresh) !== JSON.stringify(shown);
+    // Redraw only if something changed and the person isn't in the middle of reading a passage.
+    if (changed && !(fresh === shown) && !(shown && !fresh.online)) {
+      dayData = fresh;
+      if (current === 'today' && !(shown && view.querySelector('.full:not(:empty)'))) drawToday(today);
+    }
+  } else if (!shown) { dayData = null; if (current === 'today') drawToday(today); }
+}
+async function drawToday(today) {
   if (current !== 'today') return;
   if (!dayData) {
     const y = await loadYear();
@@ -341,11 +364,11 @@ async function renderBible(opts) {
   try {
     const book = await loadBook(pos.b);
     if (current !== 'bible') return;
-    const hl = store.get('hl', {}), favSet = favVerseSet();
+    const hl = store.get('hl', {}), favSet = favVerseSet(), noteSet = noteVerseSet();
     let html = '<div class="scripture" id="chapText"><p>';
     (book[pos.c - 1] || []).forEach((t, i) => {
       const v = i + 1, key = `${pos.b}:${pos.c}:${v}`;
-      html += `<span class="v${hl[key] ? ' hl' + hl[key] : ''}" data-v="${v}" id="v${v}"><span class="vn">${v}${favSet.has(key) ? '★' : ''}</span>${esc(t)} </span>`;
+      html += `<span class="v${hl[key] ? ' hl' + hl[key] : ''}" data-v="${v}" id="v${v}"><span class="vn">${v}${favSet.has(key) ? '★' : ''}${noteSet.has(key) ? '✎' : ''}</span>${esc(t)} </span>`;
     });
     $('#chap').innerHTML = html + '</p></div>';
     $('#chapText').addEventListener('click', e => { const el = e.target.closest('.v'); if (el) toggleSelect(+el.dataset.v); });
@@ -362,10 +385,33 @@ function step(d) {
   else if (c > BOOKS[b].c) { if (b === BOOKS.length - 1) return; b++; c = 1; }
   go('bible', { b, c });
 }
+const SHEET_TOP = `<div class="grabzone"><div class="grab"></div><button class="iconbtn sheetx" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>`;
 function sheet(inner) {
   const s = document.createElement('div'); s.className = 'sheet';
-  s.innerHTML = `<div class="panel"><div class="grab"></div>${inner}</div>`;
-  s.addEventListener('click', e => { if (e.target === s) s.remove(); });
+  s.innerHTML = `<div class="panel">${SHEET_TOP}${inner}</div>`;
+  const panel = s.firstChild;
+  s.addEventListener('click', e => { if (e.target === s || e.target.closest('.sheetx')) s.remove(); });
+  // Swipe down to close: drag from the handle area, or anywhere when the panel is scrolled to the top.
+  let y0 = null, dy = 0;
+  panel.addEventListener('touchstart', e => {
+    const fromTop = e.target.closest('.grabzone');
+    if (!fromTop && panel.scrollTop > 0) { y0 = null; return; }
+    if (e.target.closest('textarea,input')) { y0 = null; return; }
+    y0 = e.touches[0].clientY; dy = 0;
+  }, { passive: true });
+  panel.addEventListener('touchmove', e => {
+    if (y0 === null) return;
+    dy = e.touches[0].clientY - y0;
+    if (dy > 0 && panel.scrollTop <= 0) { panel.classList.add('dragging'); panel.style.transform = `translateY(${dy}px)`; if (e.cancelable) e.preventDefault(); }
+    else if (dy < 0) { y0 = null; panel.style.transform = ''; panel.classList.remove('dragging'); }
+  }, { passive: false });
+  const end = () => {
+    if (y0 === null) return; y0 = null;
+    panel.classList.remove('dragging');
+    if (dy > 90) { panel.style.transform = 'translateY(100%)'; setTimeout(() => s.remove(), 180); }
+    else panel.style.transform = '';
+  };
+  panel.addEventListener('touchend', end); panel.addEventListener('touchcancel', end);
   document.body.appendChild(s); return s;
 }
 function bookSheet() {
@@ -479,14 +525,117 @@ function showSelBar() {
       <button class="iconbtn" data-act="close" aria-label="Clear selection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
     <div class="selrow">${HL_COLORS.map(([k, n]) => `<button class="swatch hl${k}" data-hl="${k}" aria-label="Highlight ${n}"></button>`).join('')}
       <button class="swatch none" data-hl="0" aria-label="Remove highlight">⌫</button></div>
-    <div class="selrow"><button class="btn ghost" data-act="save">★ Save</button><button class="btn primary" data-act="deeper">Go deeper</button></div>`;
+    <div class="selrow acts">
+      <button class="act" data-act="save"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z"/></svg>Save</button>
+      <button class="act" data-act="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Notes</button>
+      <button class="act" data-act="compare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4 3 8l4 4"/><path d="M3 8h13"/><path d="m17 12 4 4-4 4"/><path d="M21 16H8"/></svg>Compare</button>
+      <button class="act" data-act="copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>Copy</button>
+      <button class="btn primary" data-act="deeper">Go deeper</button></div>`;
   bar.onclick = e => {
     const t = e.target.closest('button'); if (!t) return;
     if (t.dataset.hl !== undefined) return applyHighlight(t.dataset.hl);
-    if (t.dataset.act === 'close') return clearSelection();
-    if (t.dataset.act === 'save') return saveFavSheet();
-    if (t.dataset.act === 'deeper') return openStudy();
+    const a = t.dataset.act;
+    if (a === 'close') return clearSelection();
+    if (a === 'save') return saveFavSheet();
+    if (a === 'note') return openNoteSheet();
+    if (a === 'compare') return openCompare();
+    if (a === 'copy') return copyVerses();
+    if (a === 'deeper') return openStudy();
   };
+}
+/* "John 3:16–17, 20" — exact verses, even when the picked ones aren't side by side */
+function selLabel(b, c, list) {
+  const head = BOOKS[b].n === 'Psalms' ? 'Psalm ' + psalmLabel(c) : `${BOOKS[b].n} ${c}`;
+  const parts = []; let i = 0;
+  while (i < list.length) { let j = i; while (j + 1 < list.length && list[j + 1] === list[j] + 1) j++; parts.push(i === j ? `${list[i]}` : `${list[i]}–${list[j]}`); i = j + 1; }
+  return `${head}:${parts.join(', ')}`;
+}
+async function versesOf(b, c, list, trans = settings.trans) {
+  const book = await loadBook(b, trans);
+  return list.map(v => ({ v, t: (book[c - 1] || [])[v - 1] || '' }));
+}
+const joinVerses = vs => vs.length === 1 ? vs[0].t : vs.map(x => `${x.v} ${x.t}`).join(' ');
+
+/* --- Copy: text plus the reference, ready to paste anywhere --- */
+async function copyVerses() {
+  const list = selRange().list, ref = selLabel(pos.b, pos.c, list);
+  const vs = await versesOf(pos.b, pos.c, list);
+  const out = `"${joinVerses(vs)}" — ${ref} (${TRANS[settings.trans]})`;
+  let ok = false;
+  try { await navigator.clipboard.writeText(out); ok = true; } catch {}
+  if (!ok) {   // older fallback
+    const ta = document.createElement('textarea'); ta.value = out; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;opacity:0;top:0';
+    document.body.appendChild(ta); ta.select(); try { ok = document.execCommand('copy'); } catch {} ta.remove();
+  }
+  toast(ok ? `Copied ${ref}` : 'Copying isn\'t allowed here');
+  if (ok) clearSelection();
+  return out;
+}
+
+/* --- Compare: CPDV and Douay-Rheims side by side, current version first --- */
+async function openCompare() {
+  const list = selRange().list, b = pos.b, c = pos.c, ref = selLabel(b, c, list);
+  const order = settings.trans === 'cpdv' ? ['cpdv', 'drc'] : ['drc', 'cpdv'];
+  const s = sheet(`<h3>Compare · ${esc(ref)}</h3><div id="cmpBody"><div class="spinner"></div></div>`);
+  let a, z;
+  try { [a, z] = await Promise.all(order.map(t => versesOf(b, c, list, t))); }
+  catch { const body = $('#cmpBody', s); if (body) body.innerHTML = `<p class="muted">The ${TRANS[order[1]]} isn't saved on this phone yet. Connect to the internet once and try again.</p>`; return; }
+  const body = $('#cmpBody', s); if (!body) return;
+  body.innerHTML = list.map((v, i) => `<div class="cmp">${list.length > 1 ? `<div class="vnum">Verse ${v}</div>` : ''}
+      <div class="tl">${esc(TRANS[order[0]])}</div><p class="scripture">${esc(a[i].t)}</p>
+      <div class="tl">${esc(TRANS[order[1]])}</div><p class="scripture">${esc(z[i].t)}</p></div>`).join('') +
+    `<p class="muted small">Both are complete Catholic Bibles with the same verse numbering. Change your main version in Settings.</p>`;
+}
+
+/* --- Personal notes: the verses quoted, with your reflection or prayer below --- */
+function getNotes() { return store.get('notes', []); }
+function noteVerseSet() {
+  const s = new Set();
+  for (const n of getNotes()) for (const v of n.list) s.add(`${n.b}:${n.c}:${v}`);
+  return s;
+}
+let noteDraft = null;   // keeps unsaved writing if the sheet is closed by accident (memory only, one at a time)
+async function openNoteSheet(existingId) {
+  let n = existingId ? getNotes().find(x => x.id === existingId) : null;
+  if (existingId && !n) return;
+  if (!n) {
+    const list = selRange().list;
+    const vs = await versesOf(pos.b, pos.c, list);
+    n = { b: pos.b, c: pos.c, list, ref: selLabel(pos.b, pos.c, list), text: joinVerses(vs), trans: settings.trans, note: '' };
+  }
+  const dkey = n.id || `${n.b}:${n.c}:${n.list.join(',')}`;
+  const start = noteDraft && noteDraft.key === dkey ? noteDraft.text : n.note;
+  const s = sheet(`<h3>${n.id ? 'Your note' : 'New note'}</h3>
+    <div class="quote"><div class="qref">${esc(n.ref)} <span class="muted small">(${esc(TRANS[n.trans] || '')})</span></div><p class="scripture" style="margin:0">${esc(n.text)}</p></div>
+    <textarea class="notebox" id="noteText" placeholder="Write a reflection, a prayer, or what this passage says to you…">${esc(start)}</textarea>
+    <button class="btn primary block" id="noteSave" style="margin-top:12px">Save to Personal</button>
+    ${n.id ? `<button class="btn ghost block" id="noteOpen" style="margin-top:8px">Open in Bible</button>
+    <button class="btn ghost block danger" id="noteDel" style="margin-top:8px">Delete note</button>` : ''}`);
+  s.querySelector('.panel').classList.add('tall');
+  const ta = $('#noteText', s);
+  ta.addEventListener('input', () => { noteDraft = { key: dkey, text: ta.value }; });
+  $('#noteSave', s).onclick = () => {
+    const text = ta.value.trim();
+    if (!text) { toast('Write something first'); ta.focus(); return; }
+    const notes = getNotes();
+    if (n.id) { const x = notes.find(y => y.id === n.id); if (x) { x.note = text; x.u = Date.now(); } }
+    else notes.unshift(Object.assign({}, n, { id: 'n' + Date.now().toString(36), note: text, t: Date.now(), u: Date.now() }));
+    store.set('notes', notes); noteDraft = null; s.remove();
+    toast('Saved in Saved → Personal ✎');
+    if (!n.id) {
+      for (const v of n.list) { const el = $('#v' + v + ' .vn'); if (el && !el.textContent.includes('✎')) el.textContent += '✎'; }
+      clearSelection();
+    }
+    if (current === 'saved') renderSaved();
+  };
+  if (n.id) {
+    $('#noteOpen', s).onclick = () => { s.remove(); go('bible', { b: n.b, c: n.c, v: n.list[0] }); };
+    $('#noteDel', s).onclick = () => {
+      if (!confirm('Delete this note?')) return;
+      store.set('notes', getNotes().filter(y => y.id !== n.id)); noteDraft = null; s.remove(); toast('Note deleted');
+      if (current === 'saved') renderSaved();
+    };
+  }
 }
 function clearSelection() {
   for (const v of selection) { const el = $('#v' + v); if (el) el.classList.remove('sel'); }
@@ -600,22 +749,35 @@ async function openStudy() {
 let savedFilter = 'All';
 function renderSaved() {
   $('#title').textContent = 'Saved';
-  const favs = getFavs(), cats = getCats();
+  const favs = getFavs(), notes = getNotes(), cats = getCats();
+  if (savedFilter !== 'All' && savedFilter !== 'Personal' && !cats.includes(savedFilter)) savedFilter = 'All';
   const counts = {}; favs.forEach(f => f.cats.forEach(c => counts[c] = (counts[c] || 0) + 1));
-  const list = savedFilter === 'All' ? favs : savedFilter === 'Uncategorized' ? favs.filter(f => !f.cats.length) : favs.filter(f => f.cats.includes(savedFilter));
-  view.innerHTML = `<div class="chips scrollx">${['All', ...cats].map(c => `<button class="chip-btn" aria-pressed="${c === savedFilter}" data-f="${esc(c)}">${esc(c)}${c === 'All' ? ` · ${favs.length}` : counts[c] ? ` · ${counts[c]}` : ''}</button>`).join('')}</div>
-    <button class="linkbtn" id="manageCats" style="margin:4px 2px 10px">Manage categories</button>
-    <div id="favList">${list.length ? list.map(f => `<div class="card fav" data-id="${f.id}">
+  let list;
+  if (savedFilter === 'All') list = [...favs, ...notes.map(n => Object.assign({ isNote: true }, n))].sort((a, b) => (b.u || b.t || 0) - (a.u || a.t || 0));
+  else if (savedFilter === 'Personal') list = notes.map(n => Object.assign({ isNote: true }, n));
+  else list = favs.filter(f => f.cats.includes(savedFilter));
+  const favCard = f => `<div class="card fav" data-id="${f.id}">
         <div class="favhead"><b>${esc(f.ref)}</b><button class="iconbtn" data-menu="${f.id}" aria-label="Options">⋯</button></div>
         <p class="scripture favtext">${esc(f.text)}</p>
         ${f.cats.length ? `<div class="chips small-chips">${f.cats.map(c => `<span class="chip">${esc(c)}</span>`).join('')}</div>` : ''}
-      </div>`).join('') : `<div class="card"><p style="margin:0">${favs.length ? 'Nothing saved in this category yet.' : 'No favorites yet. In the Bible, tap a verse and choose ★ Save.'}</p></div>`}</div>`;
+      </div>`;
+  const noteCard = n => `<div class="card fav" data-note="${n.id}">
+        <div class="favhead"><b>${esc(n.ref)}</b><span class="chip" style="margin:0">✎ Personal</span></div>
+        <div class="quote" style="margin-bottom:0"><p class="scripture favtext" style="margin:0">${esc(n.text)}</p></div>
+        <p class="notetext favtext">${esc(n.note)}</p>
+      </div>`;
+  const empty = savedFilter === 'Personal' ? 'No personal notes yet. In the Bible, tap a verse and choose ✎ Notes.'
+    : favs.length || notes.length ? 'Nothing saved in this category yet.' : 'Nothing saved yet. In the Bible, tap a verse and choose ★ Save or ✎ Notes.';
+  view.innerHTML = `<div class="chips scrollx">${['All', 'Personal', ...cats].map(c => `<button class="chip-btn" aria-pressed="${c === savedFilter}" data-f="${esc(c)}">${c === 'Personal' ? '✎ ' : ''}${esc(c)}${c === 'All' ? ` · ${favs.length + notes.length}` : c === 'Personal' ? (notes.length ? ` · ${notes.length}` : '') : counts[c] ? ` · ${counts[c]}` : ''}</button>`).join('')}</div>
+    <button class="linkbtn" id="manageCats" style="margin:4px 2px 10px">Manage categories</button>
+    <div id="favList">${list.length ? list.map(x => x.isNote ? noteCard(x) : favCard(x)).join('') : `<div class="card"><p style="margin:0">${empty}</p></div>`}</div>`;
   view.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { savedFilter = b.dataset.f; renderSaved(); });
   $('#manageCats').onclick = manageCats;
-  view.querySelectorAll('.fav').forEach(card => card.addEventListener('click', e => {
+  view.querySelectorAll('.fav[data-id]').forEach(card => card.addEventListener('click', e => {
     if (e.target.closest('[data-menu]')) return;
     const f = getFavs().find(x => x.id === card.dataset.id); if (f) go('bible', { b: f.b, c: f.c, v: f.v });
   }));
+  view.querySelectorAll('.fav[data-note]').forEach(card => card.addEventListener('click', () => openNoteSheet(card.dataset.note)));
   view.querySelectorAll('[data-menu]').forEach(b => b.onclick = () => favMenu(b.dataset.menu));
 }
 function favMenu(id) {
@@ -658,13 +820,13 @@ function manageCats() {
       if (savedFilter === old) savedFilter = 'All'; refresh();
     });
   };
-  const refresh = () => { $('.panel', s).innerHTML = '<div class="grab"></div>' + draw(); wire(); renderSaved(); };
+  const refresh = () => { $('.panel', s).innerHTML = SHEET_TOP + draw(); wire(); renderSaved(); };
   wire();
 }
 
 /* --- Backup: one small file with highlights, favorites and categories --- */
 function exportBackup() {
-  const data = { app: 'manna', version: 1, exported: new Date().toISOString(), hl: store.get('hl', {}), favs: getFavs(), cats: getCats() };
+  const data = { app: 'manna', version: 2, exported: new Date().toISOString(), hl: store.get('hl', {}), favs: getFavs(), notes: getNotes(), cats: getCats() };
   const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
   a.download = `manna-backup-${manilaDate()}.json`; document.body.appendChild(a); a.click();
@@ -679,8 +841,11 @@ function importBackup(json) {
   for (const f of d.favs || []) if (!ids.has(f.id)) favs.push(f);
   favs.sort((a, b) => (b.t || 0) - (a.t || 0));
   const cats = getCats(); for (const c of d.cats || []) if (!cats.includes(c)) cats.push(c);
-  store.set('hl', hl); store.set('favs', favs); store.set('cats', cats);
-  return { highlights: Object.keys(d.hl || {}).length, favorites: (d.favs || []).length };
+  const notes = getNotes(), byId = new Map(notes.map(n => [n.id, n]));
+  for (const n of d.notes || []) { const have = byId.get(n.id); if (!have) notes.push(n); else if ((n.u || 0) > (have.u || 0)) Object.assign(have, n); }
+  notes.sort((a, b) => (b.t || 0) - (a.t || 0));
+  store.set('hl', hl); store.set('favs', favs); store.set('cats', cats); store.set('notes', notes);
+  return { highlights: Object.keys(d.hl || {}).length, favorites: (d.favs || []).length, notes: (d.notes || []).length };
 }
 
 /* ===== ARMORY (prayers & chaplets) — code and texts load only when opened ===== */
@@ -708,16 +873,16 @@ function openSettings() {
       <button data-size="-1">A−</button><button aria-pressed="true" id="sizeNow">Size ${settings.size}</button><button data-size="1">A+</button></div>
       <p class="scripture" id="sizePreview" style="margin-top:10px">Give us this day our daily bread.</p></div>
     <div class="setrow"><label>Offline</label><p class="small" id="offStat">Checking…</p><p class="small" id="studyStat"></p></div>
-    <div class="setrow"><label>Backup</label><p class="small muted" style="margin-top:0">Your highlights, favorites and categories are kept on this phone. Save a backup file now and then, to restore them if you change phones or clear Chrome's data.</p>
+    <div class="setrow"><label>Backup</label><p class="small muted" style="margin-top:0">Your highlights, favorites, notes and categories are kept on this phone. Save a backup file now and then, to restore them if you change phones or clear Chrome's data.</p>
       <div class="pickrow"><button class="btn ghost" id="bkSave">Save backup</button><button class="btn ghost" id="bkLoad">Restore</button></div>
       <input type="file" id="bkFile" accept="application/json,.json" class="hidden"></div>
-    <div class="setrow"><label>Daily readings</label><p class="small muted">Delivered every morning, before 6:15 AM, following the Philippine liturgical calendar. To change the time, ask Claude.</p></div>
+    <div class="setrow"><label>About the App</label><p class="about">For Kurtny, Drey, &amp; Rollo. A project by Tin Apple Solutions, all honor, praise, and glory belongs to our Lord and Savior Jesus Christ.</p></div>
     <p class="muted small">Manna · Scripture: Catholic Public Domain Version and Douay-Rheims (Challoner), both public domain. Church Fathers: Catena Aurea (public domain). Cross-references: OpenBible.info (CC-BY).</p>`);
   $('#bkSave', s).onclick = () => { exportBackup(); toast('Backup file saved to your Downloads'); };
   $('#bkLoad', s).onclick = () => $('#bkFile', s).click();
   $('#bkFile', s).onchange = async e => {
     const f = e.target.files[0]; if (!f) return;
-    try { const r = importBackup(await f.text()); toast(`Restored ${r.favorites} favorites and ${r.highlights} highlights`); if (current === 'saved' || current === 'bible') go(current); }
+    try { const r = importBackup(await f.text()); toast(`Restored ${r.favorites} favorites, ${r.notes} notes and ${r.highlights} highlights`); if (current === 'saved' || current === 'bible') go(current); }
     catch (err) { toast(err.message || 'That file could not be read'); }
   };
   s.querySelectorAll('[data-k]').forEach(b => b.addEventListener('click', () => {
@@ -755,8 +920,15 @@ async function ensureOffline() {
   else if (st.study !== 'done') reg.active.postMessage({ type: 'download', key: 'study', cache: 'manna-study-v1', urls: STUDY_FILES() });
 }
 /* ---------- updates: banner when a new version is ready; "What's new" after updating ---------- */
-const APP_VERSION = 'v4';
+const APP_VERSION = 'v5';
 const WHATS_NEW = {
+  v5: { title: "What's new in Manna", items: [
+    'Tap a verse for new tools: ✎ Notes (write a reflection or prayer under the verse), Compare (CPDV and Douay-Rheims side by side), and Copy (pastes anywhere, with the book, chapter and verse).',
+    'Your notes live in Saved → ✎ Personal. Tap one to read, edit or delete it.',
+    'The Today page now opens instantly after the first time each day.',
+    'Pop-up panels can be closed with the X, or by swiping them down.',
+    'Settings now has "About the App".'],
+    next: ['Nothing to do. Your highlights and favorites are kept.', 'Try it: open the Bible, tap a verse, then tap ✎ Notes.'] },
   v4: { title: "What's new in Manna", items: [
     'Updates now come with this card. When a new version is ready, a banner appears: tap it to update.',
     'Highlights in 4 colors, favorites with categories, and the Saved tab.',

@@ -87,7 +87,25 @@ nav.tabs button[aria-selected="true"]{color:var(--accent);font-weight:600}
 .sheet{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.35);display:flex;align-items:flex-end}
 .sheet .panel{background:var(--bg);width:100%;max-height:86vh;overflow-y:auto;border-radius:20px 20px 0 0;padding:8px 16px calc(env(safe-area-inset-bottom) + 20px)}
 .sheet .grab{width:40px;height:4px;border-radius:2px;background:var(--line);margin:6px auto 10px}
-.sheet .panel h3{margin:4px 0 8px}
+.sheet .grabzone{position:sticky;top:-8px;z-index:2;background:var(--bg);margin:-8px -16px 0;padding:8px 16px 2px;touch-action:none}
+.sheet .sheetx{position:absolute;right:6px;top:6px;width:40px;height:40px}
+.sheet .panel{transition:transform .2s ease;will-change:auto}
+.sheet .panel.dragging{transition:none}
+.sheet .panel h3{margin:4px 44px 8px 0}
+.selrow.acts{display:grid;grid-template-columns:repeat(4,1fr) 1.5fr;gap:6px}
+.selrow .act{min-height:50px;border-radius:12px;background:var(--surface-2);color:var(--ink-2);font-size:11.5px;font-weight:600;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:0 2px}
+.selrow .act svg{width:19px;height:19px}
+.selrow .act:active{filter:brightness(.92)}
+.selrow.acts .btn{min-height:50px;padding:0 8px;font-size:14px}
+.quote{border-left:3px solid var(--accent);padding:4px 0 4px 12px;margin:6px 0 12px}
+.quote .qref{font-weight:700;font-size:14px;margin-bottom:4px}
+.quote .scripture{font-size:16px}
+textarea.notebox{width:100%;min-height:160px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);padding:12px;font:inherit;font-size:16px;line-height:1.5;resize:vertical}
+.cmp{margin:0 0 14px}.cmp .vnum{font-weight:700;color:var(--accent);font-size:13px}
+.cmp .tl{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3,var(--ink-2));margin:6px 0 2px}
+.cmp .scripture{font-size:16px;margin:0}
+.notetext{white-space:pre-wrap;margin:10px 0 0;font-size:15px;line-height:1.55}
+.about{font-family:var(--scripture);font-size:16px;line-height:1.6;margin:4px 0 0}
 /* Search */
 .searchbox{display:flex;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px 4px 4px 14px;margin:8px 0}
 .searchbox input{flex:1;border:0;outline:0;background:transparent;font-size:16px;min-height:44px;min-width:0}
