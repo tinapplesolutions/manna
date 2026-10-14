@@ -754,10 +754,55 @@ async function ensureOffline() {
   if (st[settings.trans] !== 'done') reg.active.postMessage({ type: 'download', key: settings.trans, cache: 'manna-bible-v1', urls: BOOKS.map((b, i) => `data/${settings.trans}/${i}.json`) });
   else if (st.study !== 'done') reg.active.postMessage({ type: 'download', key: 'study', cache: 'manna-study-v1', urls: STUDY_FILES() });
 }
+/* ---------- updates: banner when a new version is ready; "What's new" after updating ---------- */
+const APP_VERSION = 'v4';
+const WHATS_NEW = {
+  v4: { title: "What's new in Manna", items: [
+    'Updates now come with this card. When a new version is ready, a banner appears: tap it to update.',
+    'Highlights in 4 colors, favorites with categories, and the Saved tab.',
+    'Go deeper: Church Fathers on the Gospels and cross-references, all offline.',
+    'The Armory: 4 chaplets and 51 prayers, with skip, jump and tap-the-beads.'],
+    next: ['Nothing to do. Your highlights and favorites are kept.', 'Tip: Settings → Save backup once in a while.'] }
+};
+function showUpdateBanner(reg) {
+  if ($('#updBanner')) return;
+  const b = document.createElement('button'); b.id = 'updBanner'; b.className = 'updbanner';
+  b.innerHTML = '<b>A new version of Manna is ready.</b><span>Tap to update</span>';
+  b.onclick = () => {
+    b.innerHTML = '<b>Updating…</b>';
+    store.set('updating', true);
+    const w = reg.waiting; if (w) w.postMessage({ type: 'skip-waiting' }); else location.reload();
+  };
+  document.body.appendChild(b);
+}
+function showWhatsNew() {
+  const seen = store.get('seenVersion', null);
+  if (seen === APP_VERSION) return;
+  store.set('seenVersion', APP_VERSION);
+  const wn = WHATS_NEW[APP_VERSION];
+  if (!seen && !EXISTING_USER && !store.get('updating', false)) return;   // brand-new install: no "what's new"
+  store.set('updating', false);
+  if (!wn) return;
+  const s = sheet(`<h3>${esc(wn.title)}</h3><ul class="wn">${wn.items.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+    ${wn.next && wn.next.length ? `<div class="note"><b>What to do next</b><ul class="wn">${wn.next.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>` : ''}
+    <button class="btn primary block" id="wnOk">Got it</button>`);
+  $('#wnOk', s).onclick = () => s.remove();
+}
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').then(() => {
+  navigator.serviceWorker.register('sw.js').then(reg => {
     setTimeout(ensureOffline, 3000);
+    const watch = w => w && w.addEventListener('statechange', () => { if (w.state === 'installed' && navigator.serviceWorker.controller) showUpdateBanner(reg); });
+    if (reg.waiting && navigator.serviceWorker.controller) showUpdateBanner(reg);
+    watch(reg.installing);
+    reg.addEventListener('updatefound', () => watch(reg.installing));
+    const check = () => reg.update().catch(() => {});
+    check();
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') check(); });
   }).catch(() => {});
+  let reloading = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (store.get('updating', false) && !reloading) { reloading = true; location.reload(); }
+  });
   navigator.serviceWorker.addEventListener('message', e => {
     const m = e.data || {};
     if (m.type === 'dl-progress' || m.type === 'dl-done') {
@@ -772,6 +817,8 @@ if ('serviceWorker' in navigator) {
 
 /* ---------- start ---------- */
 window.addEventListener('popstate', () => {});
+const EXISTING_USER = !!(store.get('offline', null) || store.get('favs', null) || store.get('pos', null));  // decided before anything runs
 go('today');
+setTimeout(showWhatsNew, 400);
 window.__manna = { parseRef, lectToBible, loadVmap, versesFor, loadMeta, loadYear, getDay, bookCache, go, exportBackup, importBackup, studyCache }; // used by tests
 })();

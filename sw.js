@@ -1,5 +1,5 @@
 /* Manna service worker: app works offline; Bible books cached; daily readings fetched fresh when online. */
-const VERSION = 'manna-v3';
+const VERSION = 'manna-v4';
 const SHELL = ['./', 'index.html', 'app.js', 'search-worker.js', 'manifest.webmanifest', 'data/books.json', 'data/year.json', 'data/vmap.json', 'data/prayers.json', 'armory.js',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png'];
 const BIBLE = 'manna-bible-v1';
@@ -7,13 +7,16 @@ const DAYS = 'manna-days';
 const STUDY = 'manna-study-v1';
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(VERSION).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
+  // Fetch fresh copies (bypass the browser's short-term cache). Wait for the user to tap "Update" before switching.
+  e.waitUntil(caches.open(VERSION).then(c => c.addAll(SHELL.map(u => new Request(u, { cache: 'reload' })))));
 });
 self.addEventListener('activate', e => {
   e.waitUntil(caches.keys().then(keys => Promise.all(keys
     .filter(k => k.startsWith('manna-v') && k !== VERSION).map(k => caches.delete(k))))
     .then(() => self.clients.claim()));
 });
+
+self.addEventListener('message', e => { if (e.data && e.data.type === 'skip-waiting') self.skipWaiting(); });
 
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
