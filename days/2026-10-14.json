@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-14",
+  "day": "Wednesday of the 28th Week in Ordinary Time",
+  "color": "green",
+  "memorial": "Optional memorial: St. Callistus I, Pope & Martyr",
+  "readings": [
+    {
+      "label": "First Reading",
+      "ref": "Galatians 5:18-25",
+      "parts": [{ "b": "Galatians", "c": 5, "v": 18, "ev": 25 }],
+      "summary": "Paul contrasts the selfish habits that wreck us with the fruit of the Spirit: love, joy, peace, patience, kindness and self-control."
+    },
+    {
+      "label": "Responsorial Psalm",
+      "ref": "Psalm 1:1-4, 6",
+      "psalm": true,
+      "response": "Whoever follows you, Lord, will have the light of life.",
+      "parts": [
+        { "b": "Psalms", "c": 1, "v": 1, "ev": 4 },
+        { "b": "Psalms", "c": 1, "v": 6, "ev": 6 }
+      ],
+      "summary": "The faithful person is like a tree planted by water; the wicked blow away like chaff."
+    },
+    {
+      "label": "Gospel",
+      "ref": "Luke 11:42-46",
+      "parts": [{ "b": "Luke", "c": 11, "v": 42, "ev": 46 }],
+      "summary": "Jesus rebukes those who tithe garden herbs but neglect justice and the love of God, and who load burdens on others without lifting a finger."
+    }
+  ],
+  "reflection": "Today's theme is fruit. Paul lists what grows in a life led by the Spirit, the psalm pictures a tree by the water, and Jesus warns against a religion of details that bears no fruit of justice or love. For anyone who handles rules and paperwork all day, that last line lands close to home. Rules matter, but they exist to serve people, not to burden them. Today, when someone comes to you tangled in a requirement, be the one who helps carry the load.",
+  "prayer": "Lord, make my life fruitful in love, and my hands quick to lift others' burdens.",
+  "saint": {
+    "name": "St. Callistus I, Pope & Martyr",
+    "story": "Callistus began life as a slave in Rome and was once sentenced to hard labour in the mines of Sardinia. After his release he became a deacon and was put in charge of the Christian burial grounds on the Appian Way, still known today as the Catacombs of St. Callixtus. Elected pope around 217, he was criticised for being too merciful, because he welcomed repentant sinners back to communion. He died a martyr around 222."
+  },
+  "source": "https://universalis.com/Philippines/20261014/mass.htm",
+  "updated": "2026-10-14T06:12:00+08:00"
+}
