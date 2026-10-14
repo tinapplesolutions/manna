@@ -134,7 +134,7 @@ function pickRosary() {
   const { view, esc } = A;
   const today = DAY_MYST[A.manilaWeekday()];
   view.innerHTML = `<button class="btn ghost" id="armBack" style="min-height:40px;margin:4px 0">‹ Armory</button>
-    ${Object.entries(MYST).map(([k, M]) => `<div class="card"><div class="eyebrow">${k === today ? "Today's mysteries" : '&nbsp;'}</div>
+    ${Object.entries(MYST).sort((x, y) => (y[0] === today) - (x[0] === today)).map(([k, M]) => `<div class="card">${k === today ? `<div class="eyebrow">Today's mysteries</div>` : ''}
       <div class="mystery">${esc(M.name)}</div><ol class="mlist">${M.list.map(m => `<li>${esc(m[0])}</li>`).join('')}</ol>
       <button class="btn ${k === today ? 'primary' : 'ghost'} block" data-set="${k}">Pray the ${esc(M.name)}</button></div>`).join('')}
     <p class="muted small">Traditional days: Joyful (Mon, Sat) · Sorrowful (Tue, Fri) · Glorious (Wed, Sun) · Luminous (Thu).</p>`;

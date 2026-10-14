@@ -112,10 +112,22 @@ async function versesFor(part, bibleNumbers = false, trans = settings.trans) {
       if (t === undefined) break;
       if (seen.has(cc + ':' + vv)) continue;   // two reading-verses can fall in one Bible verse
       seen.add(cc + ':' + vv);
-      out.push({ c: cc, v: vv, text: t });
+      out.push({ b: idx, c: cc, v: vv, text: t });
     }
   }
   return out;
+}
+/* Same look as versesHTML, but each verse can be tapped (highlight, save, notes…) like in the Bible tab. */
+function versesTapHTML(vs) {
+  const hl = store.get('hl', {}), favSet = favVerseSet(), noteSet = noteVerseSet();
+  let html = '<div class="scripture tapverses"><p>', lastC = null;
+  for (const x of vs) {
+    const key = `${x.b}:${x.c}:${x.v}`;
+    if (lastC !== null && x.c !== lastC) html += '</p><p>';
+    html += `<span class="v${hl[key] ? ' hl' + hl[key] : ''}" data-k="${key}"><span class="vn">${x.c !== lastC && lastC !== null ? x.c + ':' : ''}${x.v}${favSet.has(key) ? '★' : ''}${noteSet.has(key) ? '✎' : ''}</span>${esc(x.text)} </span>`;
+    lastC = x.c;
+  }
+  return html + '</p></div>';
 }
 function versesHTML(vs) {
   let html = '<div class="scripture"><p>', lastC = null;
@@ -173,9 +185,9 @@ function go(tab, opts, keepSheets) {
   current = tab;
   const tabFor = { search: 'bible' }[tab] || tab;
   document.querySelectorAll('nav.tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tabFor));
-  if (tab !== 'bible') { selection.clear(); hideSelBar(); }
+  selection.clear(); hideSelBar();
   if (!keepSheets) document.querySelectorAll('.sheet').forEach(x => x.remove());
-  view.innerHTML = '';
+  view.innerHTML = ''; view.onclick = null;
   scrollTo(0, 0);
   ({ today: renderToday, bible: renderBible, search: renderSearch, armory: renderArmory, saved: renderSaved })[tab](opts || {});
 }
@@ -252,6 +264,7 @@ async function renderToday() {
 }
 async function drawToday(today) {
   if (current !== 'today') return;
+  clearSelection();
   if (!dayData) {
     const y = await loadYear();
     const ended = y.to && today > y.to;
@@ -286,13 +299,19 @@ async function drawToday(today) {
   html += `<p class="muted small" style="text-align:center">Scripture: ${esc(TRANS[settings.trans])} · Calendar: Philippines</p>`;
   view.innerHTML = html;
   $('#massBtn').addEventListener('click', openMass);
+  // Tap a verse in a reading: same tools as the Bible tab
+  view.onclick = e => {
+    const el = e.target.closest('.tapverses .v[data-k]'); if (!el) return;
+    const [b, c, v] = el.dataset.k.split(':').map(Number);
+    toggleSelectAt(b, c, v);
+  };
   view.querySelectorAll('[data-read]').forEach(b => b.addEventListener('click', async () => {
     const k = b.dataset.read, r = all[k], box = $('#full' + k);
-    if (box.innerHTML) { box.innerHTML = ''; b.textContent = 'Read full text'; return; }
+    if (box.innerHTML) { if (box.querySelector('.v.sel')) clearSelection(); box.innerHTML = ''; b.textContent = 'Read full text'; return; }
     box.innerHTML = '<div class="spinner"></div>';
     try {
       const vs = (await Promise.all(r.parts.map(p => versesFor(p, r.bible)))).flat();
-      box.innerHTML = '<div style="margin-top:12px">' + versesHTML(vs) + '</div>';
+      box.innerHTML = '<div style="margin-top:12px">' + versesTapHTML(vs) + '</div>';
       b.textContent = 'Hide full text';
     } catch (e) { box.innerHTML = `<p class="muted">${esc(e.message)}</p>`; }
   }));
@@ -345,20 +364,23 @@ async function renderBible(opts) {
   const chLabel = B.n === 'Psalms' ? 'Psalm ' + psalmLabel(pos.c) : `${B.n} ${pos.c}`;
   $('#title').textContent = 'Bible';
   selection.clear(); hideSelBar();
-  view.innerHTML = `<div class="pickrow">
+  view.innerHTML = `<form class="thinsearch" id="bsf" role="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="bq" type="search" placeholder="Search the Bible, or type John 3:16" autocomplete="off" enterkeyhint="search" aria-label="Search the Bible"></form>
+    <div class="pickrow">
       <button class="btn ghost" id="pickBook">${esc(B.n)} <span class="muted">▾</span></button>
       <button class="btn ghost" id="pickChap" style="flex:0 0 84px">${pos.c} <span class="muted">▾</span></button>
-      <button class="btn ghost" id="openSearch" style="flex:0 0 52px;padding:0" aria-label="Search the Bible">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+      <button class="btn ghost" id="sizeBtn" style="flex:0 0 52px;padding:0;font-weight:700" aria-label="Text size"><span style="width:100%;text-align:center">A<span style="font-size:.75em">a</span></span></button>
     </div>
-    <p class="muted small" style="margin:2px 2px 0">Tap a verse to highlight, save, or go deeper.</p>
+    <p class="muted small" style="margin:2px 2px 0">Tap a verse to highlight, save, add notes, and more.</p>
     <h2 style="margin:12px 0 8px;font-size:22px">${esc(chLabel)}</h2>
     <div id="chap"><div class="spinner"></div></div>
     <div class="chapnav"><button class="btn ghost" id="prev">‹ Previous</button><button class="btn ghost" id="next">Next ›</button></div>
     <p class="muted small" style="text-align:center">${esc(TRANS[settings.trans])}${B.n === 'Psalms' ? ' · Psalms use Greek numbering; Hebrew number in brackets' : ''}</p>`;
   $('#pickBook').addEventListener('click', bookSheet);
   $('#pickChap').addEventListener('click', () => chapSheet(pos.b));
-  $('#openSearch').addEventListener('click', () => go('search'));
+  $('#bsf').addEventListener('submit', e => { e.preventDefault(); const q = $('#bq').value.trim(); if (q) go('search', { q }); });
+  $('#sizeBtn').addEventListener('click', sizeSheet);
   $('#prev').addEventListener('click', () => step(-1));
   $('#next').addEventListener('click', () => step(1));
   try {
@@ -368,10 +390,10 @@ async function renderBible(opts) {
     let html = '<div class="scripture" id="chapText"><p>';
     (book[pos.c - 1] || []).forEach((t, i) => {
       const v = i + 1, key = `${pos.b}:${pos.c}:${v}`;
-      html += `<span class="v${hl[key] ? ' hl' + hl[key] : ''}" data-v="${v}" id="v${v}"><span class="vn">${v}${favSet.has(key) ? '★' : ''}${noteSet.has(key) ? '✎' : ''}</span>${esc(t)} </span>`;
+      html += `<span class="v${hl[key] ? ' hl' + hl[key] : ''}" data-v="${v}" data-k="${key}" id="v${v}"><span class="vn">${v}${favSet.has(key) ? '★' : ''}${noteSet.has(key) ? '✎' : ''}</span>${esc(t)} </span>`;
     });
     $('#chap').innerHTML = html + '</p></div>';
-    $('#chapText').addEventListener('click', e => { const el = e.target.closest('.v'); if (el) toggleSelect(+el.dataset.v); });
+    $('#chapText').addEventListener('click', e => { const el = e.target.closest('.v'); if (el) toggleSelectAt(pos.b, pos.c, +el.dataset.v); });
     if (opts.v) {
       const el = $('#v' + opts.v);
       if (el) { el.scrollIntoView({ block: 'center' }); flash(el); }
@@ -431,7 +453,17 @@ function chapSheet(b) {
 
 /* ===== SEARCH ===== */
 let worker = null, lastQuery = store.get('lastQuery', '');
-function renderSearch() {
+/* Text size: A− / A+ with the chapter changing live behind it (same setting as in Settings) */
+function sizeSheet() {
+  const s = sheet(`<h3>Text size</h3><div class="seg">
+      <button data-size="-1" aria-label="Smaller text">A−</button><button aria-pressed="true" id="sizeNow2">Size ${settings.size}</button><button data-size="1" aria-label="Bigger text">A+</button></div>
+    <p class="scripture" style="margin-top:12px">Give us this day our daily bread.</p>`);
+  s.querySelectorAll('[data-size]').forEach(b => b.addEventListener('click', () => {
+    saveSetting('size', Math.max(14, Math.min(30, settings.size + +b.dataset.size)));
+    $('#sizeNow2', s).textContent = 'Size ' + settings.size;
+  }));
+}
+function renderSearch(opts = {}) {
   $('#title').textContent = 'Search';
   view.innerHTML = `<button class="btn ghost" id="backBible" style="min-height:40px;margin:4px 0">‹ Back to Bible</button><form class="searchbox" id="sf" role="search">
       <input id="q" type="search" placeholder="Words or a reference, e.g. John 3:16" autocomplete="off" enterkeyhint="search" value="${esc(lastQuery)}">
@@ -440,6 +472,7 @@ function renderSearch() {
     <div id="sres"><p class="muted small">Search the whole Bible (${esc(TRANS[settings.trans])}) by words, like <i>fruit of the Spirit</i>, or jump to a passage, like <i>Psalm 23</i> or <i>1 Cor 13:4</i>.</p></div>`;
   $('#sf').addEventListener('submit', e => { e.preventDefault(); runSearch($('#q').value); $('#q').blur(); });
   $('#backBible').addEventListener('click', () => go('bible'));
+  if (opts.q) { $('#q').value = opts.q; runSearch(opts.q); }
 }
 async function runSearch(q) {
   q = q.trim(); if (!q) return;
@@ -506,9 +539,14 @@ function refLabel(b, c, v, ev) {
   const B = BOOKS[b]; const ch = B.n === 'Psalms' ? 'Psalm ' + psalmLabel(c) : `${B.n} ${c}`;
   return `${ch}:${v}${ev && ev !== v ? '–' + ev : ''}`;
 }
-function toggleSelect(v) {
+let sel = { b: 0, c: 1 };   // book & chapter the current selection belongs to (Bible or Today)
+const vEls = v => document.querySelectorAll(`.v[data-k="${sel.b}:${sel.c}:${v}"]`);
+function markVerse(v, mark) { vEls(v).forEach(e => { const n = e.querySelector('.vn'); if (n && !n.textContent.includes(mark)) n.textContent += mark; }); }
+function toggleSelectAt(b, c, v) {
+  if (selection.size && (sel.b !== b || sel.c !== c)) clearSelection();   // a new passage starts a new selection
+  sel = { b, c };
   if (selection.has(v)) selection.delete(v); else selection.add(v);
-  const el = $('#v' + v); if (el) el.classList.toggle('sel', selection.has(v));
+  vEls(v).forEach(el => el.classList.toggle('sel', selection.has(v)));
   selection.size ? showSelBar() : hideSelBar();
 }
 function selRange() { const a = [...selection].sort((x, y) => x - y); return { v: a[0], ev: a[a.length - 1], list: a }; }
@@ -516,7 +554,7 @@ function hideSelBar() { const b = $('#selbar'); if (b) b.remove(); document.body
 function showSelBar() {
   let bar = $('#selbar');
   const r = selRange();
-  const label = refLabel(pos.b, pos.c, r.v, r.ev);
+  const label = selection.size > 1 ? selLabel(sel.b, sel.c, r.list) : refLabel(sel.b, sel.c, r.v, r.ev);
   if (!bar) {
     bar = document.createElement('div'); bar.id = 'selbar'; bar.className = 'selbar';
     document.body.appendChild(bar); document.body.classList.add('selopen');
@@ -558,8 +596,8 @@ const joinVerses = vs => vs.length === 1 ? vs[0].t : vs.map(x => `${x.v} ${x.t}`
 
 /* --- Copy: text plus the reference, ready to paste anywhere --- */
 async function copyVerses() {
-  const list = selRange().list, ref = selLabel(pos.b, pos.c, list);
-  const vs = await versesOf(pos.b, pos.c, list);
+  const list = selRange().list, ref = selLabel(sel.b, sel.c, list);
+  const vs = await versesOf(sel.b, sel.c, list);
   const out = `"${joinVerses(vs)}" — ${ref} (${TRANS[settings.trans]})`;
   let ok = false;
   try { await navigator.clipboard.writeText(out); ok = true; } catch {}
@@ -574,7 +612,7 @@ async function copyVerses() {
 
 /* --- Compare: CPDV and Douay-Rheims side by side, current version first --- */
 async function openCompare() {
-  const list = selRange().list, b = pos.b, c = pos.c, ref = selLabel(b, c, list);
+  const list = selRange().list, b = sel.b, c = sel.c, ref = selLabel(b, c, list);
   const order = settings.trans === 'cpdv' ? ['cpdv', 'drc'] : ['drc', 'cpdv'];
   const s = sheet(`<h3>Compare · ${esc(ref)}</h3><div id="cmpBody"><div class="spinner"></div></div>`);
   let a, z;
@@ -600,8 +638,8 @@ async function openNoteSheet(existingId) {
   if (existingId && !n) return;
   if (!n) {
     const list = selRange().list;
-    const vs = await versesOf(pos.b, pos.c, list);
-    n = { b: pos.b, c: pos.c, list, ref: selLabel(pos.b, pos.c, list), text: joinVerses(vs), trans: settings.trans, note: '' };
+    const vs = await versesOf(sel.b, sel.c, list);
+    n = { b: sel.b, c: sel.c, list, ref: selLabel(sel.b, sel.c, list), text: joinVerses(vs), trans: settings.trans, note: '' };
   }
   const dkey = n.id || `${n.b}:${n.c}:${n.list.join(',')}`;
   const start = noteDraft && noteDraft.key === dkey ? noteDraft.text : n.note;
@@ -623,7 +661,7 @@ async function openNoteSheet(existingId) {
     store.set('notes', notes); noteDraft = null; s.remove();
     toast('Saved in Saved → Personal ✎');
     if (!n.id) {
-      for (const v of n.list) { const el = $('#v' + v + ' .vn'); if (el && !el.textContent.includes('✎')) el.textContent += '✎'; }
+      for (const v of n.list) markVerse(v, '✎');
       clearSelection();
     }
     if (current === 'saved') renderSaved();
@@ -638,23 +676,23 @@ async function openNoteSheet(existingId) {
   }
 }
 function clearSelection() {
-  for (const v of selection) { const el = $('#v' + v); if (el) el.classList.remove('sel'); }
+  for (const v of selection) vEls(v).forEach(el => el.classList.remove('sel'));
   selection.clear(); hideSelBar();
 }
 function applyHighlight(color) {
   const hl = store.get('hl', {});
   for (const v of selection) {
-    const key = `${pos.b}:${pos.c}:${v}`, el = $('#v' + v);
+    const key = `${sel.b}:${sel.c}:${v}`;
     if (color === '0') delete hl[key]; else hl[key] = color;
-    if (el) { el.classList.remove('hl1', 'hl2', 'hl3', 'hl4'); if (color !== '0') el.classList.add('hl' + color); }
+    vEls(v).forEach(el => { el.classList.remove('hl1', 'hl2', 'hl3', 'hl4'); if (color !== '0') el.classList.add('hl' + color); });
   }
   store.set('hl', hl);
   toast(color === '0' ? 'Highlight removed' : 'Highlighted');
   clearSelection();
 }
 async function selectedText() {
-  const book = await loadBook(pos.b);
-  return selRange().list.map(v => `${v} ${book[pos.c - 1][v - 1]}`).join(' ');
+  const book = await loadBook(sel.b);
+  return selRange().list.map(v => `${v} ${book[sel.c - 1][v - 1]}`).join(' ');
 }
 function catPicker(selected) {
   return `<div class="chips" id="catChips">${getCats().map(c => `<button class="chip-btn" aria-pressed="${selected.includes(c)}" data-cat="${esc(c)}">${esc(c)}</button>`).join('')}
@@ -672,17 +710,17 @@ function wireCatPicker(root) {
   };
 }
 async function saveFavSheet() {
-  const r = selRange(), label = refLabel(pos.b, pos.c, r.v, r.ev);
+  const r = selRange(), label = refLabel(sel.b, sel.c, r.v, r.ev);
   const s = sheet(`<h3>Save to favorites</h3><p class="muted small" style="margin-top:0">${esc(label)} · choose one or more categories</p>
     ${catPicker([])}<button class="btn primary block" id="doSave" style="margin-top:16px">Save</button>`);
   wireCatPicker(s);
   $('#doSave', s).onclick = async () => {
     const cats = [...s.querySelectorAll('[data-cat][aria-pressed="true"]')].map(b => b.dataset.cat);
     const favs = getFavs();
-    favs.unshift({ id: Date.now().toString(36), b: pos.b, c: pos.c, v: r.v, ev: r.ev, ref: label, text: await selectedText(), trans: settings.trans, cats, t: Date.now() });
+    favs.unshift({ id: Date.now().toString(36), b: sel.b, c: sel.c, v: r.v, ev: r.ev, ref: label, text: await selectedText(), trans: settings.trans, cats, t: Date.now() });
     store.set('favs', favs);
     s.remove(); toast('Saved to favorites ★'); clearSelection();
-    for (let v = r.v; v <= r.ev; v++) { const n = $('#v' + v + ' .vn'); if (n && !n.textContent.includes('★')) n.textContent += '★'; }
+    for (let v = r.v; v <= r.ev; v++) markVerse(v, '★');
   };
 }
 
@@ -698,7 +736,7 @@ async function loadStudy(kind, b) {
   return d;
 }
 async function openStudy() {
-  const r = selRange(), b = pos.b, c = pos.c, label = refLabel(b, c, r.v, r.ev);
+  const r = selRange(), b = sel.b, c = sel.c, label = refLabel(b, c, r.v, r.ev);
   const s = sheet(`<h3>Go deeper · ${esc(label)}</h3><div id="studyBody"><div class="spinner"></div></div>`);
   s.querySelector('.panel').classList.add('tall');
   const text = await selectedText();
@@ -921,8 +959,14 @@ async function ensureOffline() {
   else if (st.study !== 'done') reg.active.postMessage({ type: 'download', key: 'study', cache: 'manna-study-v1', urls: STUDY_FILES() });
 }
 /* ---------- updates: banner when a new version is ready; "What's new" after updating ---------- */
-const APP_VERSION = 'v6';
+const APP_VERSION = 'v7';
 const WHATS_NEW = {
+  v7: { title: "What's new in Manna", items: [
+    'Today: open a reading\'s full text and tap a verse. Highlight, Save, Notes, Compare, Copy and Go deeper all work there, and highlights show in the Bible tab too.',
+    'Bible: a search bar sits at the top. Type words, or a passage like John 3:16, then tap search.',
+    'Bible: the Aa button changes the text size.',
+    'Armory → Holy Rosary: today\'s mysteries are now at the top.'],
+    next: ['Nothing to do. Your highlights, favorites and notes are kept.'] },
   v6: { title: "What's new in Manna", items: [
     'About the App now sits quietly at the bottom of Settings, in the same small print as the credits.',
     'Update messages now appear in the middle of the screen.',
