@@ -1,0 +1,69 @@
+{
+ "date": "2026-10-16",
+ "day": "Friday of the 28th Week in Ordinary Time",
+ "color": "green",
+ "memorial": "Optional memorials: St. Hedwig, Religious · St. Margaret Mary Alacoque, Virgin",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Ephesians 1:11-14",
+   "parts": [
+    {
+     "b": "Ephesians",
+     "c": 1,
+     "v": 11,
+     "ev": 14
+    }
+   ],
+   "summary": "In Christ we were chosen for God's purpose. Once we heard the Gospel and believed, we were sealed with the Holy Spirit, the first instalment of our inheritance."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 33:1-2, 4-5, 12-13",
+   "psalm": true,
+   "response": "Blessed the people the Lord has chosen to be his own.",
+   "parts": [
+    {
+     "b": "Psalms",
+     "c": 33,
+     "v": 1,
+     "ev": 2
+    },
+    {
+     "b": "Psalms",
+     "c": 33,
+     "v": 4,
+     "ev": 5
+    },
+    {
+     "b": "Psalms",
+     "c": 33,
+     "v": 12,
+     "ev": 13
+    }
+   ],
+   "summary": "Praise the Lord, whose word is true and whose love fills the earth; happy the nation He chose as His own."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 12:1-7",
+   "parts": [
+    {
+     "b": "Luke",
+     "c": 12,
+     "v": 1,
+     "ev": 7
+    }
+   ],
+   "summary": "Jesus warns against hypocrisy, since everything hidden will one day come to light. Do not fear those who can only harm the body: God, who keeps track of every sparrow, has counted every hair on your head."
+  }
+ ],
+ "reflection": "Jesus says not one sparrow is forgotten by God, and that even the hairs on your head are counted. That's not a poetic exaggeration; it's how closely you are known. Paul adds that you have been sealed with the Holy Spirit, marked as God's own. When you are known and claimed like that, you don't need to wear a mask or live afraid of what others think. Today, when worry or people-pleasing creeps in, remember the sparrows, and let that peace make you honest and brave in what you say and do.",
+ "prayer": "Father, You know every hair on my head; free me from fear and from pretending.",
+ "saint": {
+  "name": "St. Margaret Mary Alacoque (and St. Hedwig)",
+  "story": "Margaret Mary Alacoque (1647–1690) was a French Visitation nun who, after a sickly and difficult youth, received visions of Jesus revealing His Sacred Heart burning with love for humanity. Doubted and mocked at first, she persevered, and her messages gave the Church the devotion of the First Fridays and the Feast of the Sacred Heart. Today the Church also remembers St. Hedwig (1174–1243), a duchess of Silesia who used her wealth to found hospitals and serve the poor, and who bore the loss of her husband and children with deep faith."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-10-15T22:06:50Z"
+}
