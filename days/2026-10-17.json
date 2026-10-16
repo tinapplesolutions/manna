@@ -1,0 +1,57 @@
+{
+ "date": "2026-10-17",
+ "day": "St. Ignatius of Antioch, Bishop and Martyr",
+ "color": "red",
+ "memorial": "Memorial · Saturday of the 28th Week in Ordinary Time",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Ephesians 1:15-23",
+   "parts": [
+    {
+     "b": "Ephesians",
+     "c": 1,
+     "v": 15,
+     "ev": 23
+    }
+   ],
+   "summary": "Paul prays that God will open the eyes of our hearts to see the hope of His calling and the immense power at work in those who believe, the same power that raised Christ and set Him above everything as head of the Church."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 8:2-3ab, 4-5, 6-7",
+   "psalm": true,
+   "response": "You have given your Son rule over the works of your hands.",
+   "parts": [
+    {
+     "b": "Psalms",
+     "c": 8,
+     "v": 2,
+     "ev": 7
+    }
+   ],
+   "summary": "Looking at the moon and stars, the psalmist marvels that God cares for human beings and crowns them with glory."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 12:8-12",
+   "parts": [
+    {
+     "b": "Luke",
+     "c": 12,
+     "v": 8,
+     "ev": 12
+    }
+   ],
+   "summary": "Jesus promises that whoever acknowledges Him before others, He will acknowledge before the angels of God. When you are put on the spot because of your faith, don't worry about what to say: the Holy Spirit will teach you in that moment."
+  }
+ ],
+ "reflection": "Paul prays that the eyes of our hearts be opened, and Jesus promises the Holy Spirit will give us the words when we need them most. St. Ignatius of Antioch lived this: on his way to martyrdom in Rome he wrote letters full of courage and love, asking only to stay faithful to Christ. Most of us won't face lions, but we do face smaller moments: a joke at faith's expense, a chance to pray before a meal in public, a friend asking why we still go to Mass. Today, if such a moment comes, don't rehearse a speech. Trust the Spirit, say something simple and true, and let Jesus do the rest.",
+ "prayer": "Holy Spirit, open the eyes of my heart, and give me the right words when I need them.",
+ "saint": {
+  "name": "St. Ignatius of Antioch",
+  "story": "Ignatius was the third bishop of Antioch, a disciple of the apostles who led one of the earliest Christian communities. Around the year 107, under Emperor Trajan, he was arrested and taken under guard to Rome to be thrown to wild beasts. On the journey he wrote seven letters to the churches, urging unity around their bishops, love for the Eucharist, and steadfast faith. He was the first known writer to call the Church \"catholic\". He begged the Christians of Rome not to try to save him, writing: \"I am God's wheat, ground by the teeth of beasts, to become the pure bread of Christ.\""
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-10-16T22:00:50Z"
+}
