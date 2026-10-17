@@ -1,0 +1,88 @@
+{
+ "date": "2026-10-18",
+ "day": "29th Sunday in Ordinary Time",
+ "color": "green",
+ "memorial": "World Mission Sunday · The Sunday takes the place of the Feast of St. Luke this year",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Isaiah 45:1, 4-6",
+   "parts": [
+    {
+     "b": "Isaiah",
+     "c": 45,
+     "v": 1,
+     "ev": 1
+    },
+    {
+     "b": "Isaiah",
+     "c": 45,
+     "v": 4,
+     "ev": 6
+    }
+   ],
+   "summary": "God calls Cyrus, a pagan king who did not even know Him, to free His people. Even powers that don't know God end up serving His plan: \"I am the Lord, there is no other.\""
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 96:1, 3, 4-5, 7-8, 9-10",
+   "psalm": true,
+   "response": "Give the Lord glory and honor.",
+   "parts": [
+    {
+     "b": "Psalms",
+     "c": 96,
+     "v": 1,
+     "ev": 1
+    },
+    {
+     "b": "Psalms",
+     "c": 96,
+     "v": 3,
+     "ev": 5
+    },
+    {
+     "b": "Psalms",
+     "c": 96,
+     "v": 7,
+     "ev": 10
+    }
+   ],
+   "summary": "Tell all the nations of God's glory, for the Lord made the heavens and rules the world with justice."
+  },
+  {
+   "label": "Second Reading",
+   "ref": "1 Thessalonians 1:1-5b",
+   "parts": [
+    {
+     "b": "1 Thessalonians",
+     "c": 1,
+     "v": 1,
+     "ev": 5
+    }
+   ],
+   "summary": "Paul thanks God for the Thessalonians' faith at work, love that labours and hope that endures, because the Gospel came to them not in words only but in power and the Holy Spirit."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Matthew 22:15-21",
+   "parts": [
+    {
+     "b": "Matthew",
+     "c": 22,
+     "v": 15,
+     "ev": 21
+    }
+   ],
+   "summary": "The Pharisees try to trap Jesus with a question about paying taxes to Caesar. He asks whose image is on the coin and answers: \"Repay to Caesar what belongs to Caesar, and to God what belongs to God.\""
+  }
+ ],
+ "reflection": "Jesus asks whose image is on the coin. Caesar's face is stamped on money, but God's image is stamped on you. So the coin can go to Caesar, while your whole self belongs to God: your time, your work, your family, your heart. On this World Mission Sunday, Paul shows what that looks like: faith that works, love that labours, hope that endures. You don't have to go overseas to be a missionary; being faithful and generous where God has placed you already carries the Gospel. Today, give God something that bears His image: an hour with your family, a kind word, or a prayer for missionaries far from home.",
+ "prayer": "Lord, I bear Your image; take all that I am, and make my life a mission for You.",
+ "saint": {
+  "name": "St. Luke the Evangelist (feast replaced by the Sunday this year)",
+  "story": "Luke was a Gentile physician and companion of St. Paul on his missionary journeys, who stayed with him to the end (\"Only Luke is with me,\" 2 Timothy 4:11). He wrote the Gospel of Luke and the Acts of the Apostles, carefully gathering eyewitness accounts. His Gospel is often called the Gospel of mercy: only Luke gives us the Prodigal Son, the Good Samaritan, and the Annunciation and Visitation of Mary. Tradition calls him the patron of physicians and artists. Because October 18 falls on a Sunday this year, the Sunday Mass takes precedence over his feast."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-10-17T22:01:30Z"
+}
