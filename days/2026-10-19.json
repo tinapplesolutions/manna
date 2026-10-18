@@ -1,0 +1,57 @@
+{
+ "date": "2026-10-19",
+ "day": "Monday of the 29th Week in Ordinary Time",
+ "color": "green",
+ "memorial": "Optional memorials: Sts. John de Brébeuf, Isaac Jogues & Companions, Martyrs · St. Paul of the Cross, Priest",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Ephesians 2:1-10",
+   "parts": [
+    {
+     "b": "Ephesians",
+     "c": 2,
+     "v": 1,
+     "ev": 10
+    }
+   ],
+   "summary": "We were dead in our sins, but God, rich in mercy, brought us to life with Christ. We are saved by grace through faith, not by our own doing, and we are God's handiwork, created for the good works He prepared for us."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 100:1b-2, 3, 4ab, 4c-5",
+   "psalm": true,
+   "response": "The Lord made us, we belong to him.",
+   "parts": [
+    {
+     "b": "Psalms",
+     "c": 100,
+     "v": 1,
+     "ev": 5
+    }
+   ],
+   "summary": "Come before the Lord with joyful song, for He made us, we are His people, and His kindness lasts forever."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 12:13-21",
+   "parts": [
+    {
+     "b": "Luke",
+     "c": 12,
+     "v": 13,
+     "ev": 21
+    }
+   ],
+   "summary": "Asked to settle a family inheritance, Jesus warns against every kind of greed. He tells of a rich man who planned bigger barns to store his harvest and relax, but died that very night: such is the one who stores up treasure for himself but is not rich toward God."
+  }
+ ],
+ "reflection": "The rich man in today's Gospel wasn't evil; he just planned a whole future that left God and other people out of it. Paul reminds us that everything good we have is gift: we are saved by grace and made as God's handiwork for good works. Barns are not the problem; forgetting who the harvest is for is. Being \"rich toward God\" means using what we have, our time, money and skills, as gifts to share rather than possessions to guard. This week, before making a plan or a purchase, ask one honest question: does this make me richer toward God and toward the people He's given me?",
+ "prayer": "Lord, everything I have is Your gift; make me rich in what matters to You.",
+ "saint": {
+  "name": "Sts. John de Brébeuf, Isaac Jogues & Companions (and St. Paul of the Cross)",
+  "story": "John de Brébeuf, Isaac Jogues and six companions were French Jesuit missionaries and lay helpers who brought the Gospel to the Huron and Iroquois peoples of North America in the 1600s. They learned the native languages, lived among the people, and endured great hardship; between 1642 and 1649 all eight were martyred. Isaac Jogues, after being captured and tortured once, returned to the mission knowing it could cost his life. Today the Church also remembers St. Paul of the Cross (1694–1775), an Italian priest who founded the Passionists to preach the love of God shown in Christ's Passion."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-10-18T22:01:01Z"
+}
