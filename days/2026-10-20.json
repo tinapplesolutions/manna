@@ -1,0 +1,35 @@
+{
+ "date": "2026-10-20",
+ "day": "Tuesday of the 29th Week in Ordinary Time",
+ "color": "green",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Ephesians 2:12-22",
+   "parts": [{"b": "Ephesians", "c": 2, "v": 12, "ev": 22}],
+   "summary": "Once we were strangers, far from God and from one another. In Christ, who is our peace, the wall that divided people has been broken down. Now we are no longer outsiders but members of God's household, built together into a holy temple with Christ as the cornerstone."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 85:9ab-10, 11-12, 13-14",
+   "psalm": true,
+   "response": "The Lord speaks of peace to his people.",
+   "parts": [{"b": "Psalms", "c": 85, "v": 9, "ev": 14}],
+   "summary": "God speaks peace to His people: kindness and truth meet, justice and peace embrace, and His salvation is near to those who fear Him."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 12:35-38",
+   "parts": [{"b": "Luke", "c": 12, "v": 35, "ev": 38}],
+   "summary": "Jesus tells His disciples to be dressed for action with their lamps lit, like servants waiting up for their master to come home from a wedding. Blessed are those he finds awake: the master himself will put on an apron, seat them at table and serve them."
+  }
+ ],
+ "reflection": "Waiting up for someone is a small act of love: the light stays on because someone matters to you. Jesus asks us to keep our lamps lit for Him in the same way, not with anxiety, but with readiness. And look at the surprise at the end: the master comes home and serves His servants. That's who we're waiting for, a Lord who breaks down walls between people, as Paul says, and makes strangers into family. Keeping the lamp lit can be as simple as a short prayer when you wake, at noon and before sleep, so that whenever He knocks, He finds you at home.",
+ "prayer": "Lord Jesus, keep my lamp burning, and find me awake and glad when You come.",
+ "saint": {
+  "name": "St. Maria Bertilla Boscardin",
+  "story": "Anna Francesca Boscardin (1888–1922) grew up poor in northern Italy, and people thought she was slow; she was even nicknamed \"the goose.\" She joined the Sisters of St. Dorothy, who first put her to work in the kitchen and laundry, but she became a nurse at the hospital in Treviso, caring especially for sick children. During the First World War she stayed with wounded soldiers who could not be moved during air raids, praying and calming them. She died at 34 after a long illness and was canonized in 1961. Her way to holiness was simple: \"to do everything for God and with love.\""
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-10-19T22:05:00Z"
+}
