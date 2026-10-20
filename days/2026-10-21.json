@@ -1,0 +1,36 @@
+{
+ "date": "2026-10-21",
+ "day": "St. Pedro Calungsod, Catechist and Martyr",
+ "color": "red",
+ "memorial": "Feast (Philippines)",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "2 Chronicles 24:18-22",
+   "parts": [{"b": "2 Chronicles", "c": 24, "v": 18, "ev": 22}],
+   "summary": "When the people of Judah turned away from God, the priest Zechariah, filled with the Spirit, warned them to return. Instead of listening, they stoned him to death in the court of the Temple."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 31:3-4, 6, 8, 16-17",
+   "psalm": true,
+   "response": "Into your hands, O Lord, I commend my spirit.",
+   "parts": [{"b": "Psalms", "c": 31, "v": 3, "ev": 4}, {"b": "Psalms", "c": 31, "v": 6, "ev": 6}, {"b": "Psalms", "c": 31, "v": 8, "ev": 8}, {"b": "Psalms", "c": 31, "v": 16, "ev": 17}],
+   "summary": "In danger the psalmist trusts God completely, placing his life in God's hands and asking to be rescued by His kindness."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Matthew 10:17-22",
+   "parts": [{"b": "Matthew", "c": 10, "v": 17, "ev": 22}],
+   "summary": "Jesus warns His disciples that they will be handed over and persecuted because of Him. They need not worry about what to say: the Spirit of their Father will speak through them. Whoever endures to the end will be saved."
+  }
+ ],
+ "reflection": "Pedro Calungsod was a Visayan teenager, probably around seventeen, when he followed a missionary priest across the sea to teach the faith. He wasn't a priest or a scholar; he taught children their prayers and helped at baptisms. When the danger came, he could have run, but he stayed beside his companion and gave his life. Jesus promised that the Spirit would give His followers the words and the courage they need, and Pedro shows that this promise is for young people and ordinary helpers too. Today, think of one small way you \"catechize\" at home: teaching a child a prayer, answering a question about God, or simply letting your family see you pray.",
+ "prayer": "San Pedro Calungsod, pray for us, that we may share our faith with courage and joy.",
+ "saint": {
+  "name": "St. Pedro Calungsod",
+  "story": "Pedro Calungsod (c. 1654–1672) was a young Visayan catechist who went with the Jesuit priest Diego Luis de San Vitores to the Mariana Islands (Guam) in 1668. He helped teach the faith and baptize. On April 2, 1672, after Fr. San Vitores baptized the infant daughter of a village chief at the mother's request, the angry father and a companion attacked them. Pedro could have escaped but stayed with the priest, and both were killed. He was about 17. St. John Paul II beatified him in 2000, and Pope Benedict XVI canonized him on October 21, 2012, making him the second Filipino saint after St. Lorenzo Ruiz. He is a patron of Filipino youth and catechists."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings from Manna's year data for the Philippine proper, cross-checked with published sources",
+ "updated": "2026-10-20T22:04:00Z"
+}
