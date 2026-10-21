@@ -1,0 +1,36 @@
+{
+ "date": "2026-10-22",
+ "day": "Thursday of the 29th Week in Ordinary Time",
+ "color": "green",
+ "memorial": "Optional memorial: Pope St. John Paul II",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Ephesians 3:14-21",
+   "parts": [{"b": "Ephesians", "c": 3, "v": 14, "ev": 21}],
+   "summary": "Paul kneels and prays that Christ may live in our hearts through faith, so that, rooted in love, we may grasp how wide, long, high and deep the love of Christ is, a love beyond all knowing. Glory to God, who can do far more than we ask or imagine."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 33:1-2, 4-5, 11-12, 18-19",
+   "psalm": true,
+   "response": "The earth is full of the goodness of the Lord.",
+   "parts": [{"b": "Psalms", "c": 33, "v": 1, "ev": 2}, {"b": "Psalms", "c": 33, "v": 4, "ev": 5}, {"b": "Psalms", "c": 33, "v": 11, "ev": 12}, {"b": "Psalms", "c": 33, "v": 18, "ev": 19}],
+   "summary": "Sing joyfully to the Lord: His word is true, His plans stand forever, and His eyes watch over those who hope in His kindness."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 12:49-53",
+   "parts": [{"b": "Luke", "c": 12, "v": 49, "ev": 53}],
+   "summary": "Jesus says He came to set the earth on fire and longs for it to be blazing. Following Him is not always comfortable: His message will divide even families, as people choose for or against Him."
+  }
+ ],
+ "reflection": "Today's readings pair a gentle prayer with a fierce one. Paul prays that we grasp how wide and deep Christ's love is; Jesus says He came to set the world on fire. They're the same love: so big that it can't stay polite and lukewarm. Sometimes loving Jesus will mean standing a little apart, even at home, when what is easy and what is right pull in different directions. Pope St. John Paul II, remembered today, said it simply: \"Do not be afraid! Open wide the doors to Christ.\" Ask today for one small spark of courage: say the grace before a meal, or speak a kind truth you've been avoiding.",
+ "prayer": "Lord Jesus, set my heart on fire with Your love, and root me deep in it.",
+ "saint": {
+  "name": "Pope St. John Paul II",
+  "story": "Karol Wojtyła (1920–2005) grew up in Poland, lost his mother, brother and father by the age of 20, and studied for the priesthood in secret during the Nazi occupation. Elected pope in 1978, the first non-Italian in over 450 years, he travelled to more than 120 countries, including the Philippines in 1981 and 1995, when World Youth Day in Manila drew one of the largest crowds in history. He helped bring down communism in Eastern Europe through faith and nonviolence, forgave the man who shot him in 1981, and founded World Youth Day. He was canonized in 2014. His first words as pope: \"Do not be afraid!\""
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-10-21T22:04:00Z"
+}
