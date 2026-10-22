@@ -1,0 +1,36 @@
+{
+ "date": "2026-10-23",
+ "day": "Friday of the 29th Week in Ordinary Time",
+ "color": "green",
+ "memorial": "Optional memorial: St. John of Capistrano, Priest",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Ephesians 4:1-6",
+   "parts": [{"b": "Ephesians", "c": 4, "v": 1, "ev": 6}],
+   "summary": "Paul begs us to live worthy of our calling: humble, gentle and patient, bearing with one another in love and keeping the unity of the Spirit. There is one body, one Spirit, one Lord, one faith, one baptism, one God and Father of all."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 24:1-2, 3-4ab, 5-6",
+   "psalm": true,
+   "response": "Lord, this is the people that longs to see your face.",
+   "parts": [{"b": "Psalms", "c": 24, "v": 1, "ev": 6}],
+   "summary": "The whole earth belongs to the Lord; those with clean hands and a pure heart may stand in His holy place and receive His blessing."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 12:54-59",
+   "parts": [{"b": "Luke", "c": 12, "v": 54, "ev": 59}],
+   "summary": "Jesus says people can read the sky and predict the weather, yet fail to read the signs of the present time. He urges them to settle their quarrels on the way, before it is too late."
+  }
+ ],
+ "reflection": "We check the weather app every morning, but how often do we check the weather of our own hearts and homes? Jesus asks us to notice what's really going on and to make peace while we're still \"on the way,\" before small grudges harden. Paul gives the recipe: humility, gentleness, patience, and bearing with one another in love. Unity in a family or a team isn't sameness; it's people choosing each other again and again. Is there one quarrel, even a small one, you could settle today with a sorry, a message, or a kind word?",
+ "prayer": "Lord, give me a humble and gentle heart, and help me make peace while there is still time.",
+ "saint": {
+  "name": "St. John of Capistrano",
+  "story": "John of Capistrano (1386–1456) was a brilliant lawyer and the governor of Perugia in Italy. Imprisoned during a war, he had a deep conversion, gave up his career and became a Franciscan friar. He travelled across Europe as a tireless preacher, drawing huge crowds and calling people back to faith and peace. In 1456, at about 70 years old, he rallied soldiers to defend Belgrade during a siege and helped turn the battle. He died of plague a few months later. He is a patron of jurists and military chaplains, and a reminder that it's never too late to begin again."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-10-22T22:04:00Z"
+}
