@@ -1,0 +1,36 @@
+{
+ "date": "2026-10-24",
+ "day": "Saturday of the 29th Week in Ordinary Time",
+ "color": "green",
+ "memorial": "Optional memorial: St. Anthony Mary Claret, Bishop",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Ephesians 4:7-16",
+   "parts": [{"b": "Ephesians", "c": 4, "v": 7, "ev": 16}],
+   "summary": "Christ gives each of us a gift: some are apostles, prophets, evangelists, pastors and teachers, all to build up His body. Speaking the truth in love, we grow up together into Christ, each part doing its share so the whole body grows in love."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 122:1-2, 3-4ab, 4cd-5",
+   "psalm": true,
+   "response": "Let us go rejoicing to the house of the Lord.",
+   "parts": [{"b": "Psalms", "c": 122, "v": 1, "ev": 5}],
+   "summary": "The pilgrim rejoices to go up to Jerusalem, the city where God's people gather together to give Him thanks."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 13:1-9",
+   "parts": [{"b": "Luke", "c": 13, "v": 1, "ev": 9}],
+   "summary": "Told about people who died in tragedies, Jesus says they were not worse sinners than anyone else, but all of us need to repent. He tells of a fig tree that bore no fruit for three years; the gardener asks for one more year to dig around it and fertilize it."
+  }
+ ],
+ "reflection": "The fig tree had one more year because a patient gardener asked for it. That's how God treats us: He doesn't give up, but He does dig and fertilize, and He hopes for fruit. Paul tells us what the fruit looks like: each of us using our particular gift so the whole body grows in love. Your gift might be teaching, organizing, cooking, listening or making people laugh, and the Church and your family need it. Tomorrow is Sunday: as you go to Mass, \"rejoicing to the house of the Lord,\" ask Him what fruit He's hoping to see in you this season.",
+ "prayer": "Patient Gardener, tend my heart, and let my life bear good fruit for You.",
+ "saint": {
+  "name": "St. Anthony Mary Claret",
+  "story": "Anthony Mary Claret (1807–1870) was a Spanish weaver's son who became a priest and a tireless missionary preacher. In 1849 he founded the Missionary Sons of the Immaculate Heart of Mary, known today as the Claretians, who serve in the Philippines too. As Archbishop of Santiago in Cuba he visited every parish, fought for the poor and against slavery, and survived an assassination attempt. He later served as confessor to the Queen of Spain, founded a large Catholic publishing house, and died in exile in France. He was canonized in 1950."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-10-23T22:04:00Z"
+}
