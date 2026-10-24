@@ -1,0 +1,41 @@
+{
+ "date": "2026-10-25",
+ "day": "30th Sunday in Ordinary Time",
+ "color": "green",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Exodus 22:20-26",
+   "parts": [{"b": "Exodus", "c": 22, "v": 20, "ev": 26}],
+   "summary": "God tells His people not to mistreat foreigners, widows or orphans, for they were once strangers in Egypt. Don't charge the poor interest, and return a borrowed cloak before nightfall, because God hears the cry of the poor, for He is compassionate."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 18:2-3, 3-4, 47, 51",
+   "psalm": true,
+   "response": "I love you, Lord, my strength.",
+   "parts": [{"b": "Psalms", "c": 18, "v": 2, "ev": 4}, {"b": "Psalms", "c": 18, "v": 47, "ev": 47}, {"b": "Psalms", "c": 18, "v": 51, "ev": 51}],
+   "summary": "The Lord is my rock, my fortress and my deliverer; I call on Him and I am saved."
+  },
+  {
+   "label": "Second Reading",
+   "ref": "1 Thessalonians 1:5c-10",
+   "parts": [{"b": "1 Thessalonians", "c": 1, "v": 5, "ev": 10}],
+   "summary": "Paul praises the Thessalonians for welcoming the Word with joy even in hardship. They turned from idols to serve the living God and became a model for believers everywhere."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Matthew 22:34-40",
+   "parts": [{"b": "Matthew", "c": 22, "v": 34, "ev": 40}],
+   "summary": "A scholar of the law tests Jesus: which commandment is the greatest? Jesus answers: love the Lord your God with all your heart, soul and mind, and love your neighbor as yourself. The whole law and the prophets hang on these two."
+  }
+ ],
+ "reflection": "Jesus sums up the whole Bible in two loves that can't be separated: love God with everything, and love your neighbor as yourself. The first reading shows what that second love looks like in real life: protecting the foreigner, the widow and the orphan, and giving back the poor man's cloak before night falls because he'll be cold. Love of God that never reaches the person in front of us isn't finished yet. And love of neighbor is strongest when it flows from a heart rooted in God. This week, pick one \"cloak\" to return: a debt of kindness, a visit you owe, or practical help for someone who has less.",
+ "prayer": "Lord, my strength, teach me to love You with all my heart, and to love my neighbor as myself.",
+ "saint": {
+  "name": "Sts. Crispin and Crispinian",
+  "story": "According to ancient tradition, Crispin and Crispinian were brothers from a noble Roman family who went to Gaul (today's France) around the year 285 to share the Gospel. To support themselves and not burden anyone, they worked as shoemakers by night and preached by day, often making shoes for the poor for free. They were arrested and martyred at Soissons under Emperor Maximian. They are patrons of shoemakers and leatherworkers. Their feast is also remembered in Shakespeare's famous \"St. Crispin's Day\" speech in Henry V."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-10-24T22:04:00Z"
+}
