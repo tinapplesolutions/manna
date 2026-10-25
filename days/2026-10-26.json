@@ -1,0 +1,35 @@
+{
+ "date": "2026-10-26",
+ "day": "Monday of the 30th Week in Ordinary Time",
+ "color": "green",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Ephesians 4:32-5:8",
+   "parts": [{"b": "Ephesians", "c": 4, "v": 32, "ev": 32}, {"b": "Ephesians", "c": 5, "v": 1, "ev": 8}],
+   "summary": "Be kind and compassionate, forgiving one another as God forgave you in Christ. Imitate God as His beloved children and live in love, leaving behind impurity and empty talk, for once you were darkness, but now you are light in the Lord."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 1:1-2, 3, 4 and 6",
+   "psalm": true,
+   "response": "Behave like God as his very dear children.",
+   "parts": [{"b": "Psalms", "c": 1, "v": 1, "ev": 4}, {"b": "Psalms", "c": 1, "v": 6, "ev": 6}],
+   "summary": "Blessed is the one who delights in God's law: like a tree planted by flowing water, they bear fruit in season."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 13:10-17",
+   "parts": [{"b": "Luke", "c": 13, "v": 10, "ev": 17}],
+   "summary": "On a sabbath, Jesus heals a woman who had been bent over for eighteen years, and she stands up straight and praises God. When the synagogue leader objects, Jesus points out that they untie their animals on the sabbath; surely this daughter of Abraham deserved to be set free."
+  }
+ ],
+ "reflection": "For eighteen years the woman in today's Gospel could only look at the ground. Jesus sees her, calls her over, lays His hands on her, and she stands up straight and praises God. Many of us carry something that bends us over: worry, an old hurt, a habit we can't shake. Jesus doesn't wait for a convenient time; He frees people the moment He meets them. Paul shows us how to share that freedom: be kind, forgive as you've been forgiven, live as children of light. Today, notice someone who seems \"bent over\" and offer them a small lift: a kind word, patience, or a helping hand.",
+ "prayer": "Lord Jesus, lift up what is bent in me, and make me kind as You are kind.",
+ "saint": {
+  "name": "St. Evaristus, Pope",
+  "story": "Evaristus was the fifth Bishop of Rome, leading the Church around the years 99 to 107, just a generation after St. Peter. Very little is known about him for certain; an ancient tradition says he was of Greek and Jewish background, born in Bethlehem. He shepherded the young Church in Rome during a time of persecution, and he has long been honored as a martyr. He is a reminder that the faith reached us through many faithful leaders whose names history barely remembers."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-10-25T22:04:00Z"
+}
