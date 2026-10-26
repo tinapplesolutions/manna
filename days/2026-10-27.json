@@ -1,0 +1,35 @@
+{
+ "date": "2026-10-27",
+ "day": "Tuesday of the 30th Week in Ordinary Time",
+ "color": "green",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Ephesians 5:21-33",
+   "parts": [{"b": "Ephesians", "c": 5, "v": 21, "ev": 33}],
+   "summary": "Paul asks Christians to be subordinate to one another out of reverence for Christ. Husbands are to love their wives as Christ loved the Church and gave Himself up for her, caring for her as for their own body; marriage is a great mystery that points to Christ and the Church."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 128:1-2, 3, 4-5",
+   "psalm": true,
+   "response": "Blessed are those who fear the Lord.",
+   "parts": [{"b": "Psalms", "c": 128, "v": 1, "ev": 5}],
+   "summary": "Those who walk in God's ways are blessed: their home is fruitful like a vine, and their children gather around the table like olive shoots."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 13:18-21",
+   "parts": [{"b": "Luke", "c": 13, "v": 18, "ev": 21}],
+   "summary": "Jesus compares God's Kingdom to a tiny mustard seed that grows into a tree where birds make their nests, and to a little yeast a woman mixes into a large batch of flour until the whole batch rises."
+  }
+ ],
+ "reflection": "Today's readings are a gift for families. Paul's picture of marriage is mutual self-giving: each spouse placing the other first, the way Christ gave Himself for His Church. The psalm paints the result: a home where children gather around the table like young olive shoots. And Jesus reminds us that God's Kingdom grows from tiny things: a mustard seed, a pinch of yeast. A marriage and a family are built the same way, from small daily choices: a thank-you, a patient answer, a prayer together before meals. Choose one small \"seed\" to plant at home today, for your wife, for your boys.",
+ "prayer": "Lord, bless our home; let Your love grow in us like a mustard seed and rise like yeast.",
+ "saint": {
+  "name": "St. Frumentius",
+  "story": "Frumentius (died c. 383) was a young Christian from Tyre who, with his brother, survived an attack on their ship off the coast of Africa and was taken as a captive to the royal court of Aksum in Ethiopia. He won the king's trust, became a royal secretary and tutor to the young prince, and helped Christian merchants worship there. Later he travelled to Alexandria and asked St. Athanasius to send a bishop to Ethiopia; Athanasius consecrated Frumentius himself. Ethiopian Christians call him Abba Salama, \"Father of Peace,\" and honor him as the apostle of their land."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-10-26T22:04:00Z"
+}
