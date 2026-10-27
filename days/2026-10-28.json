@@ -1,0 +1,36 @@
+{
+ "date": "2026-10-28",
+ "day": "Sts. Simon and Jude, Apostles",
+ "color": "red",
+ "memorial": "Feast",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Ephesians 2:19-22",
+   "parts": [{"b": "Ephesians", "c": 2, "v": 19, "ev": 22}],
+   "summary": "You are no longer strangers but fellow citizens with the saints and members of God's household, built on the foundation of the apostles and prophets, with Christ Jesus Himself as the cornerstone, growing into a holy temple where God dwells."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 19:2-3, 4-5",
+   "psalm": true,
+   "response": "Their message goes out through all the earth.",
+   "parts": [{"b": "Psalms", "c": 19, "v": 2, "ev": 5}],
+   "summary": "The heavens proclaim God's glory without words, and their voice reaches to the ends of the world."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 6:12-16",
+   "parts": [{"b": "Luke", "c": 6, "v": 12, "ev": 16}],
+   "summary": "Jesus spends the whole night in prayer on a mountain. At daybreak He calls His disciples and chooses twelve of them as apostles, including Simon called the Zealot and Judas the son of James."
+  }
+ ],
+ "reflection": "Simon and Jude are among the quietest apostles: the Gospels record almost nothing they said. Yet Jesus prayed all night before choosing them, and the Church is built on their foundation. That's good news for anyone who feels ordinary or overlooked: you were chosen on purpose, after prayer. St. Jude is also known as the patron of desperate and \"impossible\" causes, a reminder that no situation is beyond hope. Bring today the one worry that feels most impossible, and hand it over through his prayers.",
+ "prayer": "St. Simon and St. Jude, pray for us, that we may stand firm on the faith you handed down.",
+ "saint": {
+  "name": "Sts. Simon and Jude",
+  "story": "Simon is called \"the Zealot,\" which may mean he once belonged to a group eager to drive out the Romans, or simply that he was zealous for God's law. Jude, also called Thaddeus, is \"Judas son of James,\" not Judas Iscariot; at the Last Supper he asked Jesus why He would reveal Himself to the disciples and not to the world. Ancient tradition says the two preached together in Persia and were martyred there. The short Letter of Jude in the New Testament is traditionally linked to him. St. Jude is widely loved as the patron of hopeless and difficult causes."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-10-27T22:04:00Z"
+}
