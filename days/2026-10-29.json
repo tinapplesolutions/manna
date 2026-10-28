@@ -1,0 +1,35 @@
+{
+ "date": "2026-10-29",
+ "day": "Thursday of the 30th Week in Ordinary Time",
+ "color": "green",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Ephesians 6:10-20",
+   "parts": [{"b": "Ephesians", "c": 6, "v": 10, "ev": 20}],
+   "summary": "Draw your strength from the Lord and put on the armor of God: truth as a belt, righteousness as a breastplate, readiness to bring the Gospel of peace as shoes, faith as a shield, salvation as a helmet, and the word of God as the sword of the Spirit. Pray at every opportunity."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 144:1b, 2, 9-10",
+   "psalm": true,
+   "response": "Blessed be the Lord, my Rock!",
+   "parts": [{"b": "Psalms", "c": 144, "v": 1, "ev": 2}, {"b": "Psalms", "c": 144, "v": 9, "ev": 10}],
+   "summary": "The Lord trains my hands for battle; He is my refuge, my fortress and my shield, and I will sing Him a new song."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 13:31-35",
+   "parts": [{"b": "Luke", "c": 13, "v": 31, "ev": 35}],
+   "summary": "Warned that Herod wants to kill Him, Jesus refuses to stop His work of healing and keeps going toward Jerusalem. He grieves over the city: how often He longed to gather its children as a hen gathers her chicks under her wings, but they were unwilling."
+  }
+ ],
+ "reflection": "Paul describes the Christian life as a battle, and gives us God's own armor: truth, righteousness, peace, faith, salvation and the Word. But notice the Gospel's surprising image of the One who wins the battle: a mother hen spreading her wings over her chicks. Jesus' strength is protective love, not harshness, and He keeps walking toward Jerusalem even when threatened. Our battles are rarely against people; they're against fear, lies and discouragement. Before you leave the house today, \"put on\" one piece of the armor in a short prayer, and let the Lord gather you under His wings.",
+ "prayer": "Blessed be the Lord, my Rock: clothe me in Your armor and shelter me under Your wings.",
+ "saint": {
+  "name": "St. Narcissus of Jerusalem",
+  "story": "Narcissus was bishop of Jerusalem around the year 200 and is said to have lived well past 100. The early historian Eusebius records that one Easter Vigil, when the deacons ran out of oil for the lamps, Narcissus had them bring water, prayed over it, and it burned like oil. Falsely accused of a crime, he quietly withdrew to live alone in prayer for years rather than defend himself; when the truth came out, he returned to lead his people again in his old age. He is remembered for his holiness, patience and peace under false accusation."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-10-28T22:04:00Z"
+}
