@@ -1,0 +1,35 @@
+{
+ "date": "2026-10-30",
+ "day": "Friday of the 30th Week in Ordinary Time",
+ "color": "green",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Philippians 1:1-11",
+   "parts": [{"b": "Philippians", "c": 1, "v": 1, "ev": 11}],
+   "summary": "Paul thanks God with joy every time he remembers the Philippians, confident that the One who began a good work in them will bring it to completion. He prays that their love may grow richer in knowledge and insight, so they may be pure and blameless on the day of Christ."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 111:1-2, 3-4, 5-6",
+   "psalm": true,
+   "response": "How great are the works of the Lord!",
+   "parts": [{"b": "Psalms", "c": 111, "v": 1, "ev": 6}],
+   "summary": "I will thank the Lord with all my heart; His works are great, He is gracious and merciful, and He remembers His covenant forever."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 14:1-6",
+   "parts": [{"b": "Luke", "c": 14, "v": 1, "ev": 6}],
+   "summary": "At a sabbath dinner where the Pharisees are watching Him closely, Jesus heals a man suffering from swelling. He asks them: if your son or your ox fell into a well on the sabbath, wouldn't you pull him out at once? They have no answer."
+  }
+ ],
+ "reflection": "\"The One who began a good work in you will carry it on to completion.\" Paul's words are a gift for anyone who feels unfinished, and that's all of us. God doesn't abandon projects halfway; He is patient with our slow growth. In the Gospel, Jesus shows the same heart: He won't let rules become an excuse to leave someone suffering. Today, be patient with your own progress and with the people around you who are still \"under construction,\" and if someone needs help, don't wait for a more convenient moment.",
+ "prayer": "Lord, finish the good work You began in me, and make my love grow richer every day.",
+ "saint": {
+  "name": "St. Alphonsus Rodriguez",
+  "story": "Alphonsus Rodriguez (1533–1617) was a Spanish wool merchant who lost his business, his wife and his children within a few years. Grieving, he turned to God and, at nearly 40, was accepted as a Jesuit lay brother. For over 40 years he served as the doorkeeper of the Jesuit college in Majorca, greeting every visitor as if he were Christ Himself and saying \"I'm coming, Lord!\" whenever the bell rang. His humble wisdom inspired a young student, St. Peter Claver, to become a missionary to enslaved Africans. Alphonsus was canonized in 1888."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-10-29T22:04:00Z"
+}
