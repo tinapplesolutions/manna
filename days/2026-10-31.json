@@ -1,0 +1,36 @@
+{
+ "date": "2026-10-31",
+ "day": "Saturday of the 30th Week in Ordinary Time",
+ "color": "green",
+ "memorial": "Optional memorial: The Blessed Virgin Mary on Saturday",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Philippians 1:18b-26",
+   "parts": [{"b": "Philippians", "c": 1, "v": 18, "ev": 26}],
+   "summary": "Writing from prison, Paul rejoices that Christ will be glorified in him whether he lives or dies. \"For me, to live is Christ and to die is gain.\" He longs to be with Christ, but chooses to stay for the sake of the people he serves."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 42:2, 3, 5cdef",
+   "psalm": true,
+   "response": "My soul is thirsting for the living God.",
+   "parts": [{"b": "Psalms", "c": 42, "v": 2, "ev": 3}, {"b": "Psalms", "c": 42, "v": 5, "ev": 5}],
+   "summary": "As a deer longs for running streams, my soul longs for God; I remember leading the joyful crowd to the house of God."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 14:1, 7-11",
+   "parts": [{"b": "Luke", "c": 14, "v": 1, "ev": 1}, {"b": "Luke", "c": 14, "v": 7, "ev": 11}],
+   "summary": "At a dinner, Jesus notices guests choosing the places of honor. He advises taking the lowest place, so the host may invite you higher: everyone who exalts himself will be humbled, and whoever humbles himself will be exalted."
+  }
+ ],
+ "reflection": "Tomorrow the Church celebrates All Saints, and today's readings show what a saint looks like. Paul is so in love with Christ that living and dying are both fine with him, as long as Christ is glorified. Jesus describes the saint's posture at life's banquet: not grabbing the best seat, but taking the lower place and letting God raise them. Saints aren't people who never struggled; they're people whose thirst for God, like the deer in the psalm, became stronger than their thirst for honor. Tonight, as many people get ready for Undas, take a moment to thank God for the holy people who went before you, in the Church and in your own family.",
+ "prayer": "Lord, my soul thirsts for You; make me humble, and make me a saint.",
+ "saint": {
+  "name": "St. Wolfgang of Regensburg",
+  "story": "Wolfgang (c. 924–994) was a German scholar and teacher who became a Benedictine monk at Einsiedeln. He set out as a missionary to the Hungarians, and in 972 was made bishop of Regensburg in Bavaria. Though a bishop, he kept living simply like a monk, reformed the clergy and monasteries, cared generously for the poor, and tutored the young duke who would become Emperor St. Henry II. He died on a journey along the Danube and is honored as one of Germany's great early bishops."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-10-30T22:04:00Z"
+}
