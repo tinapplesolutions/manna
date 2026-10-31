@@ -1,0 +1,42 @@
+{
+ "date": "2026-11-01",
+ "day": "Solemnity of All Saints",
+ "color": "white",
+ "memorial": "Solemnity (replaces the 31st Sunday in Ordinary Time)",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Revelation 7:2-4, 9-14",
+   "parts": [{"b": "Revelation", "c": 7, "v": 2, "ev": 4}, {"b": "Revelation", "c": 7, "v": 9, "ev": 14}],
+   "summary": "John sees a great multitude no one can count, from every nation, tribe, people and language, standing before God's throne in white robes with palm branches. They are those who came through the great trial and washed their robes in the blood of the Lamb."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 24:1bc-2, 3-4ab, 5-6",
+   "psalm": true,
+   "response": "Lord, this is the people that longs to see your face.",
+   "parts": [{"b": "Psalms", "c": 24, "v": 1, "ev": 6}],
+   "summary": "Those with clean hands and pure hearts, who seek the Lord, will receive His blessing."
+  },
+  {
+   "label": "Second Reading",
+   "ref": "1 John 3:1-3",
+   "parts": [{"b": "1 John", "c": 3, "v": 1, "ev": 3}],
+   "summary": "See what love the Father has given us: we are called children of God, and so we are. What we will be has not yet been revealed, but we shall be like Him, for we shall see Him as He is."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Matthew 5:1-12a",
+   "parts": [{"b": "Matthew", "c": 5, "v": 1, "ev": 12}],
+   "summary": "On the mountain Jesus teaches the Beatitudes: blessed are the poor in spirit, those who mourn, the meek, those who hunger for righteousness, the merciful, the pure in heart, the peacemakers and the persecuted. Rejoice and be glad, for your reward will be great in heaven."
+  }
+ ],
+ "reflection": "Today we celebrate the huge crowd in heaven \"that no one could count\": not only the famous saints with feast days, but countless ordinary people, perhaps including grandparents and friends we loved. The Beatitudes are their portrait: gentle, merciful, hungry for what is right, peacemakers, pure of heart. St. John reminds us that we are already God's children, and one day we will see Him as He is. Holiness isn't for a few spiritual athletes; it's every Christian's calling. As families gather this Undas, tell a story about someone you loved who lived the Beatitudes, and ask the saints to help you live them too.",
+ "prayer": "All you holy men and women, saints of God, pray for us.",
+ "saint": {
+  "name": "All Saints",
+  "story": "Since the early centuries Christians honored the martyrs together, because there were too many to give each a day. In the 600s Pope Boniface IV dedicated Rome's Pantheon to Mary and all the martyrs, and in the 700s Pope Gregory III dedicated a chapel in St. Peter's to all the saints. The feast on November 1 later spread to the whole Church. It celebrates every person now in heaven, known or unknown, canonized or not. In the Philippines it begins Undas, when families visit and pray at the graves of their loved ones."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-10-31T22:04:00Z"
+}
