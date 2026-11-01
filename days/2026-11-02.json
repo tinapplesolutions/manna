@@ -1,0 +1,42 @@
+{
+ "date": "2026-11-02",
+ "day": "The Commemoration of All the Faithful Departed (All Souls' Day)",
+ "color": "violet",
+ "memorial": "All Souls' Day · readings may be chosen from several options; one common set is shown",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Wisdom 3:1-9",
+   "parts": [{"b": "Wisdom", "c": 3, "v": 1, "ev": 9}],
+   "summary": "The souls of the just are in the hand of God, and no torment shall touch them. To the foolish they seemed to have died, but they are at peace; tested like gold in a furnace, they will shine, and those who trust in God will abide with Him in love."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 27:1, 4, 7 and 8b and 9a, 13-14",
+   "psalm": true,
+   "response": "The Lord is my light and my salvation.",
+   "parts": [{"b": "Psalms", "c": 27, "v": 1, "ev": 1}, {"b": "Psalms", "c": 27, "v": 4, "ev": 4}, {"b": "Psalms", "c": 27, "v": 7, "ev": 9}, {"b": "Psalms", "c": 27, "v": 13, "ev": 14}],
+   "summary": "One thing I ask: to dwell in the Lord's house all my days; I believe I shall see the Lord's goodness in the land of the living."
+  },
+  {
+   "label": "Second Reading",
+   "ref": "Romans 5:5-11",
+   "parts": [{"b": "Romans", "c": 5, "v": 5, "ev": 11}],
+   "summary": "Hope does not disappoint, because God's love has been poured into our hearts. Christ died for us while we were still sinners; reconciled to God by His death, how much more will we be saved by His life."
+  },
+  {
+   "label": "Gospel",
+   "ref": "John 11:17-27",
+   "parts": [{"b": "John", "c": 11, "v": 17, "ev": 27}],
+   "summary": "Four days after Lazarus died, his sister Martha meets Jesus and says her brother would not have died if He had been there. Jesus answers: \"I am the resurrection and the life; whoever believes in me, even if he dies, will live.\" Martha replies, \"Yes, Lord, I believe.\""
+  }
+ ],
+ "reflection": "Martha's grief is honest: \"Lord, if you had been here...\" Many of us have prayed those same words at a grave. Jesus doesn't scold her; He gives her a promise to hold onto: \"I am the resurrection and the life.\" Today the Church prays for all who have died, trusting that \"the souls of the just are in the hand of God.\" Our prayers, Masses and sacrifices for them are an act of love that death doesn't end. Today, name your departed loved ones one by one in prayer, light a candle for them if you can, and tell your family something you remember about them.",
+ "prayer": "Eternal rest grant unto them, O Lord, and let perpetual light shine upon them. May they rest in peace. Amen.",
+ "saint": {
+  "name": "All the Faithful Departed",
+  "story": "Christians have prayed for the dead since the earliest days; the Bible itself records Judas Maccabeus offering a sacrifice for fallen soldiers \"that they might be freed from sin.\" Around the year 998, St. Odilo, abbot of Cluny in France, set November 2 as a day for his monasteries to pray for all the dead, and the custom spread through the whole Church. Today priests may celebrate three Masses for the departed. In the Philippines, Undas brings families to cemeteries to clean graves, light candles, pray and share food, keeping alive the bond between the living and those who have gone before us."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-11-01T22:05:00Z"
+}
