@@ -1,0 +1,36 @@
+{
+ "date": "2026-11-03",
+ "day": "Tuesday of the 31st Week in Ordinary Time",
+ "color": "green",
+ "memorial": "Optional memorial: St. Martin de Porres, Religious",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Philippians 2:5-11",
+   "parts": [{"b": "Philippians", "c": 2, "v": 5, "ev": 11}],
+   "summary": "Have the same attitude as Christ Jesus: though He was God, He emptied Himself, took the form of a servant, and humbled Himself even to death on a cross. Therefore God exalted Him, so that every knee should bend and every tongue confess that Jesus Christ is Lord."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 22:26b-27, 28-30ab, 30e, 31-32",
+   "psalm": true,
+   "response": "I will praise you, Lord, in the assembly of your people.",
+   "parts": [{"b": "Psalms", "c": 22, "v": 26, "ev": 32}],
+   "summary": "The poor will eat and be satisfied; all the ends of the earth will turn to the Lord, and future generations will hear of His justice."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 14:15-24",
+   "parts": [{"b": "Luke", "c": 14, "v": 15, "ev": 24}],
+   "summary": "Jesus tells of a man who gave a great dinner, but the invited guests made excuses: a field, some oxen, a new marriage. So the host sent his servant into the streets to bring in the poor, the crippled, the blind and the lame, and still there was room, so he sent for more to fill his house."
+  }
+ ],
+ "reflection": "The guests in today's parable weren't doing anything wicked; they were just busy, with fields, oxen and family. That's the danger for most of us: not saying \"no\" to God outright, but \"later\" again and again. Meanwhile the host's table fills up with people who know they need the invitation. Paul shows us Jesus, who emptied Himself to come and invite us personally. St. Martin de Porres, remembered today, said yes to that invitation with a broom in his hand, serving the sick and the poor of Lima. What \"excuse\" has been keeping you from God's table lately? Set it aside for ten minutes today and say yes.",
+ "prayer": "Lord Jesus, You emptied Yourself for me; help me say yes to Your invitation today.",
+ "saint": {
+  "name": "St. Martin de Porres",
+  "story": "Martin de Porres (1579–1639) was born in Lima, Peru, the son of a Spanish nobleman and a freed woman of African descent, and grew up poor and looked down on because of his mixed race. He learned medicine as a barber-surgeon's apprentice and joined the Dominicans, first as a helper and later as a lay brother. He cared tirelessly for the sick, the poor, enslaved Africans, and even stray animals, and was happy to sweep floors, so he is often shown with a broom. Many healings were attributed to his prayers. He was canonized in 1962 and is a patron of social justice and of people of mixed race."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-11-02T22:04:00Z"
+}
