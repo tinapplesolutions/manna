@@ -1,0 +1,36 @@
+{
+ "date": "2026-11-04",
+ "day": "St. Charles Borromeo, Bishop",
+ "color": "white",
+ "memorial": "Memorial",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Philippians 2:12-18",
+   "parts": [{"b": "Philippians", "c": 2, "v": 12, "ev": 18}],
+   "summary": "Work out your salvation with reverence, for it is God who works in you, both to want and to do what pleases Him. Do everything without grumbling, so that you shine like stars in the world as you hold on to the word of life."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 27:1, 4, 13-14",
+   "psalm": true,
+   "response": "The Lord is my light and my salvation.",
+   "parts": [{"b": "Psalms", "c": 27, "v": 1, "ev": 1}, {"b": "Psalms", "c": 27, "v": 4, "ev": 4}, {"b": "Psalms", "c": 27, "v": 13, "ev": 14}],
+   "summary": "Whom should I fear? I believe I shall see the Lord's goodness; wait for Him with courage."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 14:25-33",
+   "parts": [{"b": "Luke", "c": 14, "v": 25, "ev": 33}],
+   "summary": "Jesus tells the great crowds that following Him means putting Him first, even above family and one's own life, and carrying one's cross. Like a builder planning a tower or a king planning a battle, a disciple should count the cost."
+  }
+ ],
+ "reflection": "Jesus doesn't hide the cost of following Him: put Him first, carry your cross, count the cost like a builder before a tower. It sounds heavy, but Paul adds the secret: \"It is God who works in you,\" both the wanting and the doing. We don't build alone. And Paul names one very practical cross: doing everything \"without grumbling.\" St. Charles Borromeo, remembered today, rebuilt a whole diocese patiently, one visit and one reform at a time. Try one full day without complaining, and notice how much lighter, and brighter, the house becomes.",
+ "prayer": "Lord, my light and my salvation, work in me today, and help me carry my cross without grumbling.",
+ "saint": {
+  "name": "St. Charles Borromeo",
+  "story": "Charles Borromeo (1538–1584) was born into a wealthy Italian family; his uncle, Pope Pius IV, made him a cardinal at just 22. Rather than enjoy the privileges, he poured himself into renewing the Church after the Council of Trent, helped write the Catechism of the Council, and as Archbishop of Milan founded seminaries, visited every parish and reformed the clergy. When plague struck Milan in 1576, he stayed when others fled, feeding thousands and caring for the sick himself. He died at 46, worn out by his work, and is a patron of bishops, catechists and seminarians."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-11-04T08:50:00Z"
+}
