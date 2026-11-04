@@ -1,0 +1,35 @@
+{
+ "date": "2026-11-05",
+ "day": "Thursday of the 31st Week in Ordinary Time",
+ "color": "green",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Philippians 3:3-8a",
+   "parts": [{"b": "Philippians", "c": 3, "v": 3, "ev": 8}],
+   "summary": "Paul lists all the things he once was proud of: his family line, his strict keeping of the Law, his zeal. But whatever gain he had, he now counts as loss compared to the surpassing value of knowing Christ Jesus his Lord."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 105:2-3, 4-5, 6-7",
+   "psalm": true,
+   "response": "Let hearts rejoice who search for the Lord.",
+   "parts": [{"b": "Psalms", "c": 105, "v": 2, "ev": 7}],
+   "summary": "Sing to the Lord, tell of His wonders, and seek His face always."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 15:1-10",
+   "parts": [{"b": "Luke", "c": 15, "v": 1, "ev": 10}],
+   "summary": "When the Pharisees grumble that Jesus welcomes sinners, He tells of a shepherd who leaves ninety-nine sheep to find the one that is lost, and a woman who sweeps the whole house for one lost coin. There is more joy in heaven over one sinner who repents."
+  }
+ ],
+ "reflection": "The shepherd doesn't scold the lost sheep; he carries it home on his shoulders, rejoicing. The woman doesn't shrug off one coin; she lights a lamp and sweeps every corner. That's how much God values each one of us: never just a number in the crowd. Paul discovered this and counted everything else as loss compared to knowing Christ. If you've been feeling far from God, know that He's already looking for you. And if someone near you has wandered, be the friend who searches gently and celebrates when they come home.",
+ "prayer": "Good Shepherd, find me when I wander, and carry me home rejoicing.",
+ "saint": {
+  "name": "Sts. Zechariah and Elizabeth",
+  "story": "Zechariah and Elizabeth were the parents of St. John the Baptist. Luke's Gospel describes them as righteous before God, a priest and his wife who had grown old without children. While Zechariah served in the Temple, the angel Gabriel told him that Elizabeth would bear a son; he doubted and was left unable to speak until John was born. Elizabeth, Mary's relative, greeted her with words we still pray: \"Blessed are you among women.\" At John's birth, Zechariah's voice returned and he sang the Benedictus, prayed every morning by the Church."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-11-04T22:04:00Z"
+}
