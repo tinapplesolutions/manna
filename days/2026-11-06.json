@@ -1,0 +1,36 @@
+{
+ "date": "2026-11-06",
+ "day": "Friday of the 31st Week in Ordinary Time",
+ "color": "green",
+ "memorial": "First Friday of the month",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Philippians 3:17-4:1",
+   "parts": [{"b": "Philippians", "c": 3, "v": 17, "ev": 21}, {"b": "Philippians", "c": 4, "v": 1, "ev": 1}],
+   "summary": "Paul warns against living as enemies of the cross, with minds set only on earthly things. Our citizenship is in heaven, and from there we await Jesus, who will transform our lowly bodies to be like His glorious body. So stand firm in the Lord."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 122:1-2, 3-4ab, 4cd-5",
+   "psalm": true,
+   "response": "Let us go rejoicing to the house of the Lord.",
+   "parts": [{"b": "Psalms", "c": 122, "v": 1, "ev": 5}],
+   "summary": "I rejoiced when they said, \"Let us go to the house of the Lord\"; our feet are standing within your gates, Jerusalem."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 16:1-8",
+   "parts": [{"b": "Luke", "c": 16, "v": 1, "ev": 8}],
+   "summary": "A dishonest steward, about to lose his job, quickly reduces the debts owed to his master so that people will welcome him afterward. The master praises his shrewdness, and Jesus remarks that the children of this world are often more prudent in their affairs than the children of light."
+  }
+ ],
+ "reflection": "Jesus isn't praising dishonesty in today's parable; He's praising urgency. The steward saw what was coming and acted fast and cleverly. Jesus wishes we were half as energetic about the things that last forever. Paul reminds us where we're really headed: \"our citizenship is in heaven.\" We're on the way home, so we can travel light and invest in what lasts: relationships, mercy, prayer, generosity. Today is First Friday; consider one \"shrewd\" move for heaven, like going to confession this week, visiting someone lonely, or quietly paying a kindness forward.",
+ "prayer": "Lord Jesus, make me as eager for heaven as the world is for gain, and keep me standing firm in You.",
+ "saint": {
+  "name": "St. Leonard of Noblac",
+  "story": "Leonard lived in the 500s in what is now France. According to tradition he was a nobleman at the Frankish court who, after being baptized, refused the honors offered to him and chose to live as a hermit in the forest near Limoges, where a monastery later grew up around him. He was known for his compassion toward prisoners: he visited them, prayed for them and won the release of many, so he became their patron saint. Many churches across Europe are named after him."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-11-05T22:04:00Z"
+}
