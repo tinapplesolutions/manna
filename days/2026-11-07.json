@@ -1,0 +1,36 @@
+{
+ "date": "2026-11-07",
+ "day": "Saturday of the 31st Week in Ordinary Time",
+ "color": "green",
+ "memorial": "Optional memorial: The Blessed Virgin Mary on Saturday",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Philippians 4:10-19",
+   "parts": [{"b": "Philippians", "c": 4, "v": 10, "ev": 19}],
+   "summary": "Paul thanks the Philippians for their gifts. He has learned to be content in every situation, with plenty or in need: \"I can do all things in Him who strengthens me.\" And he promises that God will supply all their needs from His riches in Christ Jesus."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 112:1b-2, 5-6, 8a and 9",
+   "psalm": true,
+   "response": "Blessed the man who fears the Lord.",
+   "parts": [{"b": "Psalms", "c": 112, "v": 1, "ev": 2}, {"b": "Psalms", "c": 112, "v": 5, "ev": 6}, {"b": "Psalms", "c": 112, "v": 8, "ev": 9}],
+   "summary": "The generous person who lends and gives to the poor is blessed; his heart is steady and his goodness lasts forever."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 16:9-15",
+   "parts": [{"b": "Luke", "c": 16, "v": 9, "ev": 15}],
+   "summary": "Whoever is trustworthy in small matters is trustworthy in great ones. No servant can serve two masters: you cannot serve both God and money. The Pharisees, who loved money, sneered, but Jesus said God knows their hearts."
+  }
+ ],
+ "reflection": "\"I can do all things in Him who strengthens me\" is often quoted about winning, but Paul wrote it about contentment: being at peace with little or with much. That's the freedom Jesus offers in the Gospel: money is a fine servant but a terrible master. The test, Jesus says, is in small things: how we handle the little we have, our honesty in small transactions, our generosity when no one notices. This weekend, try one small act of trustworthy stewardship: give something away, pay a debt promptly, or thank God for what you already have before asking for more.",
+ "prayer": "Lord, You are my strength and my treasure; teach me to be content, faithful and generous.",
+ "saint": {
+  "name": "St. Willibrord",
+  "story": "Willibrord (c. 658–739) was an English monk trained in the monasteries of England and Ireland. Around 690 he sailed with eleven companions to Frisia (today's Netherlands) to bring the Gospel to people there. The Pope made him the first bishop of Utrecht, and he founded the abbey of Echternach in Luxembourg, where he is buried. Despite wars and setbacks, he kept preaching for nearly fifty years and is honored as the Apostle of the Frisians and a patron of the Netherlands and Luxembourg."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-11-06T22:04:00Z"
+}
