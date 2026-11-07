@@ -1,0 +1,41 @@
+{
+ "date": "2026-11-08",
+ "day": "32nd Sunday in Ordinary Time",
+ "color": "green",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Wisdom 6:12-16",
+   "parts": [{"b": "Wisdom", "c": 6, "v": 12, "ev": 16}],
+   "summary": "Wisdom is radiant and never fades; she is easily found by those who love and seek her. Whoever rises early to look for her will find her sitting at the door, for she goes about seeking those worthy of her."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 63:2, 3-4, 5-6, 7-8",
+   "psalm": true,
+   "response": "My soul is thirsting for you, O Lord my God.",
+   "parts": [{"b": "Psalms", "c": 63, "v": 2, "ev": 8}],
+   "summary": "Like a dry, weary land without water, my soul longs for God; His love is better than life."
+  },
+  {
+   "label": "Second Reading",
+   "ref": "1 Thessalonians 4:13-18",
+   "parts": [{"b": "1 Thessalonians", "c": 4, "v": 13, "ev": 18}],
+   "summary": "Paul tells believers not to grieve like those without hope: just as Jesus died and rose, God will bring with Him those who have died in Christ, and we shall always be with the Lord. Comfort one another with these words."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Matthew 25:1-13",
+   "parts": [{"b": "Matthew", "c": 25, "v": 1, "ev": 13}],
+   "summary": "Ten bridesmaids wait for the bridegroom. Five wise ones bring extra oil; five foolish ones don't. When he arrives at midnight, the foolish are off buying oil, and the door is shut. \"Stay awake, for you know neither the day nor the hour.\""
+  }
+ ],
+ "reflection": "All ten bridesmaids fell asleep; the difference was the oil. The wise ones had prepared something that couldn't be borrowed at the last minute. That oil is the slow, daily faithfulness of a life with God: prayer, Sunday Mass, kindness, forgiveness. No one can lend you their relationship with Jesus. The good news from Wisdom is that God is easy to find for those who look: \"She is found sitting at your door.\" Fill your lamp a little each day this week, perhaps five quiet minutes each morning, so that whenever He comes, your light is still burning.",
+ "prayer": "O Lord my God, my soul thirsts for You; keep my lamp filled and burning until You come.",
+ "saint": {
+  "name": "Blessed John Duns Scotus",
+  "story": "John Duns Scotus (c. 1266–1308) was a Scottish Franciscan friar and one of the great thinkers of the Middle Ages, teaching at Oxford, Paris and Cologne. He was nicknamed the \"Subtle Doctor\" for his careful reasoning. He is especially remembered for explaining how Mary could be preserved from original sin by the merits of her Son, a teaching later defined as the dogma of the Immaculate Conception in 1854. He died young in Cologne and was beatified by St. John Paul II in 1993."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-11-07T22:04:00Z"
+}
