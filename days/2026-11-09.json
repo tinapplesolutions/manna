@@ -1,0 +1,42 @@
+{
+ "date": "2026-11-09",
+ "day": "Dedication of the Lateran Basilica",
+ "color": "white",
+ "memorial": "Feast",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Ezekiel 47:1-2, 8-9, 12",
+   "parts": [{"b": "Ezekiel", "c": 47, "v": 1, "ev": 2}, {"b": "Ezekiel", "c": 47, "v": 8, "ev": 9}, {"b": "Ezekiel", "c": 47, "v": 12, "ev": 12}],
+   "summary": "Ezekiel sees water flowing out from the Temple, becoming a river that makes salt water fresh. Wherever it flows, every creature lives, and fruit trees grow on its banks, bearing fruit every month, with leaves for healing."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 46:2-3, 5-6, 8-9",
+   "psalm": true,
+   "response": "The waters of the river gladden the city of God.",
+   "parts": [{"b": "Psalms", "c": 46, "v": 2, "ev": 3}, {"b": "Psalms", "c": 46, "v": 5, "ev": 6}, {"b": "Psalms", "c": 46, "v": 8, "ev": 9}],
+   "summary": "God is our refuge and strength; a river brings joy to His holy city, and the Lord of hosts is with us."
+  },
+  {
+   "label": "Second Reading",
+   "ref": "1 Corinthians 3:9c-11, 16-17",
+   "parts": [{"b": "1 Corinthians", "c": 3, "v": 9, "ev": 11}, {"b": "1 Corinthians", "c": 3, "v": 16, "ev": 17}],
+   "summary": "You are God's building, and the only foundation is Jesus Christ. Don't you know that you are the temple of God and that God's Spirit dwells in you? God's temple is holy, and you are that temple."
+  },
+  {
+   "label": "Gospel",
+   "ref": "John 2:13-22",
+   "parts": [{"b": "John", "c": 2, "v": 13, "ev": 22}],
+   "summary": "Jesus drives the merchants and money changers out of the Temple: \"Stop making my Father's house a marketplace.\" Asked for a sign, He says, \"Destroy this temple and in three days I will raise it up,\" speaking of the temple of His body."
+  }
+ ],
+ "reflection": "Why celebrate a church building in Rome? Because the Lateran Basilica is the Pope's own cathedral, the \"mother of all churches,\" and its feast reminds Catholics everywhere that we belong to one family. But the readings push further: Jesus is the true Temple, and through Him, Paul says, \"you are the temple of God.\" Like the river in Ezekiel, grace is meant to flow out from us and bring life wherever it goes. Jesus' zeal in the Temple invites a question: what \"marketplace clutter\" needs clearing out of the temple of my heart? Choose one thing this week and give that space back to God.",
+ "prayer": "Lord Jesus, make my heart Your dwelling place, and let Your life flow through me like a river.",
+ "saint": {
+  "name": "The Lateran Basilica",
+  "story": "The Archbasilica of St. John Lateran in Rome is the cathedral of the Pope as Bishop of Rome, and it is called \"the mother and head of all churches of the city and the world.\" It stands on land once owned by the Laterani family, which Emperor Constantine gave to the Church after he legalized Christianity in the early 300s. It was dedicated around the year 324, making it the oldest of Rome's four major basilicas. It has been destroyed and rebuilt several times through fire and earthquake, and five ecumenical councils were held there."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-11-08T22:04:00Z"
+}
