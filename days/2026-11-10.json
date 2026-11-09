@@ -1,0 +1,36 @@
+{
+ "date": "2026-11-10",
+ "day": "St. Leo the Great, Pope and Doctor of the Church",
+ "color": "white",
+ "memorial": "Memorial",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Titus 2:1-8, 11-14",
+   "parts": [{"b": "Titus", "c": 2, "v": 1, "ev": 8}, {"b": "Titus", "c": 2, "v": 11, "ev": 14}],
+   "summary": "Paul tells Titus to teach older and younger men and women to live self-controlled, upright and loving lives, and to be a model of good works himself. God's grace has appeared, training us to live devoutly as we await the glorious appearing of our Savior Jesus Christ."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 37:3-4, 18 and 23, 27 and 29",
+   "psalm": true,
+   "response": "The salvation of the just comes from the Lord.",
+   "parts": [{"b": "Psalms", "c": 37, "v": 3, "ev": 4}, {"b": "Psalms", "c": 37, "v": 18, "ev": 18}, {"b": "Psalms", "c": 37, "v": 23, "ev": 23}, {"b": "Psalms", "c": 37, "v": 27, "ev": 27}, {"b": "Psalms", "c": 37, "v": 29, "ev": 29}],
+   "summary": "Trust in the Lord and do good; delight in Him, and He will give you your heart's desires."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 17:7-10",
+   "parts": [{"b": "Luke", "c": 17, "v": 7, "ev": 10}],
+   "summary": "Jesus describes a servant who comes in from the fields and still serves his master's dinner before eating. So should His disciples say, when they've done all they were commanded: \"We are unprofitable servants; we have only done what we were obliged to do.\""
+  }
+ ],
+ "reflection": "Today's Gospel can sound harsh until we notice what it frees us from: the need for applause. A servant who just does what love asks, without keeping score, is a free person. Paul's letter to Titus is full of ordinary goodness: self-control, kindness at home, honest work, being an example. None of it is flashy, all of it is holy. St. Leo the Great, remembered today, faced down Attila the Hun, yet he called himself simply a servant of the servants of God. Today, do one good deed that no one will notice, and offer it to God alone.",
+ "prayer": "Lord, let me serve You gladly and quietly, trusting that my salvation comes from You.",
+ "saint": {
+  "name": "St. Leo the Great",
+  "story": "Leo (died 461) was pope from 440 to 461, a time when the Roman Empire was collapsing. He wrote a famous letter, the \"Tome,\" explaining clearly that Jesus is one person who is both truly God and truly man; at the Council of Chalcedon in 451, the bishops are said to have exclaimed, \"Peter has spoken through Leo!\" In 452 he went out to meet Attila the Hun and persuaded him not to attack Rome, and in 455 he convinced the Vandals not to burn the city. His sermons are still read in the Church's prayer today, and he is a Doctor of the Church."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-11-09T22:04:00Z"
+}
