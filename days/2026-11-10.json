@@ -7,7 +7,20 @@
   {
    "label": "First Reading",
    "ref": "Titus 2:1-8, 11-14",
-   "parts": [{"b": "Titus", "c": 2, "v": 1, "ev": 8}, {"b": "Titus", "c": 2, "v": 11, "ev": 14}],
+   "parts": [
+    {
+     "b": "Titus",
+     "c": 2,
+     "v": 1,
+     "ev": 8
+    },
+    {
+     "b": "Titus",
+     "c": 2,
+     "v": 11,
+     "ev": 14
+    }
+   ],
    "summary": "Paul tells Titus to teach older and younger men and women to live self-controlled, upright and loving lives, and to be a model of good works himself. God's grace has appeared, training us to live devoutly as we await the glorious appearing of our Savior Jesus Christ."
   },
   {
@@ -15,17 +28,55 @@
    "ref": "Psalm 37:3-4, 18 and 23, 27 and 29",
    "psalm": true,
    "response": "The salvation of the just comes from the Lord.",
-   "parts": [{"b": "Psalms", "c": 37, "v": 3, "ev": 4}, {"b": "Psalms", "c": 37, "v": 18, "ev": 18}, {"b": "Psalms", "c": 37, "v": 23, "ev": 23}, {"b": "Psalms", "c": 37, "v": 27, "ev": 27}, {"b": "Psalms", "c": 37, "v": 29, "ev": 29}],
+   "parts": [
+    {
+     "b": "Psalms",
+     "c": 37,
+     "v": 3,
+     "ev": 4
+    },
+    {
+     "b": "Psalms",
+     "c": 37,
+     "v": 18,
+     "ev": 18
+    },
+    {
+     "b": "Psalms",
+     "c": 37,
+     "v": 23,
+     "ev": 23
+    },
+    {
+     "b": "Psalms",
+     "c": 37,
+     "v": 27,
+     "ev": 27
+    },
+    {
+     "b": "Psalms",
+     "c": 37,
+     "v": 29,
+     "ev": 29
+    }
+   ],
    "summary": "Trust in the Lord and do good; delight in Him, and He will give you your heart's desires."
   },
   {
    "label": "Gospel",
    "ref": "Luke 17:7-10",
-   "parts": [{"b": "Luke", "c": 17, "v": 7, "ev": 10}],
+   "parts": [
+    {
+     "b": "Luke",
+     "c": 17,
+     "v": 7,
+     "ev": 10
+    }
+   ],
    "summary": "Jesus describes a servant who comes in from the fields and still serves his master's dinner before eating. So should His disciples say, when they've done all they were commanded: \"We are unprofitable servants; we have only done what we were obliged to do.\""
   }
  ],
- "reflection": "Today's Gospel can sound harsh until we notice what it frees us from: the need for applause. A servant who just does what love asks, without keeping score, is a free person. Paul's letter to Titus is full of ordinary goodness: self-control, kindness at home, honest work, being an example. None of it is flashy, all of it is holy. St. Leo the Great, remembered today, faced down Attila the Hun, yet he called himself simply a servant of the servants of God. Today, do one good deed that no one will notice, and offer it to God alone.",
+ "reflection": "Today's Gospel can sound harsh until we notice what it frees us from: the need for applause. A servant who just does what love asks, without keeping score, is a free person. Paul's letter to Titus is full of ordinary goodness: self-control, kindness at home, honest work, being an example. None of it is flashy, all of it is holy. St. Leo the Great, remembered today, faced down Attila the Hun, yet he always pointed away from himself, to Christ and to Peter. Today, do one good deed that no one will notice, and offer it to God alone.",
  "prayer": "Lord, let me serve You gladly and quietly, trusting that my salvation comes from You.",
  "saint": {
   "name": "St. Leo the Great",
