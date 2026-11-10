@@ -1,0 +1,36 @@
+{
+ "date": "2026-11-11",
+ "day": "St. Martin of Tours, Bishop",
+ "color": "white",
+ "memorial": "Memorial",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Titus 3:1-7",
+   "parts": [{"b": "Titus", "c": 3, "v": 1, "ev": 7}],
+   "summary": "Be ready for every good work, speak evil of no one, and be gentle and courteous to everyone. We too were once foolish and lost, but when God's kindness and love appeared, He saved us, not because of our deeds but because of His mercy."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 23:1b-3a, 3bc-4, 5, 6",
+   "psalm": true,
+   "response": "The Lord is my shepherd; there is nothing I shall want.",
+   "parts": [{"b": "Psalms", "c": 23, "v": 1, "ev": 6}],
+   "summary": "The Lord leads me to green pastures and restful waters; even in the dark valley I fear no evil, for He is with me."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 17:11-19",
+   "parts": [{"b": "Luke", "c": 17, "v": 11, "ev": 19}],
+   "summary": "Ten lepers beg Jesus for mercy, and He sends them to show themselves to the priests. On the way they are healed, but only one, a Samaritan, comes back praising God and thanks Jesus. \"Were not ten made clean? Where are the other nine?\""
+  }
+ ],
+ "reflection": "Ten were healed, but only one came back to say thank you, and Jesus noticed. Gratitude completes a gift: the nine got their skin healed, but the one who returned received something deeper, a relationship with the Healer. Paul reminds us that everything good in us came \"not because of our deeds but because of His mercy.\" St. Martin, remembered today, is famous for cutting his soldier's cloak in half for a freezing beggar, and that night he dreamed of Christ wearing it. Before you sleep tonight, go back to Jesus like the Samaritan: name three blessings from today and thank Him for each.",
+ "prayer": "Lord, my Shepherd, thank You for every mercy; make me the one who always comes back to say thank you.",
+ "saint": {
+  "name": "St. Martin of Tours",
+  "story": "Martin (c. 316–397) was the son of a Roman army officer and became a soldier as a young man. One freezing day at Amiens in France he met a poor man with almost no clothes, cut his military cloak in two and gave him half. That night he dreamed of Jesus wearing the half-cloak, saying, \"Martin, still a catechumen, has clothed me.\" He was baptized, left the army, and became a monk, founding one of the first monasteries in Gaul. The people of Tours chose him as their bishop around 371; he lived simply, preached in the countryside and cared for the poor until his death."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-11-10T22:04:00Z"
+}
