@@ -1,0 +1,36 @@
+{
+ "date": "2026-11-12",
+ "day": "St. Josaphat, Bishop and Martyr",
+ "color": "red",
+ "memorial": "Memorial",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Philemon 7-20",
+   "parts": [{"b": "Philemon", "c": 1, "v": 7, "ev": 20}],
+   "summary": "From prison, Paul writes to his friend Philemon about Onesimus, a runaway slave who became a Christian through Paul. He sends him back and asks Philemon to welcome him \"no longer as a slave, but more than a slave, a beloved brother,\" just as he would welcome Paul himself."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 146:7, 8-9a, 9bc-10",
+   "psalm": true,
+   "response": "Blessed is he whose help is the God of Jacob.",
+   "parts": [{"b": "Psalms", "c": 146, "v": 7, "ev": 10}],
+   "summary": "The Lord gives food to the hungry, sets prisoners free, opens the eyes of the blind and raises up those bowed down."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 17:20-25",
+   "parts": [{"b": "Luke", "c": 17, "v": 20, "ev": 25}],
+   "summary": "Asked when God's Kingdom will come, Jesus says it doesn't come with signs to be watched for: \"The Kingdom of God is among you.\" The Son of Man will come like lightning, but first He must suffer and be rejected."
+  }
+ ],
+ "reflection": "Paul's short letter to Philemon is a small revolution: a slave and his master become brothers in Christ. That's what Jesus means when He says, \"The Kingdom of God is among you.\" It's not somewhere far away; it shows up when relationships are made new. Philemon had every legal right to punish Onesimus, but Paul invites him to choose love instead. St. Josaphat, remembered today, gave his life working for unity between divided Christians. Is there someone you've filed under \"owes me\" or \"let me down\"? Today, take one step toward seeing them as a brother or sister instead.",
+ "prayer": "Lord, let Your Kingdom grow among us; help me welcome others as You have welcomed me.",
+ "saint": {
+  "name": "St. Josaphat",
+  "story": "Josaphat Kuntsevych (c. 1580–1623) was born in what is now Ukraine and became a monk of the Eastern (Byzantine) tradition united with Rome. As Archbishop of Polotsk he worked tirelessly to heal the split between Orthodox and Catholic Christians, reforming the clergy, teaching the faith and caring for the poor. His efforts made him enemies, and in 1623 an angry mob killed him in Vitebsk. He was canonized in 1867 and is honored as a martyr for Christian unity."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-11-11T22:04:00Z"
+}
