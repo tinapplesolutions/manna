@@ -1,0 +1,35 @@
+{
+ "date": "2026-11-13",
+ "day": "Friday of the 32nd Week in Ordinary Time",
+ "color": "green",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "2 John 4-9",
+   "parts": [{"b": "2 John", "c": 1, "v": 4, "ev": 9}],
+   "summary": "John rejoices that some of the community are walking in the truth, and repeats the commandment we have had from the beginning: love one another. Love means walking according to God's commandments; whoever remains in Christ's teaching has both the Father and the Son."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 119:1, 2, 10, 11, 17, 18",
+   "psalm": true,
+   "response": "Blessed are they who follow the law of the Lord.",
+   "parts": [{"b": "Psalms", "c": 119, "v": 1, "ev": 2}, {"b": "Psalms", "c": 119, "v": 10, "ev": 11}, {"b": "Psalms", "c": 119, "v": 17, "ev": 18}],
+   "summary": "Happy are those who seek God with all their heart; open my eyes to see the wonders of Your law."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 17:26-37",
+   "parts": [{"b": "Luke", "c": 17, "v": 26, "ev": 37}],
+   "summary": "In the days of Noah and of Lot, people were eating, drinking, buying and building, until disaster came suddenly. So it will be on the day the Son of Man is revealed. \"Remember Lot's wife\": whoever tries to save their life will lose it, and whoever loses it will save it."
+  }
+ ],
+ "reflection": "The people in Noah's and Lot's days weren't doing anything evil in Jesus' list: eating, drinking, buying, planting, building. The problem was that ordinary life had filled every corner, leaving no room for God. Lot's wife looked back because her heart was still in the old city. Jesus isn't against daily life; He wants to be inside it. St. John gives the simple way: walk in love, and stay in Christ's teaching. Today, pause once in the middle of your busiest hour, even for one breath, and say, \"Jesus, You're here too.\"",
+ "prayer": "Lord, keep my heart free and ready, and let me walk in Your love every day.",
+ "saint": {
+  "name": "St. Stanislaus Kostka",
+  "story": "Stanislaus Kostka (1550–1568) was a young Polish nobleman studying in Vienna who felt called to become a Jesuit. His father forbade it and his older brother mocked him, so at seventeen Stanislaus left secretly and walked hundreds of miles, first to Germany and then on to Rome, where St. Francis Borgia welcomed him into the Society of Jesus. He lived only ten more months, praying with great joy and serving humbly, and died in 1568 at the age of eighteen. He is a patron of young people and students."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-11-12T22:05:00Z"
+}
