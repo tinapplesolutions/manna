@@ -1,0 +1,36 @@
+{
+ "date": "2026-11-14",
+ "day": "Saturday of the 32nd Week in Ordinary Time",
+ "color": "green",
+ "memorial": "Optional memorial: The Blessed Virgin Mary on Saturday",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "3 John 5-8",
+   "parts": [{"b": "3 John", "c": 1, "v": 5, "ev": 8}],
+   "summary": "John praises his friend Gaius for welcoming traveling missionaries, even strangers, and helping them on their way. By supporting such people, we become co-workers with the truth."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 112:1-2, 3-4, 5-6",
+   "psalm": true,
+   "response": "Blessed the man who fears the Lord.",
+   "parts": [{"b": "Psalms", "c": 112, "v": 1, "ev": 6}],
+   "summary": "The generous and just person is blessed; light dawns for them even in darkness, and they will be remembered forever."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 18:1-8",
+   "parts": [{"b": "Luke", "c": 18, "v": 1, "ev": 8}],
+   "summary": "To teach that we should pray always and not lose heart, Jesus tells of a widow who keeps pestering an unjust judge until he grants her justice just to be rid of her. If even he gives in, how much more will God answer His chosen ones who cry to Him day and night?"
+  }
+ ],
+ "reflection": "The widow in today's parable had no money, no power and no connections, only persistence. And she won. Jesus' point isn't that God is like the grumpy judge; it's the opposite: if persistence moves even an unjust judge, how much more will our loving Father listen. Some prayers take years, and the temptation is to quietly stop asking. Jesus says: don't lose heart. Think of one prayer you've given up on, for a person, a healing or a situation, and bring it back to God today, with fresh trust.",
+ "prayer": "Father, I will not give up; hear my prayer, and keep my faith alive while I wait.",
+ "saint": {
+  "name": "St. Nicholas Tavelić and Companions",
+  "story": "Nicholas Tavelić (c. 1340–1391) was a Croatian Franciscan friar who served as a missionary in Bosnia and later in the Holy Land, caring for pilgrims and the holy places. In 1391, together with three Franciscan companions, he went before the Muslim authorities in Jerusalem to preach about Christ openly. They were arrested, and when they refused to deny their faith they were put to death. He was canonized in 1970, the first Croatian saint."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-11-13T22:04:00Z"
+}
