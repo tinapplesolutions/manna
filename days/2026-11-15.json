@@ -1,0 +1,42 @@
+{
+ "date": "2026-11-15",
+ "day": "33rd Sunday in Ordinary Time",
+ "color": "green",
+ "memorial": "World Day of the Poor",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Proverbs 31:10-13, 19-20, 30-31",
+   "parts": [{"b": "Proverbs", "c": 31, "v": 10, "ev": 13}, {"b": "Proverbs", "c": 31, "v": 19, "ev": 20}, {"b": "Proverbs", "c": 31, "v": 30, "ev": 31}],
+   "summary": "A worthy wife is more precious than pearls: her husband trusts her, she works with willing hands, and she reaches out to the poor and needy. Charm is deceptive and beauty fades, but a woman who fears the Lord is to be praised."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 128:1-2, 3, 4-5",
+   "psalm": true,
+   "response": "Blessed are those who fear the Lord.",
+   "parts": [{"b": "Psalms", "c": 128, "v": 1, "ev": 5}],
+   "summary": "Those who walk in God's ways will enjoy the fruit of their work, with a fruitful home and children around the table."
+  },
+  {
+   "label": "Second Reading",
+   "ref": "1 Thessalonians 5:1-6",
+   "parts": [{"b": "1 Thessalonians", "c": 5, "v": 1, "ev": 6}],
+   "summary": "The day of the Lord will come like a thief in the night. But you are children of the light and of the day, so stay awake and sober."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Matthew 25:14-30",
+   "parts": [{"b": "Matthew", "c": 25, "v": 14, "ev": 30}],
+   "summary": "A man going on a journey entrusts his servants with five, two and one talents. The first two invest and double theirs and are welcomed into their master's joy; the third, afraid, buries his talent in the ground, and loses even what he had."
+  }
+ ],
+ "reflection": "The servant who buried his talent didn't steal or waste it; he just played it safe because he was afraid. Jesus says that's the real danger: hiding what God gave us. Each of us has \"talents\": time, skills, money, faith, a kind word, a family. The worthy woman of Proverbs shows what investing them looks like: faithful work at home, and open hands for the poor. Today is also the World Day of the Poor, so this week, invest one talent outward: share something you're good at, or give practical help to someone who has less.",
+ "prayer": "Lord, thank You for all You've placed in my hands; help me use it boldly for You and for others.",
+ "saint": {
+  "name": "St. Albert the Great",
+  "story": "Albert (c. 1200–1280) was a German Dominican friar, bishop and teacher, so brilliant in philosophy, theology and the natural sciences that he was called \"the Great\" even in his lifetime. He studied plants, animals and minerals, and taught that faith and science both lead to God. His most famous student was St. Thomas Aquinas, whom other students mocked as a \"dumb ox\"; Albert said his bellowing would one day be heard throughout the world. He is a Doctor of the Church and patron of scientists. His memorial falls today, but the Sunday Mass takes its place."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-11-14T22:04:00Z"
+}
