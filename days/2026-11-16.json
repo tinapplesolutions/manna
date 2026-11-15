@@ -1,0 +1,36 @@
+{
+ "date": "2026-11-16",
+ "day": "Monday of the 33rd Week in Ordinary Time",
+ "color": "green",
+ "memorial": "Optional memorials: St. Margaret of Scotland; St. Gertrude the Great, Virgin",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Revelation 1:1-4; 2:1-5",
+   "parts": [{"b": "Revelation", "c": 1, "v": 1, "ev": 4}, {"b": "Revelation", "c": 2, "v": 1, "ev": 5}],
+   "summary": "John begins the Book of Revelation: blessed are those who hear and keep this prophecy. Christ praises the Church of Ephesus for its hard work and endurance, but says, \"You have lost the love you had at first.\" Remember, repent, and do the works you did at first."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 1:1-2, 3, 4 and 6",
+   "psalm": true,
+   "response": "Those who are victorious I will feed from the tree of life.",
+   "parts": [{"b": "Psalms", "c": 1, "v": 1, "ev": 4}, {"b": "Psalms", "c": 1, "v": 6, "ev": 6}],
+   "summary": "Blessed is the one who delights in the Lord's law: like a tree planted near running water, it bears fruit in due season."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 18:35-43",
+   "parts": [{"b": "Luke", "c": 18, "v": 35, "ev": 43}],
+   "summary": "As Jesus nears Jericho, a blind beggar keeps shouting, \"Jesus, Son of David, have pity on me!\" even when the crowd tells him to be quiet. Jesus stops and asks, \"What do you want me to do for you?\" \"Lord, please let me see.\" He receives his sight and follows Jesus, glorifying God."
+  }
+ ],
+ "reflection": "The Church in Ephesus was busy, faithful and hardworking, yet Jesus says, \"You have lost the love you had at first.\" It's possible to keep doing all the right things while the fire quietly goes out. The blind man shows the way back: he cries out without embarrassment, and when Jesus asks what he wants, he answers simply, \"Let me see.\" Jesus asks you the same question today. Answer Him honestly in one sentence, and ask Him to rekindle your first love, for Him and for the people He has given you.",
+ "prayer": "Jesus, Son of David, have pity on me: let me see, and rekindle the love I had at first.",
+ "saint": {
+  "name": "St. Margaret of Scotland",
+  "story": "Margaret (c. 1045–1093) was an English princess born in exile in Hungary. After the Norman conquest her family fled to Scotland, where she married King Malcolm III. As queen she raised eight children in the faith, softened her husband's rough temper, founded churches and monasteries, and set up a ferry across the Firth of Forth for pilgrims, still remembered in the town names North and South Queensferry. Every day she fed the poor at her own table, often serving them herself. She was canonized in 1250 and is a patron of Scotland and of mothers."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-11-15T22:04:00Z"
+}
