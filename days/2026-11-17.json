@@ -1,0 +1,36 @@
+{
+ "date": "2026-11-17",
+ "day": "St. Elizabeth of Hungary, Religious",
+ "color": "white",
+ "memorial": "Memorial",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Revelation 3:1-6, 14-22",
+   "parts": [{"b": "Revelation", "c": 3, "v": 1, "ev": 6}, {"b": "Revelation", "c": 3, "v": 14, "ev": 22}],
+   "summary": "Christ tells the Church of Sardis, \"You have the name of being alive, but you are dead\": wake up! To Laodicea He says, \"You are neither hot nor cold\"; though they think they are rich, they are poor. \"Behold, I stand at the door and knock. If anyone opens the door, I will come in and dine with him.\""
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 15:2-3a, 3bc-4ab, 5",
+   "psalm": true,
+   "response": "I will seat the victor beside me on my throne.",
+   "parts": [{"b": "Psalms", "c": 15, "v": 2, "ev": 5}],
+   "summary": "Those who walk blamelessly, speak truth from the heart and do no harm to their neighbor will stand firm forever."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 19:1-10",
+   "parts": [{"b": "Luke", "c": 19, "v": 1, "ev": 10}],
+   "summary": "Zacchaeus, a rich chief tax collector too short to see over the crowd, climbs a sycamore tree to see Jesus. Jesus stops and says, \"Zacchaeus, come down quickly, for today I must stay at your house.\" Zacchaeus joyfully gives half his goods to the poor and repays fourfold anyone he cheated. \"Today salvation has come to this house.\""
+  }
+ ],
+ "reflection": "Two doors meet in today's readings. In Revelation, Jesus stands outside knocking, waiting for someone to open. In Luke, Zacchaeus climbs a tree just to catch a glimpse, and Jesus invites Himself in: \"Today I must stay at your house.\" When Zacchaeus opens his door, his wallet opens too; real conversion always reaches our generosity. St. Elizabeth of Hungary, a young queen who spent her wealth on the sick and hungry, lived that same open-door faith. Where is Jesus knocking in your life this week? Open the door with one concrete act of generosity.",
+ "prayer": "Lord Jesus, I hear You knocking; come in and stay at my house today.",
+ "saint": {
+  "name": "St. Elizabeth of Hungary",
+  "story": "Elizabeth (1207–1231) was a daughter of the King of Hungary, married as a teenager to Louis of Thuringia in Germany. Their marriage was a happy one, and they had three children. She spent her own money and food on the poor, built a hospital, and cared for the sick with her own hands, even when court officials complained. After Louis died on the way to a crusade in 1227, she gave up court life, joined the Franciscan Third Order and served the poor until she died at only 24. She was canonized four years later and is a patron of Catholic charities, bakers and hospitals."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-11-16T22:04:00Z"
+}
