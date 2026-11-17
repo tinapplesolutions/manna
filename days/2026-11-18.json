@@ -1,0 +1,36 @@
+{
+ "date": "2026-11-18",
+ "day": "Wednesday of the 33rd Week in Ordinary Time",
+ "color": "green",
+ "memorial": "Optional memorial: Dedication of the Basilicas of Sts. Peter and Paul",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Revelation 4:1-11",
+   "parts": [{"b": "Revelation", "c": 4, "v": 1, "ev": 11}],
+   "summary": "John sees an open door in heaven and a throne surrounded by a rainbow. Twenty-four elders and four living creatures worship day and night, singing, \"Holy, holy, holy is the Lord God almighty,\" and the elders lay down their crowns before Him who created all things."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 150:1b-2, 3-4, 5-6",
+   "psalm": true,
+   "response": "Holy, holy, holy Lord, mighty God!",
+   "parts": [{"b": "Psalms", "c": 150, "v": 1, "ev": 6}],
+   "summary": "Praise God with trumpet, harp, drum and cymbals; let everything that has breath praise the Lord!"
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 19:11-28",
+   "parts": [{"b": "Luke", "c": 19, "v": 11, "ev": 28}],
+   "summary": "A nobleman going away to become king gives ten servants a gold coin each to trade with. On his return, the one who earned ten more is put in charge of ten cities, but the one who hid his coin out of fear loses it. \"To everyone who has, more will be given.\""
+  }
+ ],
+ "reflection": "Revelation lets us peek through an open door into heaven, where worship never stops and even the elders lay their crowns at God's feet. That's where everything we have finally belongs: at His throne. The Gospel brings it down to earth: each servant got the same coin, but what mattered was what they did with it. Fear made one servant bury his gift. Every day God gives us the same coin of 24 hours; today, spend a little of it in praise, maybe a song or a psalm, and a little in using your gifts boldly for someone else.",
+ "prayer": "Holy, holy, holy Lord, I lay my gifts at Your feet; help me use them without fear.",
+ "saint": {
+  "name": "St. Rose Philippine Duchesne",
+  "story": "Rose Philippine Duchesne (1769–1852) was a French nun of the Society of the Sacred Heart who dreamed for years of being a missionary. At 49 she finally sailed to America and opened the first free school west of the Mississippi, in Missouri, enduring poverty, illness and harsh winters. At 72 she went to serve the Potawatomi people in Kansas; she was too old to learn their language, so she spent hours each day in prayer, and they called her \"Woman Who Prays Always.\" She was canonized in 1988."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-11-17T22:04:00Z"
+}
