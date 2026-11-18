@@ -1,0 +1,35 @@
+{
+ "date": "2026-11-19",
+ "day": "Thursday of the 33rd Week in Ordinary Time",
+ "color": "green",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Revelation 5:1-10",
+   "parts": [{"b": "Revelation", "c": 5, "v": 1, "ev": 10}],
+   "summary": "No one in heaven or on earth is worthy to open the sealed scroll, and John weeps. Then he sees the Lamb who was slain, standing, and the elders fall down singing a new song: \"You were slain, and with your blood you purchased for God people of every tribe, tongue and nation.\""
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 149:1b-2, 3-4, 5-6a and 9b",
+   "psalm": true,
+   "response": "The Lamb has made us a kingdom of priests to serve our God.",
+   "parts": [{"b": "Psalms", "c": 149, "v": 1, "ev": 6}, {"b": "Psalms", "c": 149, "v": 9, "ev": 9}],
+   "summary": "Sing to the Lord a new song; He delights in His people and crowns the lowly with victory."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 19:41-44",
+   "parts": [{"b": "Luke", "c": 19, "v": 41, "ev": 44}],
+   "summary": "As Jesus draws near Jerusalem and sees the city, He weeps over it: \"If this day you only knew what makes for peace.\" He foresees its destruction, because it did not recognize the time of its visitation."
+  }
+ ],
+ "reflection": "Two people weep in today's readings. John weeps in heaven because no one can open the scroll, until the Lamb who was slain steps forward. And Jesus weeps over Jerusalem because it missed \"the time of its visitation.\" God's tears are not anger; they are love that longs to be welcomed. He still visits us: in the Eucharist, in a word of Scripture, in someone who needs us. Today, ask for the grace to recognize His visit, and when you notice Him, simply say, \"Welcome, Lord.\"",
+ "prayer": "Lamb of God, open my eyes to know the time of Your visit, and teach me the ways of peace.",
+ "saint": {
+  "name": "St. Mechtilde of Hackeborn",
+  "story": "Mechtilde (c. 1241–1298) entered the convent of Helfta in Germany as a young girl, where her sister Gertrude of Hackeborn was abbess. She led the convent's choir so beautifully that she was called \"the nightingale of Christ,\" and she taught and guided the young St. Gertrude the Great. Her visions and prayers, especially her devotion to the Sacred Heart of Jesus, were written down by her sisters in the \"Book of Special Grace,\" which was read across Europe for centuries."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-11-18T22:04:00Z"
+}
