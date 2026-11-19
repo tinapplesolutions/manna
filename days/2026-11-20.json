@@ -1,0 +1,35 @@
+{
+ "date": "2026-11-20",
+ "day": "Friday of the 33rd Week in Ordinary Time",
+ "color": "green",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Revelation 10:8-11",
+   "parts": [{"b": "Revelation", "c": 10, "v": 8, "ev": 11}],
+   "summary": "An angel tells John to take a small scroll and eat it. It tastes sweet as honey in his mouth but turns sour in his stomach. Then he is told he must prophesy again to many peoples, nations and kings."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 119:14, 24, 72, 103, 111, 131",
+   "psalm": true,
+   "response": "How sweet to my taste is your promise!",
+   "parts": [{"b": "Psalms", "c": 119, "v": 14, "ev": 14}, {"b": "Psalms", "c": 119, "v": 24, "ev": 24}, {"b": "Psalms", "c": 119, "v": 72, "ev": 72}, {"b": "Psalms", "c": 119, "v": 103, "ev": 103}, {"b": "Psalms", "c": 119, "v": 111, "ev": 111}, {"b": "Psalms", "c": 119, "v": 131, "ev": 131}],
+   "summary": "God's word is my delight, sweeter than honey and more precious than thousands of gold and silver pieces."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 19:45-48",
+   "parts": [{"b": "Luke", "c": 19, "v": 45, "ev": 48}],
+   "summary": "Jesus enters the Temple and drives out those selling there: \"My house shall be a house of prayer, but you have made it a den of thieves.\" He teaches there every day, and the people hang on His every word, while the leaders look for a way to kill Him."
+  }
+ ],
+ "reflection": "John ate God's word: sweet in the mouth, bitter in the stomach. That's honest about Scripture: its promises taste like honey, but living it out sometimes costs us. The people in the Temple \"hung on Jesus' every word,\" and that's the invitation for us too: not just to hear the Word but to take it in, digest it and let it change us. Today, choose one verse from the readings, maybe \"How sweet to my taste is your promise,\" and carry it with you; repeat it a few times during the day like a piece of honey.",
+ "prayer": "Lord, Your word is sweeter than honey; let me take it in, and live it even when it costs me.",
+ "saint": {
+  "name": "St. Edmund the Martyr",
+  "story": "Edmund (c. 841–869) became king of East Anglia in England as a teenager and was remembered as a just and devout ruler. In 869 a great Viking army invaded. According to the earliest accounts, Edmund was captured and ordered to share his kingdom with the pagan invaders and give up his faith. He refused, so they tied him to a tree, shot him with arrows, and beheaded him. The town of Bury St. Edmunds grew up around his shrine, and he was once honored as England's patron saint."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-11-19T22:04:00Z"
+}
