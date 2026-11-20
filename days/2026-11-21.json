@@ -1,0 +1,36 @@
+{
+ "date": "2026-11-21",
+ "day": "Presentation of the Blessed Virgin Mary",
+ "color": "white",
+ "memorial": "Memorial",
+ "readings": [
+  {
+   "label": "First Reading",
+   "ref": "Revelation 11:4-12",
+   "parts": [{"b": "Revelation", "c": 11, "v": 4, "ev": 12}],
+   "summary": "Two witnesses prophesy with God's power. When their testimony is finished, the beast kills them and the world rejoices over their bodies. But after three and a half days, the breath of life from God enters them; they stand up and are taken up to heaven in a cloud."
+  },
+  {
+   "label": "Responsorial Psalm",
+   "ref": "Psalm 144:1, 2, 9-10",
+   "psalm": true,
+   "response": "Blessed be the Lord, my Rock!",
+   "parts": [{"b": "Psalms", "c": 144, "v": 1, "ev": 2}, {"b": "Psalms", "c": 144, "v": 9, "ev": 10}],
+   "summary": "The Lord is my rock, my fortress and my shield; I will sing Him a new song."
+  },
+  {
+   "label": "Gospel",
+   "ref": "Luke 20:27-40",
+   "parts": [{"b": "Luke", "c": 20, "v": 27, "ev": 40}],
+   "summary": "Some Sadducees, who deny the resurrection, mock it with a story of a woman married to seven brothers in turn. Jesus answers that in the resurrection people do not marry, for they are like angels and children of God. God \"is not God of the dead, but of the living, for to Him all are alive.\""
+  }
+ ],
+ "reflection": "Today the Church remembers Mary as a little girl, brought by her parents to the Temple and offered to God. Long before the angel came, her heart was already given to Him. Jesus reminds the Sadducees that God \"is not God of the dead, but of the living\": a life given to Him is never wasted or lost. Mary's whole story began with that simple act of offering. Tonight, offer yourself, your family and your children to God in a short prayer, the way Joachim and Anne once offered Mary.",
+ "prayer": "Mary, you gave your heart to God from childhood; help me give Him mine, and my family's, every day.",
+ "saint": {
+  "name": "The Presentation of Mary",
+  "story": "The Gospels don't describe Mary's childhood, but an ancient Christian tradition says that her parents, Sts. Joachim and Anne, brought her to the Temple in Jerusalem as a young girl to dedicate her to God. The feast began in the East around the year 543, when a church dedicated to Mary was consecrated near the Temple site in Jerusalem. It spread to the West and was placed in the Roman calendar in the late 1500s. It celebrates Mary's total gift of herself to God from the beginning of her life."
+ },
+ "source": "Philippine liturgical calendar (CBCP); readings cross-checked with Manna's year data and published Mass readings for this date",
+ "updated": "2026-11-20T22:04:00Z"
+}
